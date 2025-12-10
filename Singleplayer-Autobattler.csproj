@@ -6,7 +6,8 @@
     <RootNamespace>SingleplayerAutobattler</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="GeWuYou.GFramework" Version="0.0.3" />
+    <PackageReference Include="GeWuYou.GFramework" Version="0.0.8" />
+    <PackageReference Include="GeWuYou.GFramework.Generator" Version="0.0.8" />
     <PackageReference Include="Riok.Mapperly" Version="4.3.0" />
   </ItemGroup>
 </Project>

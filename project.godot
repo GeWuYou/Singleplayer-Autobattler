@@ -11,14 +11,30 @@ config_version=5
 [application]
 
 config/name="Singleplayer-Autobattler"
-config/features=PackedStringArray("4.5", "GL Compatibility")
-config/icon="res://icon.svg"
+config/features=PackedStringArray("4.5", "C#", "GL Compatibility")
+config/icon="uid://br6a0rw3llo06"
+
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
 
 [dotnet]
 
 project/assembly_name="Singleplayer-Autobattler"
 
+[file_customization]
+
+folder_colors={
+"res://scenes/": "yellow"
+}
+
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
