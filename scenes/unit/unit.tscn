@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://du1l1waawhfn2"]
+
+[ext_resource type="Texture2D" uid="uid://cx1ivjobggp8n" path="res://assets/sprites/rogues.png" id="1_fmv3f"]
+[ext_resource type="Script" uid="uid://dmc7cradp0av2" path="res://scripts/unit/Unit.cs" id="1_fvc8g"]
+[ext_resource type="Resource" uid="uid://cqe1vnwpdt42l" path="res://resource/unit/bjorn.tres" id="2_vh40f"]
+[ext_resource type="PackedScene" uid="uid://s8n6h11c40i3" path="res://scenes/component/drag_drop_component.tscn" id="4_bhlit"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fmv3f"]
+size = Vector2(36, 36)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fmv3f"]
+bg_color = Color(0.15294118, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fvc8g"]
+bg_color = Color(0, 0.7647059, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.15294118, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vh40f"]
+bg_color = Color(0.34509805, 0.54901963, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.15294118, 0, 0, 1)
+
+[node name="Unit" type="Area2D" node_paths=PackedStringArray("Skin", "HealthBar", "ManaBar")]
+script = ExtResource("1_fvc8g")
+Skin = NodePath("Skin")
+HealthBar = NodePath("HealthBar")
+ManaBar = NodePath("ManaBar")
+UnitDataResource = ExtResource("2_vh40f")
+
+[node name="Skin" type="Sprite2D" parent="."]
+position = Vector2(16, 8)
+texture = ExtResource("1_fmv3f")
+region_enabled = true
+region_rect = Rect2(32, 96, 32, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 8)
+shape = SubResource("RectangleShape2D_fmv3f")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = 1.0
+offset_top = -20.0
+offset_right = 31.0
+offset_bottom = -14.0
+theme_override_styles/background = SubResource("StyleBoxFlat_fmv3f")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fvc8g")
+value = 19.02
+show_percentage = false
+
+[node name="ManaBar" type="ProgressBar" parent="."]
+offset_left = 1.0
+offset_top = -15.0
+offset_right = 31.0
+offset_bottom = -11.0
+theme_override_styles/background = SubResource("StyleBoxFlat_fmv3f")
+theme_override_styles/fill = SubResource("StyleBoxFlat_vh40f")
+show_percentage = false
+
+[node name="DragDropComponent" parent="." instance=ExtResource("4_bhlit")]
+Enable = true
