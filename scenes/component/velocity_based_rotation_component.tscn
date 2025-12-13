@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://crr0wtkfnm1st"]
+
+[ext_resource type="Script" uid="uid://hkbhkw46blje" path="res://scripts/component/VelocityBasedRotationComponent.cs" id="1_mggno"]
+
+[node name="VelocityBasedRotationComponent" type="Node"]
+script = ExtResource("1_mggno")

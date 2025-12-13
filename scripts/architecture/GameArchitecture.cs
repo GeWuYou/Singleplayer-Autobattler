@@ -1,10 +1,9 @@
-﻿
-using GFramework.Core.architecture;
+﻿using GFramework.Core.architecture;
 using SingleplayerAutobattler.scripts.arena;
 using SingleplayerAutobattler.scripts.system;
 using SingleplayerAutobattler.scripts.unit;
 
-namespace SingleplayerAutobattler.script.architecture;
+namespace SingleplayerAutobattler.scripts.architecture;
 
 /// <summary>
 /// GameArchitecture

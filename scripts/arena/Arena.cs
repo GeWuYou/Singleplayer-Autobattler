@@ -3,7 +3,8 @@ using GFramework.Core.controller;
 using GFramework.Core.events;
 using GFramework.Core.extensions;
 using Godot;
-using SingleplayerAutobattler.script.architecture;
+using SingleplayerAutobattler.scripts.architecture;
+
 namespace SingleplayerAutobattler.scripts.arena;
 public partial class Arena :Node2D,IController
 {
@@ -16,7 +17,7 @@ public partial class Arena :Node2D,IController
 	/// 获取游戏架构实例
 	/// </summary>
 	/// <returns>返回游戏架构接口实例</returns>
-	public IArchitecture GetArchitecture() => GameArchitecture.Interface;
+	public IArchitecture GetArchitecture() => GameArchitecture.Instance;
 	
 	/// <summary>
 	/// 节点准备就绪时的回调方法

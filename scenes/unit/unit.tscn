@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://du1l1waawhfn2"]
+[gd_scene load_steps=10 format=3 uid="uid://du1l1waawhfn2"]
 
 [ext_resource type="Texture2D" uid="uid://cx1ivjobggp8n" path="res://assets/sprites/rogues.png" id="1_fmv3f"]
 [ext_resource type="Script" uid="uid://dmc7cradp0av2" path="res://scripts/unit/Unit.cs" id="1_fvc8g"]
 [ext_resource type="Resource" uid="uid://cqe1vnwpdt42l" path="res://resource/unit/bjorn.tres" id="2_vh40f"]
 [ext_resource type="PackedScene" uid="uid://s8n6h11c40i3" path="res://scenes/component/drag_drop_component.tscn" id="4_bhlit"]
+[ext_resource type="PackedScene" uid="uid://crr0wtkfnm1st" path="res://scenes/component/velocity_based_rotation_component.tscn" id="5_vgvef"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fmv3f"]
 size = Vector2(36, 36)
@@ -63,5 +64,9 @@ theme_override_styles/background = SubResource("StyleBoxFlat_fmv3f")
 theme_override_styles/fill = SubResource("StyleBoxFlat_vh40f")
 show_percentage = false
 
+[node name="VelocityBasedRotationComponent" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("5_vgvef")]
+Target = NodePath("../Skin")
+LerpSeconds = 0.3
+RotationMultiplier = 55
+
 [node name="DragDropComponent" parent="." instance=ExtResource("4_bhlit")]
-Enable = true

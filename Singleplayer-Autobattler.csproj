@@ -6,9 +6,9 @@
     <RootNamespace>SingleplayerAutobattler</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="GeWuYou.GFramework" Version="0.0.12" />
-    <PackageReference Include="GeWuYou.GFramework.Core.Godot" Version="0.0.12" />
-    <PackageReference Include="GeWuYou.GFramework.Generator" Version="0.0.12" />
+    <PackageReference Include="GeWuYou.GFramework" Version="0.0.19" />
+    <PackageReference Include="GeWuYou.GFramework.Core.Godot" Version="0.0.19" />
+    <PackageReference Include="GeWuYou.GFramework.Generator" Version="0.0.19" />
     <PackageReference Include="Riok.Mapperly" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>

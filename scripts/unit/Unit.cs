@@ -5,7 +5,7 @@ using GFramework.Core.events;
 using GFramework.Core.extensions;
 using GFramework.Core.Godot.extensions;
 using Godot;
-using SingleplayerAutobattler.script.architecture;
+using SingleplayerAutobattler.scripts.architecture;
 using SingleplayerAutobattler.scripts.constants;
 
 namespace SingleplayerAutobattler.scripts.unit;
@@ -43,7 +43,7 @@ public partial class Unit : Area2D, IController
     /// 获取游戏架构实例
     /// </summary>
     /// <returns>返回游戏架构接口实例</returns>
-    public IArchitecture GetArchitecture() => GameArchitecture.Interface;
+    public IArchitecture GetArchitecture() => GameArchitecture.Instance;
 
     /// <summary>
     /// 节点准备就绪时的回调方法
