@@ -18,7 +18,7 @@ public partial class _CLASS_ :_BASE_,IController
     /// 获取游戏架构实例
     /// </summary>
     /// <returns>返回游戏架构接口实例</returns>
-    public IArchitecture GetArchitecture() => GameArchitecture.Interface;
+    public IArchitecture GetArchitecture() => GameArchitecture.Instance;
     
     /// <summary>
     /// 节点准备就绪时的回调方法

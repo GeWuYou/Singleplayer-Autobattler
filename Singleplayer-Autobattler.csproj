@@ -20,7 +20,6 @@
     <EmbeddedResource Remove="scenes\**" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="scripts\component\" />
     <Folder Include="scripts\events\" />
   </ItemGroup>
 </Project>

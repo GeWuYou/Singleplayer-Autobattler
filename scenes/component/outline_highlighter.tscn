@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bggfwgkr52lu4"]
+
+[ext_resource type="Script" uid="uid://bnuj0saegfnfa" path="res://scripts/component/OutlineHighlighter.cs" id="1_sprfu"]
+
+[node name="OutlineHighlighter" type="Node"]
+script = ExtResource("1_sprfu")

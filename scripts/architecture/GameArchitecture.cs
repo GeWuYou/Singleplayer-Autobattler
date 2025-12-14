@@ -1,5 +1,6 @@
 ﻿using GFramework.Core.architecture;
 using SingleplayerAutobattler.scripts.arena;
+using SingleplayerAutobattler.scripts.component;
 using SingleplayerAutobattler.scripts.system;
 using SingleplayerAutobattler.scripts.unit;
 

@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://du1l1waawhfn2"]
+[gd_scene load_steps=12 format=3 uid="uid://du1l1waawhfn2"]
 
 [ext_resource type="Texture2D" uid="uid://cx1ivjobggp8n" path="res://assets/sprites/rogues.png" id="1_fmv3f"]
 [ext_resource type="Script" uid="uid://dmc7cradp0av2" path="res://scripts/unit/Unit.cs" id="1_fvc8g"]
 [ext_resource type="Resource" uid="uid://cqe1vnwpdt42l" path="res://resource/unit/bjorn.tres" id="2_vh40f"]
+[ext_resource type="Material" uid="uid://bb8m5fhpi4wqn" path="res://assets/shaders/2d_outline_shader.tres" id="3_3po7s"]
 [ext_resource type="PackedScene" uid="uid://s8n6h11c40i3" path="res://scenes/component/drag_drop_component.tscn" id="4_bhlit"]
 [ext_resource type="PackedScene" uid="uid://crr0wtkfnm1st" path="res://scenes/component/velocity_based_rotation_component.tscn" id="5_vgvef"]
+[ext_resource type="PackedScene" uid="uid://bggfwgkr52lu4" path="res://scenes/component/outline_highlighter.tscn" id="7_0wuuu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fmv3f"]
 size = Vector2(36, 36)
@@ -28,14 +30,21 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.15294118, 0, 0, 1)
 
-[node name="Unit" type="Area2D" node_paths=PackedStringArray("Skin", "HealthBar", "ManaBar")]
+[node name="Unit" type="Area2D" node_paths=PackedStringArray("Skin", "HealthBar", "ManaBar", "DragDropComponent", "OutlineHighlighter", "VelocityBasedRotationComponent")]
 script = ExtResource("1_fvc8g")
-Skin = NodePath("Skin")
+Skin = NodePath("Visuals/Skin")
 HealthBar = NodePath("HealthBar")
 ManaBar = NodePath("ManaBar")
 UnitDataResource = ExtResource("2_vh40f")
+DragDropComponent = NodePath("DragDropComponent")
+OutlineHighlighter = NodePath("OutlineHighlighter")
+VelocityBasedRotationComponent = NodePath("VelocityBasedRotationComponent")
+metadata/_edit_group_ = true
 
-[node name="Skin" type="Sprite2D" parent="."]
+[node name="Visuals" type="CanvasGroup" parent="."]
+material = ExtResource("3_3po7s")
+
+[node name="Skin" type="Sprite2D" parent="Visuals"]
 position = Vector2(16, 8)
 texture = ExtResource("1_fmv3f")
 region_enabled = true
@@ -65,8 +74,13 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_vh40f")
 show_percentage = false
 
 [node name="VelocityBasedRotationComponent" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("5_vgvef")]
-Target = NodePath("../Skin")
+Target = NodePath("../Visuals/Skin")
 LerpSeconds = 0.3
 RotationMultiplier = 55
 
 [node name="DragDropComponent" parent="." instance=ExtResource("4_bhlit")]
+
+[node name="OutlineHighlighter" parent="." node_paths=PackedStringArray("Visuals") instance=ExtResource("7_0wuuu")]
+Visuals = NodePath("../Visuals")
+OutlineColor = Color(1, 1, 1, 1)
+OutlineThickness = 2
