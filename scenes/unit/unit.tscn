@@ -76,7 +76,7 @@ show_percentage = false
 [node name="VelocityBasedRotationComponent" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("5_vgvef")]
 Target = NodePath("../Visuals/Skin")
 LerpSeconds = 0.3
-RotationMultiplier = 55
+MaxRotationDegrees = 30
 
 [node name="DragDropComponent" parent="." instance=ExtResource("4_bhlit")]
 

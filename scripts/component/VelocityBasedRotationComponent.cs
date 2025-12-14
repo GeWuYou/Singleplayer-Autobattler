@@ -61,7 +61,7 @@ public partial class VelocityBasedRotationComponent : Node, IController
     /// 默认值为120。
     /// </summary>
     [Export]
-    public int RotationMultiplier { get; set; } = 120;
+    public int MaxRotationDegrees { get; set; } = 50;
 
     /// <summary>
     /// X轴速度阈值，只有当目标节点的X轴绝对速度大于该值时才会触发旋转效果。
@@ -96,13 +96,12 @@ public partial class VelocityBasedRotationComponent : Node, IController
     protected float TimeElapsed;
 
 
+
     /// <summary>
-    /// 每帧处理逻辑，用于更新目标节点的旋转。
-    /// 根据目标节点的位置变化计算出速度，并据此调整旋转角度。
+    /// 物理过程处理函数，在每个物理帧中执行逻辑更新
     /// </summary>
-    /// <param name="delta">自上一帧以来经过的时间（以秒为单位）。</param>
-    public override void _Process(double delta)
-    {
+    /// <param name="delta">距离上一帧的时长（秒）</param>
+    public override void _PhysicsProcess(double delta) {
         // 若未启用或目标无效则跳过处理
         if (!Enable || Target.IsInvalidNode())
         {
@@ -119,7 +118,7 @@ public partial class VelocityBasedRotationComponent : Node, IController
         // 判断是否满足旋转条件并计算目标角度
         if (Math.Abs(Velocity.X) > XVelocityThreshold)
         {
-            Angle = Velocity.Normalized().X * RotationMultiplier * delta;
+            Angle = Velocity.Normalized().X * Mathf.DegToRad(MaxRotationDegrees);
         }
         else
         {
@@ -136,6 +135,7 @@ public partial class VelocityBasedRotationComponent : Node, IController
             TimeElapsed = 0;
         }
     }
+
 
     /// <summary>
     /// 取消注册列表，用于管理需要在节点销毁时取消注册的对象
