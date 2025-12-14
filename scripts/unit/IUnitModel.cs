@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using GFramework.Core.model;
+using Godot;
 
 namespace SingleplayerAutobattler.scripts.unit;
 
@@ -14,5 +15,12 @@ public interface IUnitModel: IModel
     /// 获取或设置单位数据字典
     /// 字典键为单位ID，值为对应的单位数据对象
     /// </summary>
-    public Dictionary<int, UnitData> UnitDictionary { get; set; }
+    public Dictionary<int, UnitData> UnitDataDictionary { get; set; }
+    
+    /// <summary>
+    /// 获取或设置单位字典
+    /// 字典键为二维向量位置，值为对应的单位数据对象
+    /// </summary>
+    public Dictionary<Vector2I,UnitData?> UnitDictionary { get; set; }
+
 }

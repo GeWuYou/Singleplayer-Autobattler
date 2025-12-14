@@ -143,7 +143,7 @@ public partial class Unit : Area2D, IController
             Position = unitDataResource.SkinCoordinates * ArenaConstants.CellSizeVector
         };
         // 将单位数据资源转换为游戏单位数据
-        _unitModel.UnitDictionary[UnitDataResource.Id] = _unitMapper.DataFromResource(unitDataResource);
+        _unitModel.UnitDataDictionary[UnitDataResource.Id] = _unitMapper.DataFromResource(unitDataResource);
     }
 
     /// <summary>
