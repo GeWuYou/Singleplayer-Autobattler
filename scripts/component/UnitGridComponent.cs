@@ -69,6 +69,26 @@ public partial class UnitGridComponent : Node, IController
     {
         return UnitsDictionary.Keys.All(IsTileOccupied);
     }
+    
+    /// <summary>
+    /// 从指定位置移除单位
+    /// </summary>
+    /// <param name="tile">要移除单位的网格坐标</param>
+    public void RemoveUnit(Vector2I tile)
+    {
+        // 获取指定位置的单位节点
+        Node? unit = UnitsDictionary[tile];
+        // 检查节点是否有效，无效则直接返回
+        if (unit.IsInvalidNode())
+        {
+            return;
+        }
+        // 将单位字典和模型字典中对应位置的引用置为空
+        UnitsDictionary[tile] = null;
+        _unitModel!.UnitDictionary[tile] = null;
+        // 发出网格变化信号
+        EmitSignalUnitGridChanged();
+    }
 
     /// <summary>
     /// 查找并返回第一个未被占用的网格坐标

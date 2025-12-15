@@ -15,5 +15,5 @@ public partial class UnitMapper: IUtility
     /// </summary>
     /// <param name="resource">要转换的UnitDataResource对象，包含单位的原始资源数据</param>
     /// <returns>转换后的UnitData对象，包含游戏逻辑中使用的单位数据</returns>
-    public partial UnitData DataFromResource(UnitDataResource resource);
+    public partial UnitData DataFromResource(UnitDataResource? resource);
 }

@@ -136,12 +136,6 @@ public partial class VelocityBasedRotationComponent : Node, IController
         }
     }
 
-
-    /// <summary>
-    /// 取消注册列表，用于管理需要在节点销毁时取消注册的对象
-    /// </summary>
-    private readonly IUnRegisterList _unRegisterList = new UnRegisterList();
-
     private bool _enable = true;
 
     /// <summary>
@@ -157,10 +151,4 @@ public partial class VelocityBasedRotationComponent : Node, IController
     public override void _Ready()
     {
     }
-
-    /// <summary>
-    /// 节点退出场景树时的回调方法
-    /// 在节点从场景树移除前调用，用于清理资源
-    /// </summary>
-    public override void _ExitTree() => _unRegisterList.UnRegisterAll();
 }

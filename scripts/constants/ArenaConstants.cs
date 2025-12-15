@@ -9,6 +9,10 @@ namespace SingleplayerAutobattler.scripts.constants;
 public static class ArenaConstants
 {
     /// <summary>
+    /// arenas子节点名称
+    /// </summary>
+    public const string UnitsName = "Units";
+    /// <summary>
     /// 单元格基础大小（像素）
     /// </summary>
     private const int CellSize = 32;

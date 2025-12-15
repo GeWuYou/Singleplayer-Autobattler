@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://cawbp0nj3gvw0"]
+[gd_scene load_steps=12 format=4 uid="uid://cawbp0nj3gvw0"]
 
 [ext_resource type="Script" uid="uid://dopduao5qfmq7" path="res://scripts/arena/Arena.cs" id="1_5tue2"]
 [ext_resource type="TileSet" uid="uid://cwdtsrqob1tek" path="res://scenes/arena/arena.tres" id="1_e05a3"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://c63goed85q8ks" path="res://scripts/component/UnitGridComponent.cs" id="4_asdgj"]
 [ext_resource type="Script" uid="uid://b4b3mkr6psb8s" path="res://scripts/component/PlayerAreaComponent.cs" id="4_jx0ua"]
 [ext_resource type="Script" uid="uid://cgvu3bng1qgv8" path="res://scripts/component/StoreHighlighterComponent.cs" id="6_u52cf"]
+[ext_resource type="Script" uid="uid://dacf473f0kcpb" path="res://scripts/component/UnitMoverComponent.cs" id="8_ii07k"]
 
 [sub_resource type="Curve" id="Curve_olpmc"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.49999997, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -59,12 +60,13 @@ texture = ExtResource("2_wl4x5")
 lifetime = 6.0
 process_material = SubResource("ParticleProcessMaterial_7ft05")
 
-[node name="GameArea" type="TileMapLayer" parent="." node_paths=PackedStringArray("UnitGrid")]
+[node name="GameArea" type="TileMapLayer" parent="." node_paths=PackedStringArray("UnitGrid", "TileHighlighter")]
 position = Vector2(128, 32)
 tile_map_data = PackedByteArray("AAAAAAAAAAABAAwAAAABAAEAAAAAAAwAAAAAAAIAAAAAAAwAAAABAAMAAAACAAwAAAAAAAQAAAAAAAwAAAABAAUAAAABAAwAAAACAAAAAAAAAAwAAAACAAIAAAABAAwAAAACAAQAAAAAAAwAAAADAAEAAAAAAAwAAAADAAMAAAAAAAwAAAADAAUAAAAAAAwAAAAEAAAAAAAAAAwAAAAEAAIAAAAAAAwAAAAEAAQAAAAAAAwAAAAFAAEAAAACAAwAAAAFAAMAAAADAAwAAAAFAAUAAAAAAAwAAAAGAAAAAAAAAAwAAAAGAAIAAAAAAAwAAAAGAAQAAAAAAAwAAAAHAAEAAAAAAAwAAAAHAAMAAAAAAAwAAAAHAAUAAAADAAwAAAAIAAAAAAAAAAwAAAAIAAIAAAAAAAwAAAAIAAQAAAAAAAwAAAAJAAEAAAACAAwAAAAJAAMAAAAAAAwAAAAJAAUAAAAAAAwAAAAKAAAAAAAAAAwAAAAKAAIAAAAAAAwAAAAKAAQAAAAAAAwAAAALAAEAAAAAAAwAAAALAAMAAAAAAAwAAAALAAUAAAADAAwAAAA=")
 tile_set = ExtResource("1_e05a3")
 script = ExtResource("4_jx0ua")
 UnitGrid = NodePath("AreaUnitGrid")
+TileHighlighter = NodePath("TileHighlighter")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
@@ -83,16 +85,18 @@ UnitsDictionary = {}
 
 [node name="TileHighlighter" type="Node" parent="GameArea" node_paths=PackedStringArray("PlayerArea", "HighlightLayer")]
 script = ExtResource("6_u52cf")
+Enable = false
 PlayerArea = NodePath("..")
 HighlightLayer = NodePath("../Highlight")
 HoveredTile = Vector2i(3, 0)
 
-[node name="Bench" type="TileMapLayer" parent="." node_paths=PackedStringArray("UnitGrid")]
+[node name="Bench" type="TileMapLayer" parent="." node_paths=PackedStringArray("UnitGrid", "TileHighlighter")]
 position = Vector2(128, 288)
 tile_map_data = PackedByteArray("AAAAAAAAAAAAAAcAAAABAAAAAAAAAAsAAAACAAAAAAAAAAcAAAADAAAAAAAAAAsAAAAEAAAAAAAAAAcAAAAFAAAAAAAAAAsAAAAGAAAAAAAAAAcAAAAHAAAAAAAAAAsAAAAIAAAAAAAAAAcAAAAJAAAAAAAAAAsAAAAKAAAAAAAAAAcAAAALAAAAAAAAAAsAAAA=")
 tile_set = ExtResource("1_e05a3")
 script = ExtResource("4_jx0ua")
 UnitGrid = NodePath("BenchUnitGrid")
+TileHighlighter = NodePath("TileHighlighter")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
@@ -106,15 +110,19 @@ UnitsDictionary = {}
 
 [node name="TileHighlighter" type="Node" parent="Bench" node_paths=PackedStringArray("PlayerArea", "HighlightLayer")]
 script = ExtResource("6_u52cf")
+Enable = false
 PlayerArea = NodePath("..")
 HighlightLayer = NodePath("../Highlight")
 HoveredTile = Vector2i(3, 0)
 
-[node name="Unit" parent="." instance=ExtResource("4_aj7ud")]
-position = Vector2(128, 288)
+[node name="Unit" parent="Bench" instance=ExtResource("4_aj7ud")]
 
-[node name="Unit2" parent="." instance=ExtResource("4_aj7ud")]
-position = Vector2(218, 288)
+[node name="Unit2" parent="Bench" instance=ExtResource("4_aj7ud")]
+position = Vector2(90, 0)
 
-[node name="Unit3" parent="." instance=ExtResource("4_aj7ud")]
-position = Vector2(173, 287)
+[node name="Unit3" parent="Bench" instance=ExtResource("4_aj7ud")]
+position = Vector2(45, 0)
+
+[node name="UnitMoverComponent" type="Node" parent="." node_paths=PackedStringArray("PlayerAreas")]
+script = ExtResource("8_ii07k")
+PlayerAreas = [NodePath("../GameArea"), NodePath("../Bench")]

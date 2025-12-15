@@ -9,14 +9,10 @@ namespace SingleplayerAutobattler.scripts.component;
 
 public partial class OutlineHighlighter : Node, IController
 {
-    [Export] public CanvasGroup Visuals { get; set; }
+    [Export] public CanvasGroup? Visuals { get; set; }
     [Export] public Color OutlineColor { get; set; }
     [Export(PropertyHint.Range, "1,10")] public int OutlineThickness { get; set; }
 
-    /// <summary>
-    /// 取消注册列表，用于管理需要在节点销毁时取消注册的对象
-    /// </summary>
-    private readonly IUnRegisterList _unRegisterList = new UnRegisterList();
 
     /// <summary>
     /// 获取游戏架构实例
@@ -30,7 +26,7 @@ public partial class OutlineHighlighter : Node, IController
     /// </summary>
     public override void _Ready()
     {
-        (Visuals.Material as ShaderMaterial)?.SetShaderParameter("line_color", OutlineColor);
+        (Visuals!.Material as ShaderMaterial)?.SetShaderParameter("line_color", OutlineColor);
     }
 
     /// <summary>
@@ -41,7 +37,7 @@ public partial class OutlineHighlighter : Node, IController
     /// </remarks>
     public void ClearHighlight()
     {
-        (Visuals.Material as ShaderMaterial)?.SetShaderParameter("line_thickness", 0);
+        (Visuals!.Material as ShaderMaterial)?.SetShaderParameter("line_thickness", 0);
     }
 
     /// <summary>
@@ -52,13 +48,7 @@ public partial class OutlineHighlighter : Node, IController
     /// </remarks>
     public void Highlight()
     {
-        (Visuals.Material as ShaderMaterial)?.SetShaderParameter("line_thickness", OutlineThickness);
+        (Visuals!.Material as ShaderMaterial)?.SetShaderParameter("line_thickness", OutlineThickness);
     }
-
-
-    /// <summary>
-    /// 节点退出场景树时的回调方法
-    /// 在节点从场景树移除前调用，用于清理资源
-    /// </summary>
-    public override void _ExitTree() => _unRegisterList.UnRegisterAll();
+    
 }

@@ -17,12 +17,12 @@ namespace SingleplayerAutobattler.scripts.unit;
 /// </summary>
 public partial class Unit : Area2D, IController
 {
-    [Export] public Sprite2D Skin { get; set; }
-    [Export] public ProgressBar HealthBar { get; set; }
-    [Export] public ProgressBar ManaBar { get; set; }
+    [Export] public Sprite2D? Skin { get; set; }
+    [Export] public ProgressBar? HealthBar { get; set; }
+    [Export] public ProgressBar? ManaBar { get; set; }
 
     [Export]
-    public UnitDataResource UnitDataResource
+    public UnitDataResource? UnitDataResource
     {
         get => _unitDataResource;
         set
@@ -32,19 +32,14 @@ public partial class Unit : Area2D, IController
         }
     }
 
-    [Export] public DragDropComponent DragDropComponent { get; set; }
-    [Export] public OutlineHighlighter OutlineHighlighter { get; set; }
-    [Export] public VelocityBasedRotationComponent VelocityBasedRotationComponent { get; set; }
+    [Export] public DragDropComponent? DragDropComponent { get; set; }
+    [Export] public OutlineHighlighter? OutlineHighlighter { get; set; }
+    [Export] public VelocityBasedRotationComponent? VelocityBasedRotationComponent { get; set; }
 
-    private UnitModel _unitModel;
-    private UnitMapper _unitMapper;
+    private UnitModel? _unitModel;
+    private UnitMapper? _unitMapper;
 
-    /// <summary>
-    /// 取消注册列表，用于管理需要在节点销毁时取消注册的对象
-    /// </summary>
-    private IUnRegisterList _unRegisterList = new UnRegisterList();
-
-    private UnitDataResource _unitDataResource;
+    private UnitDataResource? _unitDataResource;
 
     /// <summary>
     /// 获取游戏架构实例
@@ -62,8 +57,8 @@ public partial class Unit : Area2D, IController
         _unitMapper = this.GetUtility<UnitMapper>();
         MouseEntered += OnMouseEntered;
         MouseExited += OnMouseExited;
-        DragDropComponent.Connect(DragDropComponent.SignalName.DragStarted, new Callable(this, nameof(OnDragStarted)));
-        DragDropComponent.Connect(DragDropComponent.SignalName.DragCanceled, new Callable(this, nameof(OnDragCanceled)));
+        DragDropComponent!.Connect(DragDropComponent.SignalName.DragStarted, new Callable(this, nameof(OnDragStarted)));
+        DragDropComponent!.Connect(DragDropComponent.SignalName.DragCanceled, new Callable(this, nameof(OnDragCanceled)));
     }
 
     /// <summary>
@@ -71,7 +66,7 @@ public partial class Unit : Area2D, IController
     /// </summary>
     private void OnDragStarted()
     {
-        VelocityBasedRotationComponent.Enable = true;
+        VelocityBasedRotationComponent!.Enable = true;
     }
 
     /// <summary>
@@ -87,9 +82,9 @@ public partial class Unit : Area2D, IController
     /// 拖拽结束后重置单位状态：禁用旋转组件并将单位放回指定位置
     /// </summary>
     /// <param name="startingPosition">要放置的目标位置</param>
-    private void RestAfterDragging(Vector2 startingPosition)
+    public void RestAfterDragging(Vector2 startingPosition)
     {
-        VelocityBasedRotationComponent.Enable = false;
+        VelocityBasedRotationComponent!.Enable = false;
         GlobalPosition = startingPosition;
     }
 
@@ -99,11 +94,11 @@ public partial class Unit : Area2D, IController
     /// </summary>
     private void OnMouseExited()
     {
-        if (DragDropComponent.IsDragging)
+        if (DragDropComponent!.IsDragging)
         {
             return;
         }
-        OutlineHighlighter.ClearHighlight();
+        OutlineHighlighter!.ClearHighlight();
         ZIndex = ZIndexConstants.Zero;
     }
 
@@ -113,11 +108,11 @@ public partial class Unit : Area2D, IController
     /// </summary>
     private void OnMouseEntered()
     {
-        if (DragDropComponent.IsDragging)
+        if (DragDropComponent!.IsDragging)
         {
             return;
         }
-        OutlineHighlighter.Highlight();
+        OutlineHighlighter!.Highlight();
         ZIndex = ZIndexConstants.One;
     }
 
@@ -126,7 +121,7 @@ public partial class Unit : Area2D, IController
     /// </summary>
     /// <param name="unitDataResource">单位数据资源对象，包含皮肤坐标等信息</param>
     /// <returns>异步任务</returns>
-    public async Task SetUnitDataResource(UnitDataResource unitDataResource)
+    public async Task SetUnitDataResource(UnitDataResource? unitDataResource)
     {
         // 如果传入的单位数据资源为空，则直接返回
         if (unitDataResource is null)
@@ -138,17 +133,11 @@ public partial class Unit : Area2D, IController
         await this.WaitUntilReady();
 
         // 根据单位数据资源中的皮肤坐标更新皮肤区域的位置
-        Skin.RegionRect = Skin.RegionRect with
+        Skin!.RegionRect = Skin.RegionRect with
         {
             Position = unitDataResource.SkinCoordinates * ArenaConstants.CellSizeVector
         };
         // 将单位数据资源转换为游戏单位数据
-        _unitModel.UnitDataDictionary[UnitDataResource.Id] = _unitMapper.DataFromResource(unitDataResource);
+        _unitModel!.UnitDataDictionary[UnitDataResource!.Id] = _unitMapper!.DataFromResource(unitDataResource);
     }
-
-    /// <summary>
-    /// 节点退出场景树时的回调方法
-    /// 在节点从场景树移除前调用，用于清理资源
-    /// </summary>
-    public override void _ExitTree() => _unRegisterList.UnRegisterAll();
 }

@@ -13,7 +13,8 @@ public partial class PlayerAreaComponent :TileMapLayer,IController
 {
 	[Export]
 	public UnitGridComponent? UnitGrid { get;set; }
-
+	[Export]
+	public StoreHighlighterComponent? TileHighlighter { get; set; }
 	private Rect2I _bounds;
 
 	/// <summary>
