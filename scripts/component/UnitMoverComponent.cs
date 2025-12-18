@@ -15,7 +15,7 @@ namespace SingleplayerAutobattler.scripts.component;
 /// </summary>
 public partial class UnitMoverComponent : Node, IController
 {
-    [Export] public Array<PlayerAreaComponent>? PlayerAreas;
+    [Export] public Array<PlayerAreaComponent>? PlayerAreas { get; set; }
 
     /// <summary>
     /// 根据全局坐标获取对应的游戏区域索引
@@ -108,7 +108,7 @@ public partial class UnitMoverComponent : Node, IController
     /// 设置单位拖拽事件监听器
     /// </summary>
     /// <param name="unit">要绑定事件的单位对象</param>
-    private void SetupUnit(Unit? unit)
+    public void SetupUnit(Unit? unit)
     {
         unit!.DragDropComponent!.Connect(DragDropComponent.SignalName.DragStarted,Callable.From(()=> OnDragStarted(unit)));
         unit.DragDropComponent!.Connect(DragDropComponent.SignalName.DragCanceled,

@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_r42uk")
+Id = 1
 Name = "Bjorn"
 GoldCost = 1
 CurrentColdCost = 1

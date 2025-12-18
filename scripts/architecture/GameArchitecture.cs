@@ -1,6 +1,6 @@
-﻿using GFramework.Core.architecture;
+﻿using GFramework.Core.Godot.architecture;
+using GFramework.Core.Godot.system;
 using SingleplayerAutobattler.scripts.arena;
-using SingleplayerAutobattler.scripts.component;
 using SingleplayerAutobattler.scripts.system;
 using SingleplayerAutobattler.scripts.unit;
 
@@ -9,26 +9,22 @@ namespace SingleplayerAutobattler.scripts.architecture;
 /// <summary>
 /// GameArchitecture
 /// </summary>
-public class GameArchitecture: Architecture<GameArchitecture>
+public class GameArchitecture: AbstractArchitecture<GameArchitecture>
 {
-    protected override void Init()
-    {
-        RegisterModels();
-        RegisterSystems();
-        RegisterUtilitys();
-    }
-
-    private void RegisterUtilitys()
+    protected override void RegisterUtilities()
     {
        RegisterUtility(new UnitMapper());
     }
 
-    private void RegisterSystems()
+    protected override void RegisterSystems()
     {
        RegisterSystem(new DataParseSystem());
+       RegisterSystem<IAssetCatalogSystem>(new AssetCatalogSystem());
+       RegisterSystem<IResourceLoadSystem>(new ResourceLoadSystem());
+       RegisterSystem<IResourceFactorySystem>(new ResourceFactorySystem());
     }
 
-    private void RegisterModels()
+    protected override void RegisterModels()
     {
        RegisterModel(new ArenaModel());
        RegisterModel(new UnitModel());

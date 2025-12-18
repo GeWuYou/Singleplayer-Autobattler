@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4ga17regjy5t"]
+
+[ext_resource type="Script" uid="uid://dacf473f0kcpb" path="res://scripts/component/UnitMoverComponent.cs" id="1_nylii"]
+
+[node name="UnitMoverComponent" type="Node" node_paths=PackedStringArray("PlayerAreas")]
+script = ExtResource("1_nylii")
+PlayerAreas = []

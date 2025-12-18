@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://cawbp0nj3gvw0"]
+[gd_scene load_steps=15 format=4 uid="uid://cawbp0nj3gvw0"]
 
 [ext_resource type="Script" uid="uid://dopduao5qfmq7" path="res://scripts/arena/Arena.cs" id="1_5tue2"]
 [ext_resource type="TileSet" uid="uid://cwdtsrqob1tek" path="res://scenes/arena/arena.tres" id="1_e05a3"]
@@ -8,7 +8,9 @@
 [ext_resource type="Script" uid="uid://b4b3mkr6psb8s" path="res://scripts/component/PlayerAreaComponent.cs" id="4_jx0ua"]
 [ext_resource type="Script" uid="uid://cgvu3bng1qgv8" path="res://scripts/component/StoreHighlighterComponent.cs" id="6_u52cf"]
 [ext_resource type="Resource" uid="uid://p2td16tdpplo" path="res://resource/unit/arthur.tres" id="8_6w4xk"]
-[ext_resource type="Script" uid="uid://dacf473f0kcpb" path="res://scripts/component/UnitMoverComponent.cs" id="8_ii07k"]
+[ext_resource type="Resource" uid="uid://cyhlshottf3ig" path="res://resource/unit/robin.tres" id="9_2ml6w"]
+[ext_resource type="PackedScene" uid="uid://b4ga17regjy5t" path="res://scenes/component/unit_mover_component.tscn" id="10_2ml6w"]
+[ext_resource type="PackedScene" uid="uid://n4yhs8e4253o" path="res://scenes/component/unit_spawner_comment.tscn" id="11_xgbxb"]
 
 [sub_resource type="Curve" id="Curve_olpmc"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.49999997, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -32,8 +34,10 @@ scale_max = 0.19999999
 scale_curve = SubResource("CurveTexture_xdvfk")
 color = Color(1, 1, 1, 0.7058824)
 
-[node name="Arena" type="Node2D"]
+[node name="Arena" type="Node2D" node_paths=PackedStringArray("UnitSpawnerComment", "UnitMoverComponent")]
 script = ExtResource("1_5tue2")
+UnitSpawnerComment = NodePath("UnitSpawnerComment")
+UnitMoverComponent = NodePath("UnitMoverComponent")
 metadata/_edit_lock_ = true
 
 [node name="Visuals" type="Node2D" parent="."]
@@ -91,6 +95,16 @@ PlayerArea = NodePath("..")
 HighlightLayer = NodePath("../Highlight")
 HoveredTile = Vector2i(3, 0)
 
+[node name="Unit" parent="GameArea" instance=ExtResource("4_aj7ud")]
+
+[node name="Unit2" parent="GameArea" instance=ExtResource("4_aj7ud")]
+position = Vector2(32, 0)
+UnitDataResource = ExtResource("8_6w4xk")
+
+[node name="Unit3" parent="GameArea" instance=ExtResource("4_aj7ud")]
+position = Vector2(64, 0)
+UnitDataResource = ExtResource("9_2ml6w")
+
 [node name="Bench" type="TileMapLayer" parent="." node_paths=PackedStringArray("UnitGrid", "TileHighlighter")]
 position = Vector2(128, 288)
 tile_map_data = PackedByteArray("AAAAAAAAAAAAAAcAAAABAAAAAAAAAAsAAAACAAAAAAAAAAcAAAADAAAAAAAAAAsAAAAEAAAAAAAAAAcAAAAFAAAAAAAAAAsAAAAGAAAAAAAAAAcAAAAHAAAAAAAAAAsAAAAIAAAAAAAAAAcAAAAJAAAAAAAAAAsAAAAKAAAAAAAAAAcAAAALAAAAAAAAAAsAAAA=")
@@ -116,15 +130,9 @@ PlayerArea = NodePath("..")
 HighlightLayer = NodePath("../Highlight")
 HoveredTile = Vector2i(3, 0)
 
-[node name="Unit" parent="Bench" instance=ExtResource("4_aj7ud")]
-
-[node name="Unit2" parent="Bench" instance=ExtResource("4_aj7ud")]
-position = Vector2(90, 0)
-UnitDataResource = ExtResource("8_6w4xk")
-
-[node name="Unit3" parent="Bench" instance=ExtResource("4_aj7ud")]
-position = Vector2(45, 0)
-
-[node name="UnitMoverComponent" type="Node" parent="." node_paths=PackedStringArray("PlayerAreas")]
-script = ExtResource("8_ii07k")
+[node name="UnitMoverComponent" parent="." node_paths=PackedStringArray("PlayerAreas") instance=ExtResource("10_2ml6w")]
 PlayerAreas = [NodePath("../GameArea"), NodePath("../Bench")]
+
+[node name="UnitSpawnerComment" parent="." node_paths=PackedStringArray("BenchArea", "GameArea") instance=ExtResource("11_xgbxb")]
+BenchArea = NodePath("../Bench")
+GameArea = NodePath("../GameArea")

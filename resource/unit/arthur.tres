@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource("1_ylp73")
-Id = 1
 Rarity = 2
 Name = "Arthur"
 GoldCost = 4

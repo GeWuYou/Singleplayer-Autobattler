@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnitDataResource" load_steps=2 format=3 uid="uid://cyhlshottf3ig"]
+
+[ext_resource type="Script" uid="uid://7y0eet7t0g4l" path="res://scripts/unit/UnitDataResource.cs" id="1_f70ww"]
+
+[resource]
+script = ExtResource("1_f70ww")
+Id = 2
+Rarity = 1
+Name = "Arthur"
+GoldCost = 2
+CurrentColdCost = 2
+SkinCoordinates = Vector2i(2, 0)
+metadata/_custom_type_script = "uid://7y0eet7t0g4l"
