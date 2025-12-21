@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dopduao5qfmq7" path="res://scripts/arena/Arena.cs" id="1_5tue2"]
 [ext_resource type="TileSet" uid="uid://cwdtsrqob1tek" path="res://scenes/arena/arena.tres" id="1_e05a3"]
-[ext_resource type="Texture2D" uid="uid://mbxv0ayrsu3d" path="res://assets/sprites/star_particle.png" id="2_wl4x5"]
+[ext_resource type="Texture2D" uid="uid://p7s5xs3ahu0m" path="res://assets/sprites/star_particle.png" id="2_wl4x5"]
 [ext_resource type="PackedScene" uid="uid://du1l1waawhfn2" path="res://scenes/unit/unit.tscn" id="4_aj7ud"]
 [ext_resource type="Script" uid="uid://c63goed85q8ks" path="res://scripts/component/UnitGridComponent.cs" id="4_asdgj"]
 [ext_resource type="Script" uid="uid://b4b3mkr6psb8s" path="res://scripts/component/PlayerAreaComponent.cs" id="4_jx0ua"]

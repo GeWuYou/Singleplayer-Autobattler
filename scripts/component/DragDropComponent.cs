@@ -1,8 +1,6 @@
 using System;
 using GFramework.Core.architecture;
 using GFramework.Core.controller;
-using GFramework.Core.events;
-using GFramework.Core.extensions;
 using GFramework.Core.Godot.extensions;
 using Godot;
 using SingleplayerAutobattler.scripts.architecture;
@@ -39,7 +37,7 @@ public partial class DragDropComponent : Node, IController
 	/// <summary>
 	/// 目标区域，通常是可交互的游戏对象（如单位或物品）所在的碰撞区域。
 	/// </summary>
-	public Area2D Target { get; set; }
+	public Area2D? Target { get; set; }
 
 	/// <summary>
 	/// 是否启用拖拽功能。若为 false，则忽略所有输入事件。
@@ -122,7 +120,7 @@ public partial class DragDropComponent : Node, IController
 	{
 		if (IsDragging && Target.IsValidNode())
 		{
-			Target.GlobalPosition = Target.GetGlobalMousePosition() + _offset;
+			Target!.GlobalPosition = Target.GetGlobalMousePosition() + _offset;
 		}
 	}
 
@@ -133,8 +131,8 @@ public partial class DragDropComponent : Node, IController
 	private void EndDragging()
 	{
 		IsDragging = false;
-		Target.RemoveFromGroup(GroupConstants.Dragging);
-		Target.ZIndex = ZIndexConstants.Zero;
+		Target!.RemoveFromGroup(GroupConstants.Dragging);
+		Target!.ZIndex = ZIndexConstants.Zero;
 	}
 	
 	/// <summary>
@@ -154,10 +152,10 @@ public partial class DragDropComponent : Node, IController
 	private void StartDragging()
 	{
 		IsDragging = true;
-		_startingPosition = Target.GlobalPosition;
+		_startingPosition = Target!.GlobalPosition;
 		Target.AddToGroup(GroupConstants.Dragging);
 		Target.ZIndex = ZIndexConstants.Max;
-		_offset = Target.GlobalPosition - Target.GetGlobalMousePosition();
+		_offset = Target!.GlobalPosition - Target.GetGlobalMousePosition();
 		EmitSignalDragStarted();
 	}
 
