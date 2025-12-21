@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 using GFramework.Core.architecture;
 using GFramework.Core.controller;
-using GFramework.Core.events;
 using GFramework.Core.extensions;
-using GFramework.Core.Godot.extensions;
+using GFramework.Godot.extensions;
 using Godot;
 using SingleplayerAutobattler.scripts.architecture;
 using SingleplayerAutobattler.scripts.component;

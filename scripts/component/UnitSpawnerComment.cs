@@ -1,7 +1,7 @@
 using GFramework.Core.architecture;
 using GFramework.Core.controller;
 using GFramework.Core.extensions;
-using GFramework.Core.Godot.system;
+using GFramework.Game.assets;
 using Godot;
 using SingleplayerAutobattler.scripts.architecture;
 using SingleplayerAutobattler.scripts.constants;
@@ -73,7 +73,7 @@ public partial class UnitSpawnerComment : Node, IController
 
         // 获取该区域的网格管理器并查找首个空格子
         var grid = area.UnitGrid!;
-        var newUnit = _resourceFactorySystem!.GetFactory<Unit>(AssetCatalogConstants.AssetCatalogScene.Unit).Invoke();
+        var newUnit = _resourceFactorySystem!.GetFactory<Unit>(AssetCatalogConstants.AssetCatalogSceneUnit.Unit).Invoke();
         var tile = grid.GetFirstEmptyTile();
 
         // 将新单位加入场景树，并绑定到指定格子上

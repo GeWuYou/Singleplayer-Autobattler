@@ -2,9 +2,7 @@ using System;
 using System.Threading.Tasks;
 using GFramework.Core.architecture;
 using GFramework.Core.controller;
-using GFramework.Core.events;
-using GFramework.Core.extensions;
-using GFramework.Core.Godot.extensions;
+using GFramework.Godot.extensions;
 using Godot;
 using SingleplayerAutobattler.scripts.architecture;
 
@@ -39,7 +37,7 @@ public partial class VelocityBasedRotationComponent : Node, IController
         await this.WaitUntilReady();
         if (Target.IsValidNode() && !Enable)
         {
-            Target.Rotation = 0;
+            Target!.Rotation = 0;
         }
     }
 
@@ -47,7 +45,7 @@ public partial class VelocityBasedRotationComponent : Node, IController
     /// 目标节点，该组件将基于此节点的速度来控制其旋转行为。
     /// </summary>
     [Export]
-    public Node2D Target { get; set; }
+    public Node2D? Target { get; set; }
 
     /// <summary>
     /// 插值时间（秒），用于控制旋转变化的平滑程度。
@@ -109,7 +107,7 @@ public partial class VelocityBasedRotationComponent : Node, IController
         }
 
         // 计算当前帧与上一帧之间的位移向量作为速度估计
-        Velocity = Target.GlobalPosition - LastPosition;
+        Velocity = Target!.GlobalPosition - LastPosition;
         LastPosition = Target.GlobalPosition;
 
         // 更新插值进度

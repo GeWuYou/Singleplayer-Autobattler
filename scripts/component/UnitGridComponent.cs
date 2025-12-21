@@ -2,7 +2,7 @@ using System.Linq;
 using GFramework.Core.architecture;
 using GFramework.Core.controller;
 using GFramework.Core.extensions;
-using GFramework.Core.Godot.extensions;
+using GFramework.Godot.extensions;
 using Godot;
 using Godot.Collections;
 using SingleplayerAutobattler.scripts.architecture;

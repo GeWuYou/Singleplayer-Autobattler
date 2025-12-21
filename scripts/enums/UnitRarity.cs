@@ -1,4 +1,4 @@
-﻿using GFramework.Generator.Attributes;
+﻿using GFramework.Generator.Attributes.generator.enums;
 
 namespace SingleplayerAutobattler.scripts.enums;
 

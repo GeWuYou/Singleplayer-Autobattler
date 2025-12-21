@@ -1,5 +1,5 @@
-using GFramework.Core.extensions;
-using GFramework.Core.Godot.system;
+
+using GFramework.Godot.system;
 using SingleplayerAutobattler.scripts.constants;
 using SingleplayerAutobattler.scripts.unit;
 
@@ -20,7 +20,7 @@ public class ResourceFactorySystem : AbstractResourceFactorySystem
     /// </summary>
     protected override void RegisterResources()
     {
-        RegisterScene<Unit>(AssetCatalogConstants.AssetCatalogScene.Unit.Key, true);
-        RegisterResource<UnitDataResource>(AssetCatalogConstants.AssetCatalogResource.Robin.Key,true,true);
+        RegisterSceneUnit<Unit>(AssetCatalogConstants.AssetCatalogSceneUnit.Unit.Key, true);
+        RegisterAsset<UnitDataResource>(AssetCatalogConstants.AssetCatalogResource.Robin.Key,true);
     }
 }

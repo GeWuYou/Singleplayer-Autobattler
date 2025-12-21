@@ -1,4 +1,5 @@
-using GFramework.Core.Godot.system;
+
+using GFramework.Game.assets;
 using SingleplayerAutobattler.scripts.constants;
 
 namespace SingleplayerAutobattler.scripts.system;
@@ -15,7 +16,7 @@ public class AssetCatalogSystem : AbstractAssetCatalogSystem
     protected override void RegisterAssets()
     {
         // 注册单位场景资源，将单位场景键与对应的资源路径进行绑定
-        RegisterScene(AssetCatalogConstants.AssetCatalogScene.Unit);
-        RegisterResource(AssetCatalogConstants.AssetCatalogResource.Robin);
+        RegisterSceneUnit(AssetCatalogConstants.AssetCatalogSceneUnit.Unit);
+        RegisterAsset(AssetCatalogConstants.AssetCatalogResource.Robin);
     }
 }

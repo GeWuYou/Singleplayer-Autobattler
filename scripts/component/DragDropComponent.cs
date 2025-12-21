@@ -1,7 +1,7 @@
 using System;
 using GFramework.Core.architecture;
 using GFramework.Core.controller;
-using GFramework.Core.Godot.extensions;
+using GFramework.Godot.extensions;
 using Godot;
 using SingleplayerAutobattler.scripts.architecture;
 using SingleplayerAutobattler.scripts.constants;
