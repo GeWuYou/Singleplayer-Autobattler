@@ -16,4 +16,12 @@ public partial class UnitMapper: IUtility
     /// <param name="resource">要转换的UnitDataResource对象，包含单位的原始资源数据</param>
     /// <returns>转换后的UnitData对象，包含游戏逻辑中使用的单位数据</returns>
     public partial UnitData DataFromResource(UnitDataResource? resource);
+    
+    /// <summary>
+    /// 将UnitData对象映射转换为UnitDataResource对象。
+    /// 该方法由Mapperly库自动生成实现，用于将游戏单位数据转换为资源数据。
+    /// </summary>
+    /// <param name="data">要转换的UnitData对象，包含游戏逻辑中使用的单位数据</param>
+    /// <returns>转换后的UnitDataResource对象，包含单位的原始资源数据</returns>
+    public partial UnitDataResource ResourceFromData(UnitData data);
 }

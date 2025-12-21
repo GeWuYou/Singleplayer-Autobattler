@@ -1,6 +1,7 @@
 ﻿using Godot;
 using SingleplayerAutobattler.scripts.data;
 using SingleplayerAutobattler.scripts.enums;
+using SingleplayerAutobattler.scripts.interfaces;
 
 namespace SingleplayerAutobattler.scripts.unit;
 
@@ -8,7 +9,7 @@ namespace SingleplayerAutobattler.scripts.unit;
 /// UnitData类表示游戏单位的数据结构，继承自BaseData基类。
 /// 该类存储了单位的基本属性信息，包括稀有度、名称、成本和皮肤坐标等。
 /// </summary>
-public class UnitData: BaseData
+public class UnitData: BaseData,ILevel
 {
     /// <summary>
     /// 获取或设置单位的稀有度等级
@@ -34,4 +35,9 @@ public class UnitData: BaseData
     /// 获取或设置单位皮肤在纹理图集中的坐标位置
     /// </summary>
     public Vector2I SkinCoordinates { get; set; }
+
+    /// <summary>
+    /// 获取或设置当前等级值
+    /// </summary>
+    public int Level { get; set; }
 }
