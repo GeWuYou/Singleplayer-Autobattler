@@ -1,5 +1,6 @@
 ﻿using GFramework.Core.architecture;
 using GFramework.Game.assets;
+using GFramework.Game.input;
 using GFramework.Godot.architecture;
 using GFramework.Godot.system;
 using Godot;
@@ -28,6 +29,8 @@ public class SystemGodotModule: AbstractGodotModule<GameArchitecture>
         architecture.RegisterSystem<IResourceLoadSystem>(new ResourceLoadSystem());
         // 注册资源工厂系统
         architecture.RegisterSystem<IResourceFactorySystem>(new ResourceFactorySystem());
+        // 注册输入系统
+        architecture.RegisterSystem(new InputSystem());
     }
 
     /// <summary>

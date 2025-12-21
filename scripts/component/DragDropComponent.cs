@@ -1,10 +1,13 @@
 using System;
 using GFramework.Core.architecture;
 using GFramework.Core.controller;
+using GFramework.Core.extensions;
+using GFramework.Game.input;
 using GFramework.Godot.extensions;
 using Godot;
 using SingleplayerAutobattler.scripts.architecture;
 using SingleplayerAutobattler.scripts.constants;
+using SingleplayerAutobattler.scripts.input.context;
 
 namespace SingleplayerAutobattler.scripts.component;
 
@@ -47,6 +50,7 @@ public partial class DragDropComponent : Node, IController
 	private Vector2 _startingPosition;
 	private Vector2 _offset = Vector2.Zero;
 	public bool IsDragging { get;private set; }
+	private InputSystem? _inputSystem;
 	
 	/// <summary>
 	/// 获取游戏架构实例
@@ -62,23 +66,24 @@ public partial class DragDropComponent : Node, IController
 	{
 		Target = GetParent() as Area2D ?? throw new InvalidOperationException("Target must be an Area2D node.");
 		Target.InputEvent += OnTargetInputEvent;
+		_inputSystem = this.GetSystem<InputSystem>();
 	}
 
-	/// <summary>
-	/// 处理输入事件的方法
-	/// </summary>
-	/// <param name="event">输入事件对象</param>
-	public override void _Input(InputEvent @event)
-	{
-		// 处理取消拖拽操作：当正在拖拽且按下取消拖拽按键时，执行取消拖拽逻辑
-		if (!IsDragging || Target is null || !@event.IsActionPressed("cancel_drag"))
-		{
-			return;
-		}
-		CancelDragging();
-		// 设置输入为处理，防止输入穿透
-		this.SetInputAsHandled();
-	}
+	// /// <summary>
+	// /// 处理输入事件的方法
+	// /// </summary>
+	// /// <param name="event">输入事件对象</param>
+	// public override void _Input(InputEvent @event)
+	// {
+	// 	// 处理取消拖拽操作：当正在拖拽且按下取消拖拽按键时，执行取消拖拽逻辑
+	// 	if (!IsDragging || Target is null || !@event.IsActionPressed("cancel_drag"))
+	// 	{
+	// 		return;
+	// 	}
+	// 	CancelDragging();
+	// 	// 设置输入为处理，防止输入穿透
+	// 	this.SetInputAsHandled();
+	// }
 
 
 	/// <summary>
@@ -133,6 +138,9 @@ public partial class DragDropComponent : Node, IController
 		IsDragging = false;
 		Target!.RemoveFromGroup(GroupConstants.Dragging);
 		Target!.ZIndex = ZIndexConstants.Zero;
+		// ⭐ 弹出输入上下文
+		_inputSystem!
+			.PopContext();
 	}
 	
 	/// <summary>
@@ -156,6 +164,9 @@ public partial class DragDropComponent : Node, IController
 		Target.AddToGroup(GroupConstants.Dragging);
 		Target.ZIndex = ZIndexConstants.Max;
 		_offset = Target!.GlobalPosition - Target.GetGlobalMousePosition();
+		// ⭐ 推入输入上下文
+		_inputSystem!
+			.PushContext(new DragInputContext(CancelDragging));
 		EmitSignalDragStarted();
 	}
 
