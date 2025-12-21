@@ -13,7 +13,7 @@ config_version=5
 config/name="Singleplayer-Autobattler"
 run/main_scene="uid://cawbp0nj3gvw0"
 config/features=PackedStringArray("4.5", "C#", "GL Compatibility")
-config/icon="uid://br6a0rw3llo06"
+config/icon="uid://bu0itwdnswnw2"
 
 [display]
 

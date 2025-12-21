@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://du1l1waawhfn2"]
 
-[ext_resource type="Texture2D" uid="uid://cx1ivjobggp8n" path="res://assets/sprites/rogues.png" id="1_fmv3f"]
+[ext_resource type="Texture2D" uid="uid://c6owk471avrmc" path="res://assets/sprites/rogues.png" id="1_fmv3f"]
 [ext_resource type="Script" uid="uid://dmc7cradp0av2" path="res://scripts/unit/Unit.cs" id="1_fvc8g"]
 [ext_resource type="Resource" uid="uid://cqe1vnwpdt42l" path="res://resource/unit/bjorn.tres" id="2_vh40f"]
 [ext_resource type="Material" uid="uid://bb8m5fhpi4wqn" path="res://assets/shaders/2d_outline_shader.tres" id="3_3po7s"]

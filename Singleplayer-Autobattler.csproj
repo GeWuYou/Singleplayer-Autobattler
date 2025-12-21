@@ -7,10 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="GeWuYou.GFramework" Version="0.0.38" />
-    <PackageReference Include="GeWuYou.GFramework.Generator" Version="0.0.38" />
-    <PackageReference Include="GeWuYou.GFramework.Generator.Attributes" Version="0.0.38" />
-    <PackageReference Include="GeWuYou.GFramework.Godot" Version="0.0.38" />
+    <PackageReference Include="GeWuYou.GFramework" Version="0.0.39" />
+    <PackageReference Include="GeWuYou.GFramework.Generator" Version="0.0.39" />
+    <PackageReference Include="GeWuYou.GFramework.Generator.Attributes" Version="0.0.39" />
+    <PackageReference Include="GeWuYou.GFramework.Godot" Version="0.0.39" />
     <PackageReference Include="Riok.Mapperly" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
