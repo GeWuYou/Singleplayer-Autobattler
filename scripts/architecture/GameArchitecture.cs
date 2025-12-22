@@ -21,7 +21,5 @@ public class GameArchitecture : AbstractArchitecture<GameArchitecture>
         InstallModule(new ModelGodotModule());
         // 安装工具类相关的Godot模块
         InstallModule(new UtilityGodotModule());
-        // 安装输入相关的Godot模块
-        InstallGodotModule(new InputGodotModule());
     }
 }
