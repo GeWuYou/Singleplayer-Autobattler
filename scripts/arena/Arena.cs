@@ -1,7 +1,5 @@
 using GFramework.Core.architecture;
 using GFramework.Core.controller;
-using GFramework.Core.events;
-using GFramework.Core.extensions;
 using Godot;
 using SingleplayerAutobattler.scripts.architecture;
 using SingleplayerAutobattler.scripts.component;
@@ -30,5 +28,3 @@ public partial class Arena :Node2D,IController
 		UnitSpawnerComment!.Connect(UnitSpawnerComment.SignalName.UnitSpawned,Callable.From<Unit>(unit=>UnitMoverComponent!.SetupUnit(unit)));
 	}
 }
-
-

@@ -17,12 +17,17 @@ public sealed class DragInputContext(Action cancel) : IInputContext
     /// <returns>如果处理了输入事件则返回true，否则返回false</returns>
     public bool Handle(IGameInputEvent input)
     {
-        // todo 好像没有触发，需要修复这个问题
-        GD.Print("DragInputContext");
+        if (input is InputEvents.KeyInputEvent key1)
+        {
+            GD.Print($"{key1.Action},{key1.Pressed}");
+        }
         // 检查输入是否为按键事件，并且是取消拖拽的按键操作
         if (input is not InputEvents.KeyInputEvent key ||
             key.Action != GameInputEvents.CancelDrag.Action ||
-            !key.Pressed) return false;
+            !key.Pressed)
+        {
+            return false;
+        }
         
         // 执行取消拖拽的回调函数
         cancel();
