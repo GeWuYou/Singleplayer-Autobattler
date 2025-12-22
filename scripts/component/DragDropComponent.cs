@@ -71,7 +71,7 @@ public partial class DragDropComponent : Node, IController
 	public override void _Input(InputEvent @event)
 	{
 		// 处理取消拖拽操作：当正在拖拽且按下取消拖拽按键时，执行取消拖拽逻辑
-		if (!IsDragging || Target is null || !@event.IsActionPressed("cancel_drag"))
+		if (!IsDragging || Target is null || !@event.IsActionPressed(InputActionConstants.CancelDrag))
 		{
 			return;
 		}
@@ -102,11 +102,11 @@ public partial class DragDropComponent : Node, IController
 			case false when draggingObj is not null:
 				return;
 			// 处理开始拖拽操作：当未在拖拽状态且按下选择按键时，开始拖拽
-			case false when @event.IsActionPressed("select"):
+			case false when @event.IsActionPressed(InputActionConstants.Select):
 				StartDragging();
 				break;
 			// 处理放置操作：当正在拖拽且释放选择按键时，执行放置逻辑
-			case true when @event.IsActionReleased("select"):
+			case true when @event.IsActionReleased(InputActionConstants.Select):
 				Drop();
 				break;
 		}
