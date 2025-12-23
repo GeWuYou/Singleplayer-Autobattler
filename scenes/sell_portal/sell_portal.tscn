@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://dbn86be6db0se"]
+
+[ext_resource type="Material" uid="uid://bb8m5fhpi4wqn" path="res://assets/shaders/2d_outline_shader.tres" id="1_g4w48"]
+[ext_resource type="Script" uid="uid://baxohgljov66c" path="res://scripts/sell_portal/SellPortal.cs" id="1_q37ab"]
+[ext_resource type="Texture2D" uid="uid://j01qvlmgjo3m" path="res://assets/sprites/tiles.png" id="2_se251"]
+[ext_resource type="PackedScene" uid="uid://bggfwgkr52lu4" path="res://scenes/component/outline_highlighter.tscn" id="3_q37ab"]
+[ext_resource type="Texture2D" uid="uid://by1b5xv4x4lws" path="res://assets/sprites/gold.png" id="4_se251"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gmlex"]
+radius = 24.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_g4w48"]
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="SellPortal" type="Area2D" node_paths=PackedStringArray("OutlineHighlighter", "GoldContainer", "GoldLabel")]
+script = ExtResource("1_q37ab")
+OutlineHighlighter = NodePath("OutlineHighlighter")
+GoldContainer = NodePath("VBoxContainer/Gold")
+GoldLabel = NodePath("VBoxContainer/Gold/GoldLabel")
+
+[node name="Visuals" type="CanvasGroup" parent="."]
+material = ExtResource("1_g4w48")
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(16, 16)
+texture = ExtResource("2_se251")
+region_enabled = true
+region_rect = Rect2(224, 512, 32, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 16)
+shape = SubResource("CircleShape2D_gmlex")
+
+[node name="OutlineHighlighter" parent="." node_paths=PackedStringArray("Visuals") instance=ExtResource("3_q37ab")]
+Visuals = NodePath("../Visuals")
+OutlineColor = Color(0.8095234, 0.8095235, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = -11.0
+offset_top = 31.0
+offset_right = 45.0
+offset_bottom = 81.0
+theme_override_constants/separation = -2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "卖出"
+label_settings = SubResource("LabelSettings_g4w48")
+horizontal_alignment = 1
+
+[node name="Gold" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="GoldLabel" type="Label" parent="VBoxContainer/Gold"]
+layout_mode = 2
+text = "999"
+label_settings = SubResource("LabelSettings_g4w48")
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Gold"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("4_se251")
+expand_mode = 1
+stretch_mode = 5

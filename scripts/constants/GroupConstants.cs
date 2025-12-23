@@ -9,4 +9,8 @@ public static class GroupConstants
     /// 拖拽状态组标识符，用于标识当前处于拖拽状态的对象
     /// </summary>
     public const string Dragging = "dragging";
+    /// <summary>
+    /// 单位组标识符，用于标识游戏中的玩家单位
+    /// </summary>
+    public const string Units = "units";
 }

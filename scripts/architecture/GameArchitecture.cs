@@ -1,4 +1,5 @@
-﻿using GFramework.Godot.architecture;
+﻿using GFramework.Core.logging;
+using GFramework.Godot.architecture;
 using SingleplayerAutobattler.scripts.module;
 
 namespace SingleplayerAutobattler.scripts.architecture;
@@ -15,6 +16,8 @@ public class GameArchitecture : AbstractArchitecture<GameArchitecture>
     /// </summary>
     protected override void InstallModules()
     {
+        InstallModule(new LoggerGodotModule());
+        Log.Info("你好，架构！");
         // 安装系统相关的Godot模块
         InstallModule(new SystemGodotModule());
         // 安装数据模型相关的Godot模块

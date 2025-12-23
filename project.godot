@@ -37,6 +37,11 @@ folder_colors={
 "res://script_templates/": "green"
 }
 
+[gui]
+
+theme/default_font_multichannel_signed_distance_field=true
+theme/custom="uid://dfwyixi7xkn7k"
+
 [input]
 
 select={

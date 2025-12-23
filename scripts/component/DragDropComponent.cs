@@ -1,10 +1,12 @@
 using System;
 using GFramework.Core.architecture;
 using GFramework.Core.controller;
+using GFramework.Generator.Attributes.generator.logging;
 using GFramework.Godot.extensions;
 using Godot;
 using SingleplayerAutobattler.scripts.architecture;
 using SingleplayerAutobattler.scripts.constants;
+using SingleplayerAutobattler.scripts.enums;
 
 namespace SingleplayerAutobattler.scripts.component;
 
@@ -12,6 +14,7 @@ namespace SingleplayerAutobattler.scripts.component;
 /// 拖拽组件类，用于处理节点的拖放逻辑。
 /// 实现了 IController 接口以支持架构通信，并通过信号通知拖拽事件的发生。
 /// </summary>
+[Log]
 public partial class DragDropComponent : Node, IController
 {
 	/// <summary>

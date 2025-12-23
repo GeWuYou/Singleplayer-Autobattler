@@ -16,6 +16,8 @@ namespace SingleplayerAutobattler.scripts.unit;
 /// </summary>
 public partial class Unit : Area2D, IController
 {
+    [Signal]
+    public delegate void QuickSellPressedEventHandler();
     [Export] public Sprite2D? Skin { get; set; }
     [Export] public ProgressBar? HealthBar { get; set; }
     [Export] public ProgressBar? ManaBar { get; set; }
@@ -39,6 +41,7 @@ public partial class Unit : Area2D, IController
     private UnitMapper? _unitMapper;
 
     private UnitDataResource? _unitDataResource;
+    private bool _isHovered;
 
     /// <summary>
     /// 获取游戏架构实例
@@ -58,6 +61,14 @@ public partial class Unit : Area2D, IController
         MouseExited += OnMouseExited;
         DragDropComponent!.Connect(DragDropComponent.SignalName.DragStarted, new Callable(this, nameof(OnDragStarted)));
         DragDropComponent!.Connect(DragDropComponent.SignalName.DragCanceled, new Callable(this, nameof(OnDragCanceled)));
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionPressed(InputActionConstants.QuickSell)&& _isHovered)
+        {
+            EmitSignalQuickSellPressed();
+        }
     }
 
     /// <summary>
@@ -97,6 +108,7 @@ public partial class Unit : Area2D, IController
         {
             return;
         }
+        _isHovered = false;
         OutlineHighlighter!.ClearHighlight();
         ZIndex = ZIndexConstants.Zero;
     }
@@ -111,6 +123,7 @@ public partial class Unit : Area2D, IController
         {
             return;
         }
+        _isHovered = true;
         OutlineHighlighter!.Highlight();
         ZIndex = ZIndexConstants.One;
     }

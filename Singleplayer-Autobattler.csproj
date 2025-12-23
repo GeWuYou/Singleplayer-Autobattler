@@ -1,27 +1,27 @@
 <Project Sdk="Godot.NET.Sdk/4.5.1">
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
-    <EnableDynamicLoading>true</EnableDynamicLoading>
-    <RootNamespace>SingleplayerAutobattler</RootNamespace>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="GeWuYou.GFramework" Version="0.0.44" />
-    <PackageReference Include="GeWuYou.GFramework.Generator" Version="0.0.44" />
-    <PackageReference Include="GeWuYou.GFramework.Generator.Attributes" Version="0.0.44" />
-    <PackageReference Include="GeWuYou.GFramework.Godot" Version="0.0.44" />
-    <PackageReference Include="Riok.Mapperly" Version="4.3.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="script_templates\**" />
-    <Compile Remove="scenes\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Remove="script_templates\**" />
-    <EmbeddedResource Remove="scenes\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="scripts\events\" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
+        <EnableDynamicLoading>true</EnableDynamicLoading>
+        <RootNamespace>SingleplayerAutobattler</RootNamespace>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="GeWuYou.GFramework" Version="0.0.50" />
+        <PackageReference Include="GeWuYou.GFramework.Generator" Version="0.0.50" />
+        <PackageReference Include="GeWuYou.GFramework.Generator.Attributes" Version="0.0.50" />
+        <PackageReference Include="GeWuYou.GFramework.Godot" Version="0.0.50" />
+        <PackageReference Include="Riok.Mapperly" Version="4.3.0"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Remove="script_templates\**"/>
+        <Compile Remove="scenes\**"/>
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Remove="script_templates\**"/>
+        <EmbeddedResource Remove="scenes\**"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="scripts\events\"/>
+    </ItemGroup>
 </Project>
