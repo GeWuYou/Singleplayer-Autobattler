@@ -6,7 +6,6 @@ using GFramework.Godot.extensions;
 using Godot;
 using SingleplayerAutobattler.scripts.architecture;
 using SingleplayerAutobattler.scripts.constants;
-using SingleplayerAutobattler.scripts.enums;
 
 namespace SingleplayerAutobattler.scripts.component;
 
