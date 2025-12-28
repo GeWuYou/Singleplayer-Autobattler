@@ -1,18 +1,13 @@
-using GFramework.Core.architecture;
-using GFramework.Core.controller;
+using GFramework.Core.Abstractions.controller;
+using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
-using SingleplayerAutobattler.scripts.architecture;
 using SingleplayerAutobattler.scripts.component;
 using SingleplayerAutobattler.scripts.unit;
 
 namespace SingleplayerAutobattler.scripts.arena;
+[ContextAware]
 public partial class Arena :Node2D,IController
 {
-	/// <summary>
-	/// 获取游戏架构实例
-	/// </summary>
-	/// <returns>返回游戏架构接口实例</returns>
-	public IArchitecture GetArchitecture() => GameArchitecture.Instance;
 	
 	[Export]
 	public UnitSpawnerComment? UnitSpawnerComment { get; set; }
