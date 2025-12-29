@@ -1,0 +1,33 @@
+using Godot;
+using SingleplayerAutobattler.scripts.architecture;
+
+namespace SingleplayerAutobattler.global;
+
+/// <summary>
+/// 游戏入口点节点，负责初始化和清理游戏架构
+/// </summary>
+public partial class GameEntryPoint : Node
+{
+	private GameArchitecture? _architecture; 
+	
+	/// <summary>
+	/// 当节点准备好时调用，初始化游戏架构
+	/// </summary>
+	/// <returns>无返回值</returns>
+	public override void _Ready()
+	{
+		// 创建并初始化游戏架构实例
+		_architecture = new GameArchitecture();
+		_architecture.Initialize();
+	}
+
+	/// <summary>
+	/// 当节点从场景树中移除时调用，销毁游戏架构
+	/// </summary>
+	/// <returns>无返回值</returns>
+	public override void _ExitTree()
+	{
+		// 安全销毁游戏架构实例
+		_architecture?.Destroy();
+	}
+}
