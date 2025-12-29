@@ -1,8 +1,8 @@
 using System.Linq;
-using GFramework.Core.architecture;
-using GFramework.Core.controller;
-using GFramework.Core.extensions;
+using GFramework.Core.Abstractions.architecture;
+using GFramework.Core.Abstractions.controller;
 using GFramework.Godot.extensions;
+using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using Godot.Collections;
 using SingleplayerAutobattler.scripts.architecture;
@@ -15,6 +15,7 @@ namespace SingleplayerAutobattler.scripts.component;
 /// 实现了 IController 接口以支持框架中的控制器模式。
 /// 提供了添加、查询单位以及判断格子占用状态等功能。
 /// </summary>
+[ContextAware]
 public partial class UnitGridComponent : Node, IController
 {
     [Signal]
@@ -29,12 +30,6 @@ public partial class UnitGridComponent : Node, IController
     /// 存储每个网格位置与其对应单位的映射字典
     /// </summary>
     [Export] public Dictionary<Vector2I, Unit?> UnitsDictionary { get; set; }
-
-    /// <summary>
-    /// 获取游戏架构实例
-    /// </summary>
-    /// <returns>返回游戏架构接口实例</returns>
-    public IArchitecture GetArchitecture() => GameArchitecture.Instance;
 
     private UnitModel? _unitModel;
     private UnitMapper? _unitMapper;
@@ -115,8 +110,8 @@ public partial class UnitGridComponent : Node, IController
     /// </summary>
     public override void _Ready()
     {
-        _unitModel = this.GetModel<UnitModel>();
-        _unitMapper = this.GetUtility<UnitMapper>();
+        _unitModel = Context.GetModel<UnitModel>();
+        _unitMapper = Context.GetUtility<UnitMapper>();
 
         // 遍历网格大小初始化字典键值对
         for (var i = 0; i < GridSize.X; i++)
@@ -125,7 +120,7 @@ public partial class UnitGridComponent : Node, IController
             {
                 var key = new Vector2I(i, j);
                 UnitsDictionary[key] = null;
-                _unitModel.UnitDictionary[key] = null;
+                _unitModel!.UnitDictionary[key] = null;
             }
         }
     }

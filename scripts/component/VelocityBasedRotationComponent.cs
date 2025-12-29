@@ -1,8 +1,9 @@
 using System;
 using System.Threading.Tasks;
-using GFramework.Core.architecture;
-using GFramework.Core.controller;
+using GFramework.Core.Abstractions.architecture;
+using GFramework.Core.Abstractions.controller;
 using GFramework.Godot.extensions;
+using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using SingleplayerAutobattler.scripts.architecture;
 
@@ -12,6 +13,7 @@ namespace SingleplayerAutobattler.scripts.component;
 /// 基于速度的旋转组件，根据目标节点的水平移动速度动态调整其旋转角度。
 /// 当目标节点的X轴速度超过阈值时，会根据速度方向和大小计算一个旋转角度，并通过插值平滑应用到目标节点上。
 /// </summary>
+[ContextAware]
 public partial class VelocityBasedRotationComponent : Node, IController
 {
     /// <summary>
@@ -135,13 +137,7 @@ public partial class VelocityBasedRotationComponent : Node, IController
     }
 
     private bool _enable = true;
-
-    /// <summary>
-    /// 获取游戏架构实例
-    /// </summary>
-    /// <returns>返回游戏架构接口实例</returns>
-    public IArchitecture GetArchitecture() => GameArchitecture.Instance;
-
+    
     /// <summary>
     /// 节点准备就绪时的回调方法
     /// 在节点添加到场景树后调用

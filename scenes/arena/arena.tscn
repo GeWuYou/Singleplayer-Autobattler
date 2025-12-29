@@ -130,8 +130,7 @@ PlayerArea = NodePath("..")
 HighlightLayer = NodePath("../Highlight")
 HoveredTile = Vector2i(3, 0)
 
-[node name="UnitMoverComponent" parent="." node_paths=PackedStringArray("PlayerAreas") instance=ExtResource("10_2ml6w")]
-PlayerAreas = [NodePath("../GameArea"), NodePath("../Bench")]
+[node name="UnitMoverComponent" parent="." instance=ExtResource("10_2ml6w")]
 
 [node name="UnitSpawnerComment" parent="." node_paths=PackedStringArray("BenchArea", "GameArea") instance=ExtResource("11_xgbxb")]
 BenchArea = NodePath("../Bench")

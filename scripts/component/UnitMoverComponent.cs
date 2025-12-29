@@ -1,6 +1,6 @@
-using GFramework.Core.architecture;
-using GFramework.Core.controller;
-using GFramework.Core.extensions;
+using GFramework.Core.Abstractions.architecture;
+using GFramework.Core.Abstractions.controller;
+using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using Godot.Collections;
 using SingleplayerAutobattler.scripts.architecture;
@@ -13,6 +13,7 @@ namespace SingleplayerAutobattler.scripts.component;
 /// 单位移动组件，用于处理单位在不同玩家区域之间的移动逻辑。
 /// 实现了IController接口以接入游戏架构系统。
 /// </summary>
+[ContextAware]
 public partial class UnitMoverComponent : Node, IController
 {
     [Export] public Array<PlayerAreaComponent>? PlayerAreas { get; set; }
@@ -71,12 +72,6 @@ public partial class UnitMoverComponent : Node, IController
         unit.GlobalPosition = playerAreaComponent.GetGlobalFromTile(tile) - ArenaConstants.HalfCellSizeVector;
         unit.Reparent(playerAreaComponent);
     }
-
-    /// <summary>
-    /// 获取游戏架构实例
-    /// </summary>
-    /// <returns>返回游戏架构接口实例</returns>
-    public IArchitecture GetArchitecture() => GameArchitecture.Instance;
     
     /// <summary>
     /// 节点准备就绪时的回调方法

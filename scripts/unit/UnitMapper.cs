@@ -1,4 +1,4 @@
-﻿using GFramework.Core.utility;
+﻿using GFramework.Core.Abstractions.utility;
 using Riok.Mapperly.Abstractions;
 
 namespace SingleplayerAutobattler.scripts.unit;

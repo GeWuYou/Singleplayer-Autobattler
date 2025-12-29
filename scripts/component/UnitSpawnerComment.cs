@@ -1,9 +1,8 @@
-using GFramework.Core.architecture;
-using GFramework.Core.controller;
+using GFramework.Core.Abstractions.controller;
 using GFramework.Core.extensions;
-using GFramework.Game.assets;
+using GFramework.Game.Abstractions.assets;
+using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
-using SingleplayerAutobattler.scripts.architecture;
 using SingleplayerAutobattler.scripts.constants;
 using SingleplayerAutobattler.scripts.system;
 using SingleplayerAutobattler.scripts.unit;
@@ -14,6 +13,7 @@ namespace SingleplayerAutobattler.scripts.component;
 /// 单位生成器组件，用于在游戏区域或备战区中生成单位。
 /// 实现了 IController 接口以接入游戏架构系统。
 /// </summary>
+[ContextAware]
 public partial class UnitSpawnerComment : Node, IController
 {
     /// <summary>
@@ -33,11 +33,6 @@ public partial class UnitSpawnerComment : Node, IController
     /// </summary>
     [Export] public PlayerAreaComponent? GameArea { get; set; }
 
-    /// <summary>
-    /// 获取当前游戏的整体架构实例。
-    /// </summary>
-    /// <returns>返回全局唯一的 <see cref="IArchitecture"/> 实例。</returns>
-    public IArchitecture GetArchitecture() => GameArchitecture.Instance;
 
     private IResourceFactorySystem? _resourceFactorySystem;
 

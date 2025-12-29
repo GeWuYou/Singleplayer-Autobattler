@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using GFramework.Core.Abstractions.model;
 using GFramework.Core.model;
 using Godot;
 

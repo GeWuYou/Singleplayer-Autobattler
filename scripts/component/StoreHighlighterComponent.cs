@@ -1,7 +1,8 @@
 using System.Threading.Tasks;
-using GFramework.Core.architecture;
-using GFramework.Core.controller;
+using GFramework.Core.Abstractions.architecture;
+using GFramework.Core.Abstractions.controller;
 using GFramework.Godot.extensions;
+using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using SingleplayerAutobattler.scripts.architecture;
 
@@ -11,6 +12,7 @@ namespace SingleplayerAutobattler.scripts.component;
 /// 商店高亮组件，用于在玩家区域中高亮显示当前悬停的瓦片。
 /// 继承自Godot.Node并实现IController接口。
 /// </summary>
+[ContextAware]
 public partial class StoreHighlighterComponent : Node, IController
 {
     private bool _enable = true;
@@ -58,13 +60,7 @@ public partial class StoreHighlighterComponent : Node, IController
     [Export] public Vector2I HoveredTile { get; set; }
 
     public int SourceId { get; set; }
-
-    /// <summary>
-    /// 获取游戏架构实例
-    /// </summary>
-    /// <returns>返回游戏架构接口实例</returns>
-    public IArchitecture GetArchitecture() => GameArchitecture.Instance;
-
+    
     /// <summary>
     /// 节点准备就绪时的回调方法
     /// 在节点添加到场景树后调用

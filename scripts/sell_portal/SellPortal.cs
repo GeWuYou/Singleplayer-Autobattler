@@ -1,9 +1,8 @@
 using System.Linq;
-using GFramework.Core.architecture;
-using GFramework.Core.controller;
+using GFramework.Core.Abstractions.controller;
 using GFramework.Godot.extensions;
+using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
-using SingleplayerAutobattler.scripts.architecture;
 using SingleplayerAutobattler.scripts.component;
 using SingleplayerAutobattler.scripts.constants;
 using SingleplayerAutobattler.scripts.player;
@@ -11,14 +10,9 @@ using SingleplayerAutobattler.scripts.unit;
 
 namespace SingleplayerAutobattler.scripts.sell_portal;
 
+[ContextAware]
 public partial class SellPortal : Area2D, IController
 {
-    /// <summary>
-    /// 获取游戏架构实例
-    /// </summary>
-    /// <returns>返回游戏架构接口实例</returns>
-    public IArchitecture GetArchitecture() => GameArchitecture.Instance;
-
     [Export] public PlayerDataResource? PlayerDataResource { get; set; }
     [Export] public OutlineHighlighter? OutlineHighlighter { get; set; }
     [Export] public HBoxContainer? GoldContainer { get; set; }

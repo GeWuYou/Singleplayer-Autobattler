@@ -1,4 +1,4 @@
-﻿using GFramework.Game.assets;
+﻿using GFramework.Game.Abstractions.assets;
 
 namespace SingleplayerAutobattler.scripts.constants;
 

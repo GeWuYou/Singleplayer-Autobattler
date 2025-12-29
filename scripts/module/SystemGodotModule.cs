@@ -1,6 +1,10 @@
-﻿using GFramework.Core.architecture;
+﻿using GFramework.Core.Abstractions.architecture;
+using GFramework.Core.architecture;
+using GFramework.Game.Abstractions.assets;
 using GFramework.Game.assets;
+using GFramework.Godot.Abstractions.assets;
 using GFramework.Godot.architecture;
+using GFramework.Godot.assets;
 using GFramework.Godot.system;
 using Godot;
 using SingleplayerAutobattler.scripts.architecture;
@@ -12,7 +16,7 @@ namespace SingleplayerAutobattler.scripts.module;
 /// 系统Godot模块类，负责安装和注册游戏所需的各种系统组件
 /// 继承自AbstractGodotModule，用于在游戏架构中集成系统功能
 /// </summary>
-public class SystemGodotModule: AbstractGodotModule<GameArchitecture>
+public class SystemGodotModule: AbstractGodotModule
 {
     /// <summary>
     /// 安装方法，用于向游戏架构注册各种系统组件

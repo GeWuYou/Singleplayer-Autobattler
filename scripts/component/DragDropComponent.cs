@@ -1,7 +1,7 @@
 using System;
-using GFramework.Core.architecture;
-using GFramework.Core.controller;
+using GFramework.Core.Abstractions.controller;
 using GFramework.Godot.extensions;
+using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using SingleplayerAutobattler.scripts.constants;
 
@@ -11,6 +11,7 @@ namespace SingleplayerAutobattler.scripts.component;
 /// 拖拽组件类，用于处理节点的拖放逻辑。
 /// 实现了 IController 接口以支持架构通信，并通过信号通知拖拽事件的发生。
 /// </summary>
+[ContextAware]
 public partial class DragDropComponent : Node, IController
 {
 	/// <summary>
@@ -160,10 +161,5 @@ public partial class DragDropComponent : Node, IController
 	{
 		EndDragging();
 		EmitSignalDropped(_startingPosition);
-	}
-
-	public void SetContext(IArchitectureContext context)
-	{
-		
 	}
 }

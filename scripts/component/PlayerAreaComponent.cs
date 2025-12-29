@@ -1,7 +1,6 @@
-using GFramework.Core.architecture;
-using GFramework.Core.controller;
+using GFramework.Core.Abstractions.controller;
+using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
-using SingleplayerAutobattler.scripts.architecture;
 
 namespace SingleplayerAutobattler.scripts.component;
 
@@ -9,6 +8,7 @@ namespace SingleplayerAutobattler.scripts.component;
 /// 玩家区域组件类，继承自 TileMapLayer 并实现 IController 接口。
 /// 提供与玩家区域相关的地图操作功能，如坐标转换、边界检测等。
 /// </summary>
+[ContextAware]
 public partial class PlayerAreaComponent :TileMapLayer,IController
 {
 	[Export]
@@ -16,12 +16,6 @@ public partial class PlayerAreaComponent :TileMapLayer,IController
 	[Export]
 	public StoreHighlighterComponent? TileHighlighter { get; set; }
 	private Rect2I _bounds;
-
-	/// <summary>
-	/// 获取游戏架构实例
-	/// </summary>
-	/// <returns>返回游戏架构接口实例</returns>
-	public IArchitecture GetArchitecture() => GameArchitecture.Instance;
 
 	/// <summary>
 	/// 将全局坐标转换为瓦片坐标

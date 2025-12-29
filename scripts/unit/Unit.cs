@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
-using GFramework.Core.architecture;
-using GFramework.Core.controller;
-using GFramework.Core.extensions;
+using GFramework.Core.Abstractions.architecture;
+using GFramework.Core.Abstractions.controller;
 using GFramework.Godot.extensions;
+using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using SingleplayerAutobattler.scripts.architecture;
 using SingleplayerAutobattler.scripts.component;
@@ -14,6 +14,7 @@ namespace SingleplayerAutobattler.scripts.unit;
 /// 表示一个游戏中的单位实体，继承自Area2D并实现IController接口。
 /// 提供单位的基本行为、交互逻辑以及与系统其他部分的通信能力。
 /// </summary>
+[ContextAware]
 public partial class Unit : Area2D, IController
 {
     [Signal]
@@ -44,19 +45,13 @@ public partial class Unit : Area2D, IController
     private bool _isHovered;
 
     /// <summary>
-    /// 获取游戏架构实例
-    /// </summary>
-    /// <returns>返回游戏架构接口实例</returns>
-    public IArchitecture GetArchitecture() => GameArchitecture.Instance;
-
-    /// <summary>
     /// 节点准备就绪时的回调方法
     /// 在节点添加到场景树后调用，初始化模型引用、事件监听及信号连接
     /// </summary>
     public override void _Ready()
     {
-        _unitModel = this.GetModel<UnitModel>();
-        _unitMapper = this.GetUtility<UnitMapper>();
+        _unitModel = Context.GetModel<UnitModel>();
+        _unitMapper = Context.GetUtility<UnitMapper>();
         MouseEntered += OnMouseEntered;
         MouseExited += OnMouseExited;
         DragDropComponent!.Connect(DragDropComponent.SignalName.DragStarted, new Callable(this, nameof(OnDragStarted)));

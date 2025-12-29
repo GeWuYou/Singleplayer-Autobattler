@@ -1,24 +1,17 @@
-using GFramework.Core.architecture;
-using GFramework.Core.controller;
-using GFramework.Core.events;
-using GFramework.Core.extensions;
+using GFramework.Core.Abstractions.architecture;
+using GFramework.Core.Abstractions.controller;
+using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using SingleplayerAutobattler.scripts.architecture;
 
 namespace SingleplayerAutobattler.scripts.component;
 
+[ContextAware]
 public partial class OutlineHighlighter : Node, IController
 {
     [Export] public CanvasGroup? Visuals { get; set; }
     [Export] public Color OutlineColor { get; set; }
     [Export(PropertyHint.Range, "1,10")] public int OutlineThickness { get; set; }
-
-
-    /// <summary>
-    /// 获取游戏架构实例
-    /// </summary>
-    /// <returns>返回游戏架构接口实例</returns>
-    public IArchitecture GetArchitecture() => GameArchitecture.Instance;
 
     /// <summary>
     /// 节点准备就绪时的回调方法
