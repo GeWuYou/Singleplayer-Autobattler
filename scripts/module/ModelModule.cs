@@ -1,6 +1,5 @@
 ﻿using GFramework.Core.Abstractions.architecture;
-using GFramework.Godot.architecture;
-using Godot;
+using GFramework.Game.architecture;
 using SingleplayerAutobattler.scripts.arena;
 using SingleplayerAutobattler.scripts.unit;
 
@@ -9,7 +8,7 @@ namespace SingleplayerAutobattler.scripts.module;
 /// <summary>
 /// Godot模块实现类，负责安装和注册游戏中的各种模型
 /// </summary>
-public class ModelGodotModule: AbstractGodotModule
+public class ModelModule: AbstractModule
 {
     /// <summary>
     /// 安装模块方法，向架构中注册ArenaModel和UnitModel模型
@@ -22,9 +21,4 @@ public class ModelGodotModule: AbstractGodotModule
         // 注册单位模型
         architecture.RegisterModel(new UnitModel());
     }
-
-    /// <summary>
-    /// 获取模块对应的节点对象
-    /// </summary>
-    public override Node Node { get; }
 }

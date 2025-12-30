@@ -16,9 +16,9 @@ public class GameArchitecture : AbstractArchitecture
     protected override void InstallModules()
     {
         // 安装系统相关的Godot模块
-        InstallModule(new SystemGodotModule());
+        InstallModule(new SystemModule());
         // 安装数据模型相关的Godot模块
-        InstallModule(new ModelGodotModule());
+        InstallModule(new ModelModule());
         // 安装工具类相关的Godot模块
         InstallModule(new UtilityGodotModule());
     }
