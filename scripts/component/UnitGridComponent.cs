@@ -1,11 +1,10 @@
 using System.Linq;
-using GFramework.Core.Abstractions.architecture;
 using GFramework.Core.Abstractions.controller;
+using GFramework.Core.extensions;
 using GFramework.Godot.extensions;
 using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using Godot.Collections;
-using SingleplayerAutobattler.scripts.architecture;
 using SingleplayerAutobattler.scripts.unit;
 
 namespace SingleplayerAutobattler.scripts.component;
@@ -110,8 +109,8 @@ public partial class UnitGridComponent : Node, IController
     /// </summary>
     public override void _Ready()
     {
-        _unitModel = Context.GetModel<UnitModel>();
-        _unitMapper = Context.GetUtility<UnitMapper>();
+        _unitModel = this.GetModel<UnitModel>();
+        _unitMapper = this.GetUtility<UnitMapper>();
 
         // 遍历网格大小初始化字典键值对
         for (var i = 0; i < GridSize.X; i++)
