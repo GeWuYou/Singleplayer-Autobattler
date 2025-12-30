@@ -1,15 +1,13 @@
-using GFramework.Core.Abstractions.architecture;
 using GFramework.Core.Abstractions.controller;
 using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
-using SingleplayerAutobattler.scripts.architecture;
 
 namespace SingleplayerAutobattler.scripts.component;
 
 [ContextAware]
 public partial class OutlineHighlighter : Node, IController
 {
-    [Export] public CanvasGroup? Visuals { get; set; }
+    [Export] public CanvasGroup Visuals { get; set; } = null!;
     [Export] public Color OutlineColor { get; set; }
     [Export(PropertyHint.Range, "1,10")] public int OutlineThickness { get; set; }
 
@@ -19,7 +17,7 @@ public partial class OutlineHighlighter : Node, IController
     /// </summary>
     public override void _Ready()
     {
-        (Visuals!.Material as ShaderMaterial)?.SetShaderParameter("line_color", OutlineColor);
+        (Visuals.Material as ShaderMaterial)?.SetShaderParameter("line_color", OutlineColor);
     }
 
     /// <summary>
@@ -30,7 +28,7 @@ public partial class OutlineHighlighter : Node, IController
     /// </remarks>
     public void ClearHighlight()
     {
-        (Visuals!.Material as ShaderMaterial)?.SetShaderParameter("line_thickness", 0);
+        (Visuals.Material as ShaderMaterial)?.SetShaderParameter("line_thickness", 0);
     }
 
     /// <summary>
@@ -41,7 +39,7 @@ public partial class OutlineHighlighter : Node, IController
     /// </remarks>
     public void Highlight()
     {
-        (Visuals!.Material as ShaderMaterial)?.SetShaderParameter("line_thickness", OutlineThickness);
+        (Visuals.Material as ShaderMaterial)?.SetShaderParameter("line_thickness", OutlineThickness);
     }
     
 }

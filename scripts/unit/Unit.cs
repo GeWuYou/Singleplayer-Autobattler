@@ -34,7 +34,7 @@ public partial class Unit : Area2D, IController
         }
     }
 
-    [Export] public DragDropComponent? DragDropComponent { get; set; }
+    [Export] public DragDropComponent DragDropComponent { get; set; } = null!;
     [Export] public OutlineHighlighter? OutlineHighlighter { get; set; }
     [Export] public VelocityBasedRotationComponent? VelocityBasedRotationComponent { get; set; }
 
@@ -54,8 +54,8 @@ public partial class Unit : Area2D, IController
         _unitMapper = Context.GetUtility<UnitMapper>();
         MouseEntered += OnMouseEntered;
         MouseExited += OnMouseExited;
-        DragDropComponent!.Connect(DragDropComponent.SignalName.DragStarted, new Callable(this, nameof(OnDragStarted)));
-        DragDropComponent!.Connect(DragDropComponent.SignalName.DragCanceled, new Callable(this, nameof(OnDragCanceled)));
+        DragDropComponent.Connect(DragDropComponent.SignalName.DragStarted, new Callable(this, nameof(OnDragStarted)));
+        DragDropComponent.Connect(DragDropComponent.SignalName.DragCanceled, new Callable(this, nameof(OnDragCanceled)));
     }
 
     public override void _Input(InputEvent @event)

@@ -1,6 +1,7 @@
 using System;
 using GFramework.Core.Abstractions.controller;
 using GFramework.Godot.extensions;
+using GFramework.Godot.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using SingleplayerAutobattler.scripts.constants;
@@ -12,6 +13,7 @@ namespace SingleplayerAutobattler.scripts.component;
 /// 实现了 IController 接口以支持架构通信，并通过信号通知拖拽事件的发生。
 /// </summary>
 [ContextAware]
+[GodotLog]
 public partial class DragDropComponent : Node, IController
 {
 	/// <summary>
@@ -64,14 +66,23 @@ public partial class DragDropComponent : Node, IController
 	/// <param name="event">输入事件对象</param>
 	public override void _Input(InputEvent @event)
 	{
-		// 处理取消拖拽操作：当正在拖拽且按下取消拖拽按键时，执行取消拖拽逻辑
-		if (!IsDragging || Target is null || !@event.IsActionPressed(InputActionConstants.CancelDrag))
+		if (!IsDragging || Target is null)
+			return;
+
+		// 取消拖拽
+		if (@event.IsActionPressed(InputActionConstants.CancelDrag))
 		{
+			CancelDragging();
+			this.SetInputAsHandled();
 			return;
 		}
-		CancelDragging();
-		// 设置输入为处理，防止输入穿透
-		this.SetInputAsHandled();
+
+		// ⭐ 正确的 Drop 触发点
+		if (@event.IsActionReleased(InputActionConstants.Select))
+		{
+			Drop();
+			this.SetInputAsHandled();
+		}
 	}
 
 
@@ -98,10 +109,6 @@ public partial class DragDropComponent : Node, IController
 			// 处理开始拖拽操作：当未在拖拽状态且按下选择按键时，开始拖拽
 			case false when @event.IsActionPressed(InputActionConstants.Select):
 				StartDragging();
-				break;
-			// 处理放置操作：当正在拖拽且释放选择按键时，执行放置逻辑
-			case true when @event.IsActionReleased(InputActionConstants.Select):
-				Drop();
 				break;
 		}
 	}

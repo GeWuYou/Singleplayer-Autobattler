@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://cawbp0nj3gvw0"]
+[gd_scene load_steps=17 format=4 uid="uid://cawbp0nj3gvw0"]
 
 [ext_resource type="Script" uid="uid://dopduao5qfmq7" path="res://scripts/arena/Arena.cs" id="1_5tue2"]
 [ext_resource type="TileSet" uid="uid://cwdtsrqob1tek" path="res://scenes/arena/arena.tres" id="1_e05a3"]
@@ -11,6 +11,8 @@
 [ext_resource type="Resource" uid="uid://cyhlshottf3ig" path="res://resource/unit/robin.tres" id="9_2ml6w"]
 [ext_resource type="PackedScene" uid="uid://b4ga17regjy5t" path="res://scenes/component/unit_mover_component.tscn" id="10_2ml6w"]
 [ext_resource type="PackedScene" uid="uid://n4yhs8e4253o" path="res://scenes/component/unit_spawner_comment.tscn" id="11_xgbxb"]
+[ext_resource type="PackedScene" uid="uid://dbn86be6db0se" path="res://scenes/sell_portal/sell_portal.tscn" id="12_vmsrg"]
+[ext_resource type="Resource" uid="uid://muimggt3vx8t" path="res://resource/player/player.tres" id="13_s83md"]
 
 [sub_resource type="Curve" id="Curve_olpmc"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.49999997, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -136,3 +138,7 @@ PlayerAreas = [NodePath("../GameArea"), NodePath("../Bench")]
 [node name="UnitSpawnerComment" parent="." node_paths=PackedStringArray("BenchArea", "GameArea") instance=ExtResource("11_xgbxb")]
 BenchArea = NodePath("../Bench")
 GameArea = NodePath("../GameArea")
+
+[node name="SellPortal" parent="." instance=ExtResource("12_vmsrg")]
+position = Vector2(48, 248)
+PlayerDataResource = ExtResource("13_s83md")

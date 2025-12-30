@@ -12,5 +12,5 @@ public static class GroupConstants
     /// <summary>
     /// 单位组标识符，用于标识游戏中的玩家单位
     /// </summary>
-    public const string Units = "units";
+    public const string Units = "Units";
 }
