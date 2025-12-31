@@ -1,4 +1,3 @@
-using GFramework.Core.extensions;
 using GFramework.Godot.assets;
 using GFramework.Godot.SourceGenerators.Abstractions.logging;
 using SingleplayerAutobattler.scripts.constants;
@@ -13,10 +12,6 @@ namespace SingleplayerAutobattler.scripts.system;
 [GodotLog]
 public partial class ResourceFactorySystem : AbstractResourceFactorySystem
 {
-    public struct ResourceRegisterReady
-    {
-        
-    }
     /// <summary>
     /// 注册系统所需的各种资源类型。
     /// </summary>
@@ -25,6 +20,5 @@ public partial class ResourceFactorySystem : AbstractResourceFactorySystem
         _log.Info("开始注册资源");
         RegisterSceneUnit<Unit>(AssetCatalogConstants.AssetCatalogSceneUnit.Unit.Key, true);
         RegisterAsset<UnitDataResource>(AssetCatalogConstants.AssetCatalogResource.Robin.Key,true);
-        this.SendEvent<ResourceRegisterReady>();
     }
 }

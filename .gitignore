@@ -13,3 +13,6 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# C# Project ignores
+Singleplayer-Autobattler.sln.DotSettings.user

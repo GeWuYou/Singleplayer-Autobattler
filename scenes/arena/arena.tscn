@@ -36,10 +36,11 @@ scale_max = 0.19999999
 scale_curve = SubResource("CurveTexture_xdvfk")
 color = Color(1, 1, 1, 0.7058824)
 
-[node name="Arena" type="Node2D" node_paths=PackedStringArray("UnitSpawnerComment", "UnitMoverComponent")]
+[node name="Arena" type="Node2D" node_paths=PackedStringArray("UnitSpawnerComment", "UnitMoverComponent", "SellPortal")]
 script = ExtResource("1_5tue2")
 UnitSpawnerComment = NodePath("UnitSpawnerComment")
 UnitMoverComponent = NodePath("UnitMoverComponent")
+SellPortal = NodePath("SellPortal")
 metadata/_edit_lock_ = true
 
 [node name="Visuals" type="Node2D" parent="."]

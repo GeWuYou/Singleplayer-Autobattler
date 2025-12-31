@@ -32,7 +32,6 @@ public partial class SellPortal : Area2D, IController
     /// </summary>
     public override void _Ready()
     {
-        _log.Info("Read！");
         // 连接区域进入和退出事件
         AreaEntered += OnAreaEntered;
         AreaExited += OnAreaExited;
@@ -48,7 +47,7 @@ public partial class SellPortal : Area2D, IController
     /// 为指定单位设置出售相关功能
     /// </summary>
     /// <param name="unit">需要设置的单位对象</param>
-    private void SetupUnit(Unit unit)
+    public void SetupUnit(Unit unit)
     {
         unit.DragDropComponent.Connect(DragDropComponent.SignalName.Dropped,
             Callable.From<Vector2>(startingPosition => OnUnitDropped(startingPosition, unit)));
