@@ -1,7 +1,7 @@
 using GFramework.Core.Abstractions.controller;
 using GFramework.Core.extensions;
 using GFramework.Game.Abstractions.assets;
-using GFramework.Godot.SourceGenerators.Abstractions.logging;
+using GFramework.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using SingleplayerAutobattler.scripts.component;
@@ -12,7 +12,7 @@ using SingleplayerAutobattler.scripts.unit;
 namespace SingleplayerAutobattler.scripts.arena;
 
 [ContextAware]
-[GodotLog]
+[Log]
 public partial class Arena : Node2D, IController
 {
     [Export] public UnitSpawnerComment? UnitSpawnerComment { get; set; }

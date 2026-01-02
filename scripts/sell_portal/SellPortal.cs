@@ -2,7 +2,7 @@ using System.Linq;
 using GFramework.Core.Abstractions.controller;
 using GFramework.Core.extensions;
 using GFramework.Godot.extensions;
-using GFramework.Godot.SourceGenerators.Abstractions.logging;
+using GFramework.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using SingleplayerAutobattler.scripts.component;
@@ -17,7 +17,7 @@ namespace SingleplayerAutobattler.scripts.sell_portal;
 /// 继承自Area2D并实现IController接口
 /// </summary>
 [ContextAware]
-[GodotLog]
+[Log]
 public partial class SellPortal : Area2D, IController
 {
     [Export] public PlayerDataResource PlayerDataResource { get; set; } = null!;

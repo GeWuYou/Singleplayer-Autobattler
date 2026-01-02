@@ -1,7 +1,7 @@
 using System;
 using GFramework.Core.Abstractions.controller;
 using GFramework.Godot.extensions;
-using GFramework.Godot.SourceGenerators.Abstractions.logging;
+using GFramework.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using SingleplayerAutobattler.scripts.constants;
@@ -13,7 +13,7 @@ namespace SingleplayerAutobattler.scripts.component;
 /// 实现了 IController 接口以支持架构通信，并通过信号通知拖拽事件的发生。
 /// </summary>
 [ContextAware]
-[GodotLog]
+[Log]
 public partial class DragDropComponent : Node, IController
 {
 	/// <summary>
