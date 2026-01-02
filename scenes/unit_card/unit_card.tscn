@@ -1,0 +1,149 @@
+[gd_scene load_steps=10 format=3 uid="uid://b8ijkpq8h8xcb"]
+
+[ext_resource type="Texture2D" uid="uid://by1b5xv4x4lws" path="res://assets/sprites/gold.png" id="1_o60ag"]
+[ext_resource type="Texture2D" uid="uid://c6owk471avrmc" path="res://assets/sprites/rogues.png" id="2_efctb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2ee4v"]
+line_spacing = 0.0
+font_size = 6
+font_color = Color(0.24187261, 0.42883766, 0.575422, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ee35"]
+bg_color = Color(0.068346374, 0.26728484, 0.13456604, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2yriv"]
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_27mlq"]
+font_size = 12
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2qy8"]
+atlas = ExtResource("2_efctb")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4b8rp"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.068346374, 0.26728484, 0.13456604, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_00nd2"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="UnitCard" type="Button"]
+custom_minimum_size = Vector2(80, 52)
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="BackDrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.13333334, 0.13333334, 0.15294118, 1)
+
+[node name="Traits" type="Label" parent="BackDrop"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 44.0
+offset_bottom = 36.0
+text = "维京人
+战士"
+label_settings = SubResource("LabelSettings_2ee4v")
+
+[node name="Bottom" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8ee35")
+
+[node name="MarginContainer" type="MarginContainer" parent="Bottom"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Bottom/MarginContainer"]
+layout_mode = 2
+
+[node name="UnitName" type="Label" parent="Bottom/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "作者"
+label_settings = SubResource("LabelSettings_2yriv")
+
+[node name="GoldContainer" type="HBoxContainer" parent="Bottom/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+alignment = 2
+
+[node name="Icon" type="TextureRect" parent="Bottom/MarginContainer/HBoxContainer/GoldContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_o60ag")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Bottom/MarginContainer/HBoxContainer/GoldContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_27mlq")
+
+[node name="UnitIcon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -34.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = 34.0
+grow_horizontal = 0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_i2qy8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Border" type="Panel" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4b8rp")
+
+[node name="EmptyPlaceholder" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_00nd2")
