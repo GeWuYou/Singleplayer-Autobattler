@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://b8ijkpq8h8xcb"]
+[gd_scene load_steps=11 format=3 uid="uid://b8ijkpq8h8xcb"]
 
+[ext_resource type="Script" uid="uid://daxhyjovu6x2a" path="res://scripts/unit_card/UnitCard.cs" id="1_efctb"]
 [ext_resource type="Texture2D" uid="uid://by1b5xv4x4lws" path="res://assets/sprites/gold.png" id="1_o60ag"]
 [ext_resource type="Texture2D" uid="uid://c6owk471avrmc" path="res://assets/sprites/rogues.png" id="2_efctb"]
 
@@ -36,6 +37,7 @@ bg_color = Color(0, 0, 0, 1)
 custom_minimum_size = Vector2(80, 52)
 offset_right = 8.0
 offset_bottom = 8.0
+script = ExtResource("1_efctb")
 
 [node name="BackDrop" type="ColorRect" parent="."]
 layout_mode = 1
@@ -59,6 +61,7 @@ text = "维京人
 label_settings = SubResource("LabelSettings_2ee4v")
 
 [node name="Bottom" type="Panel" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 1
 anchors_preset = 12
@@ -96,14 +99,14 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 2
 alignment = 2
 
-[node name="Icon" type="TextureRect" parent="Bottom/MarginContainer/HBoxContainer/GoldContainer"]
+[node name="GoldIcon" type="TextureRect" parent="Bottom/MarginContainer/HBoxContainer/GoldContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("1_o60ag")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="Bottom/MarginContainer/HBoxContainer/GoldContainer"]
+[node name="GoldCost" type="Label" parent="Bottom/MarginContainer/HBoxContainer/GoldContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "1"

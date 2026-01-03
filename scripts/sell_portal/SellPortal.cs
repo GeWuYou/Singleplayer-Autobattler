@@ -2,6 +2,7 @@ using System.Linq;
 using GFramework.Core.Abstractions.controller;
 using GFramework.Core.extensions;
 using GFramework.Godot.extensions;
+using GFramework.Godot.extensions.signal;
 using GFramework.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
@@ -49,9 +50,14 @@ public partial class SellPortal : Area2D, IController
     /// <param name="unit">需要设置的单位对象</param>
     public void SetupUnit(Unit unit)
     {
-        unit.DragDropComponent.Connect(DragDropComponent.SignalName.Dropped,
-            Callable.From<Vector2>(startingPosition => OnUnitDropped(startingPosition, unit)));
-        unit.Connect(Unit.SignalName.QuickSellPressed, Callable.From(() => OnSellUnit(unit)));
+        unit.DragDropComponent
+            .Signal(DragDropComponent.SignalName.Dropped)
+            .To(Callable.From<Vector2>(startingPosition => OnUnitDropped(startingPosition, unit)))
+            .End();
+        unit
+            .Signal(Unit.SignalName.QuickSellPressed)
+            .To(Callable.From(() => OnSellUnit(unit)))
+            .End();
     }
 
     /// <summary>
