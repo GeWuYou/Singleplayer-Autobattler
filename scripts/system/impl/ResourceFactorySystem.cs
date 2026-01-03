@@ -3,7 +3,7 @@ using GFramework.SourceGenerators.Abstractions.logging;
 using SingleplayerAutobattler.scripts.constants;
 using SingleplayerAutobattler.scripts.unit;
 
-namespace SingleplayerAutobattler.scripts.system;
+namespace SingleplayerAutobattler.scripts.system.impl;
 
 /// <summary>
 /// 资源工厂系统，负责管理和创建各种游戏资源的工厂实例。

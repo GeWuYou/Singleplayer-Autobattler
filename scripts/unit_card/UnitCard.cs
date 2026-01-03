@@ -6,8 +6,11 @@ using GFramework.Godot.extensions.signal;
 using GFramework.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
+using SingleplayerAutobattler.scripts.command;
 using SingleplayerAutobattler.scripts.constants;
 using SingleplayerAutobattler.scripts.player;
+using SingleplayerAutobattler.scripts.shop;
+using SingleplayerAutobattler.scripts.system;
 using SingleplayerAutobattler.scripts.unit;
 
 namespace SingleplayerAutobattler.scripts.unit_card;
@@ -24,8 +27,6 @@ public partial class UnitCard : Button, IController
 
     private StyleBoxFlat _borderSb = null!;
     private StyleBoxFlat _bottomSb = null!;
-
-    private bool _isBought;
     private Color _borderColor;
     [Export] public PlayerDataResource PlayerDataResource { get; set; } = null!;
 
@@ -48,7 +49,45 @@ public partial class UnitCard : Button, IController
     public Panel Border => GetNode<Panel>("%Border");
     public Panel EmptyPlaceholder => GetNode<Panel>("%EmptyPlaceholder");
     public TextureRect UnitIcon => GetNode<TextureRect>("%UnitIcon");
+    private IShopSystem _shopSystem = null!;
+    private IShopModel _shopModel = null!;
+    /// <summary>
+    /// 节点准备就绪时的回调方法
+    /// 在节点添加到场景树后调用
+    /// </summary>
+    public override void _Ready()
+    {
+        // 获取系统
+        _shopSystem = this.GetSystem<IShopSystem>()!;
+        
+        // 获取模型
+        _shopModel = this.GetModel<IShopModel>()!;
+        
+        const string name = "panel";
+        _borderSb = (Border.GetThemeStylebox(name) as StyleBoxFlat)!;
+        _bottomSb = (Bottom.GetThemeStylebox(name) as StyleBoxFlat)!;
 
+        PlayerDataResource
+            .Signal(Resource.SignalName.Changed)
+            .ToAndCall(new Callable(this, nameof(RefreshView)))
+            .End();
+        this
+            .Signal(SignalName.UnitBought)
+            .To(Callable.From(() =>
+            {
+                _log.Debug("gold: {0}",PlayerDataResource.Gold);
+            }))
+            .End()
+            .Signal(BaseButton.SignalName.Pressed)
+            .To(new Callable(this, nameof(OnBuyPressed)))
+            .End()
+            .Signal(Control.SignalName.MouseEntered)
+            .To( new Callable(this, nameof(OnMouseEntered)))
+            .End()
+            .Signal(Control.SignalName.MouseExited)
+            .To(new Callable(this, nameof(OnMouseExited)))
+            .End();
+    }
     /// <summary>
     /// 异步设置单位数据资源，初始化单位显示界面元素
     /// </summary>
@@ -62,7 +101,6 @@ public partial class UnitCard : Button, IController
         {
             EmptyPlaceholder.Show();
             Disabled = true;
-            _isBought = true;
             return;
         }
 
@@ -83,39 +121,7 @@ public partial class UnitCard : Button, IController
             texture.Region = region;
         });
     }
-
-
-    /// <summary>
-    /// 节点准备就绪时的回调方法
-    /// 在节点添加到场景树后调用
-    /// </summary>
-    public override void _Ready()
-    {
-        const string name = "panel";
-        _borderSb = (Border.GetThemeStylebox(name) as StyleBoxFlat)!;
-        _bottomSb = (Bottom.GetThemeStylebox(name) as StyleBoxFlat)!;
-
-        PlayerDataResource
-            .Signal(Resource.SignalName.Changed)
-            .ToAndCall(new Callable(this, nameof(OnPlayerDataChanged)))
-            .End();
-        this
-            .Signal(SignalName.UnitBought)
-            .To(Callable.From(() =>
-            {
-                _log.Debug("gold: {0}",PlayerDataResource.Gold);
-            }))
-            .End()
-            .Signal(BaseButton.SignalName.Pressed)
-            .To(new Callable(this, nameof(OnBuyPressed)))
-            .End()
-            .Signal(Control.SignalName.MouseEntered)
-            .To( new Callable(this, nameof(OnMouseEntered)))
-            .End()
-            .Signal(Control.SignalName.MouseExited)
-            .To(new Callable(this, nameof(OnMouseExited)))
-            .End();
-    }
+    
     private void OnMouseExited()
     {
         _borderSb.BorderColor = _borderColor;
@@ -129,25 +135,27 @@ public partial class UnitCard : Button, IController
     }
     private void OnBuyPressed()
     {
-        if (_isBought)
+        if (UnitDataResource is null)
         {
             return;
         }
-        _isBought = true;
-        EmptyPlaceholder.Show();
-        PlayerDataResource.Gold-=UnitDataResource!.GoldCost;
+        if (!this.SendCommand(new BuyUnitCommand(UnitDataResource)))
+        {
+            return;
+        }
         EmitSignalUnitBought(UnitDataResource);
     }
-    private void OnPlayerDataChanged()
+    private void RefreshView()
     {
         if (UnitDataResource is null)
         {
             return;
         }
-
-        var canBuy = PlayerDataResource.Gold >= UnitDataResource.GoldCost;
+        var isBought = _shopModel.IsBought(UnitDataResource);
+        var canBuy = _shopSystem.CanBuyUnit(playerData: PlayerDataResource, unitData: UnitDataResource);
         Disabled = !canBuy;
-        if (canBuy || _isBought)
+        EmptyPlaceholder.Visible = isBought;
+        if (canBuy || isBought)
         {
             Modulate = new Color(Colors.White);
         }else

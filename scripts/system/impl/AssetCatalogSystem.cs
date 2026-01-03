@@ -1,13 +1,15 @@
 
 using GFramework.Game.assets;
+using GFramework.SourceGenerators.Abstractions.logging;
 using SingleplayerAutobattler.scripts.constants;
 
-namespace SingleplayerAutobattler.scripts.system;
+namespace SingleplayerAutobattler.scripts.system.impl;
 
 /// <summary>
 /// 资源目录系统类，用于管理和注册游戏中的各种资源
 /// </summary>
-public class AssetCatalogSystem : AbstractAssetCatalogSystem
+[Log]
+public partial class AssetCatalogSystem : AbstractAssetCatalogSystem
 {
     /// <summary>
     /// 注册游戏所需的所有资源
@@ -15,6 +17,7 @@ public class AssetCatalogSystem : AbstractAssetCatalogSystem
     /// </summary>
     protected override void RegisterAssets()
     {
+        _log.Debug("开始注册资产");
         // 注册单位场景资源，将单位场景键与对应的资源路径进行绑定
         RegisterSceneUnit(AssetCatalogConstants.AssetCatalogSceneUnit.Unit);
         RegisterAsset(AssetCatalogConstants.AssetCatalogResource.Robin);

@@ -5,6 +5,7 @@ using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using SingleplayerAutobattler.scripts.constants;
 using SingleplayerAutobattler.scripts.system;
+using SingleplayerAutobattler.scripts.system.impl;
 using SingleplayerAutobattler.scripts.unit;
 
 namespace SingleplayerAutobattler.scripts.component;

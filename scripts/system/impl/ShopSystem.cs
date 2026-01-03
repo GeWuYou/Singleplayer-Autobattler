@@ -1,0 +1,19 @@
+﻿
+using GFramework.Core.system;
+using SingleplayerAutobattler.scripts.player;
+using SingleplayerAutobattler.scripts.unit;
+
+namespace SingleplayerAutobattler.scripts.system.impl;
+
+public class ShopSystem: AbstractSystem, IShopSystem
+{
+    protected override void OnInit()
+    {
+        
+    }
+
+    public bool CanBuyUnit(PlayerDataResource playerData, UnitDataResource unitData)
+    {
+        return playerData.Gold >= unitData.GoldCost;
+    }
+}

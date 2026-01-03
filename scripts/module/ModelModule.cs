@@ -1,6 +1,8 @@
 ﻿using GFramework.Core.Abstractions.architecture;
 using GFramework.Game.architecture;
 using SingleplayerAutobattler.scripts.arena;
+using SingleplayerAutobattler.scripts.player;
+using SingleplayerAutobattler.scripts.shop;
 using SingleplayerAutobattler.scripts.unit;
 
 namespace SingleplayerAutobattler.scripts.module;
@@ -20,5 +22,7 @@ public class ModelModule: AbstractModule
         architecture.RegisterModel(new ArenaModel());
         // 注册单位模型
         architecture.RegisterModel(new UnitModel());
+        architecture.RegisterModel(new ShopModel());
+        architecture.RegisterModel(new PlayerModel());
     }
 }
