@@ -1,10 +1,8 @@
 using System.Threading.Tasks;
-using GFramework.Core.Abstractions.architecture;
 using GFramework.Core.Abstractions.controller;
 using GFramework.Godot.extensions;
 using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
-using SingleplayerAutobattler.scripts.architecture;
 
 namespace SingleplayerAutobattler.scripts.component;
 
