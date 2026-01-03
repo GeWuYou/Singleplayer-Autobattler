@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Singleplayer-Autobattler"
-run/main_scene="uid://cawbp0nj3gvw0"
+run/main_scene="uid://b8ijkpq8h8xcb"
 config/features=PackedStringArray("4.5", "C#", "GL Compatibility")
 config/icon="uid://bu0itwdnswnw2"
 

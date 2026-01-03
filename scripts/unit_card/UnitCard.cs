@@ -8,6 +8,7 @@ using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using SingleplayerAutobattler.scripts.command;
 using SingleplayerAutobattler.scripts.constants;
+using SingleplayerAutobattler.scripts.enums;
 using SingleplayerAutobattler.scripts.player;
 using SingleplayerAutobattler.scripts.shop;
 using SingleplayerAutobattler.scripts.system;
@@ -51,18 +52,26 @@ public partial class UnitCard : Button, IController
     public TextureRect UnitIcon => GetNode<TextureRect>("%UnitIcon");
     private IShopSystem _shopSystem = null!;
     private IShopModel _shopModel = null!;
+    private IPlayerModel _playerModel= null!;
+
     /// <summary>
     /// 节点准备就绪时的回调方法
     /// 在节点添加到场景树后调用
     /// </summary>
     public override void _Ready()
     {
+        if (GameConstants.GameMode.IsDev())
+        {
+            _playerModel = this.GetModel<IPlayerModel>()!;
+            _playerModel.PlayerDataResource = PlayerDataResource;
+        }
+
         // 获取系统
         _shopSystem = this.GetSystem<IShopSystem>()!;
-        
+
         // 获取模型
         _shopModel = this.GetModel<IShopModel>()!;
-        
+
         const string name = "panel";
         _borderSb = (Border.GetThemeStylebox(name) as StyleBoxFlat)!;
         _bottomSb = (Bottom.GetThemeStylebox(name) as StyleBoxFlat)!;
@@ -73,21 +82,19 @@ public partial class UnitCard : Button, IController
             .End();
         this
             .Signal(SignalName.UnitBought)
-            .To(Callable.From(() =>
-            {
-                _log.Debug("gold: {0}",PlayerDataResource.Gold);
-            }))
+            .To(Callable.From<UnitDataResource>(_ => { _log.Debug("gold: {0}", PlayerDataResource.Gold); }))
             .End()
             .Signal(BaseButton.SignalName.Pressed)
             .To(new Callable(this, nameof(OnBuyPressed)))
             .End()
             .Signal(Control.SignalName.MouseEntered)
-            .To( new Callable(this, nameof(OnMouseEntered)))
+            .To(new Callable(this, nameof(OnMouseEntered)))
             .End()
             .Signal(Control.SignalName.MouseExited)
             .To(new Callable(this, nameof(OnMouseExited)))
             .End();
     }
+
     /// <summary>
     /// 异步设置单位数据资源，初始化单位显示界面元素
     /// </summary>
@@ -95,7 +102,7 @@ public partial class UnitCard : Button, IController
     private async Task SetUnitDataResource()
     {
         await this.WaitUntilReady();
-        
+
         // 检查单位数据资源是否为空，如果为空则显示占位符并禁用功能
         if (UnitDataResource is null)
         {
@@ -108,11 +115,11 @@ public partial class UnitCard : Button, IController
         _borderColor = UnitDataResource.Rarity.GetColor();
         _borderSb.BorderColor = _borderColor;
         _bottomSb.BgColor = _borderColor;
-        
+
         // 设置单位名称和金币成本显示
         UnitName.Text = UnitDataResource.Name;
         GoldCost.Text = $"{UnitDataResource.GoldCost}G";
-        
+
         // 更新单位图标的纹理坐标
         UnitIcon.Texture.IfType<AtlasTexture>(texture =>
         {
@@ -121,11 +128,12 @@ public partial class UnitCard : Button, IController
             texture.Region = region;
         });
     }
-    
+
     private void OnMouseExited()
     {
         _borderSb.BorderColor = _borderColor;
     }
+
     private void OnMouseEntered()
     {
         if (!Disabled)
@@ -133,34 +141,41 @@ public partial class UnitCard : Button, IController
             _borderSb.BorderColor = HoverBorderColor;
         }
     }
+
     private void OnBuyPressed()
     {
         if (UnitDataResource is null)
         {
             return;
         }
+
         if (!this.SendCommand(new BuyUnitCommand(UnitDataResource)))
         {
             return;
         }
+
         EmitSignalUnitBought(UnitDataResource);
     }
+
     private void RefreshView()
     {
         if (UnitDataResource is null)
         {
             return;
         }
+
         var isBought = _shopModel.IsBought(UnitDataResource);
         var canBuy = _shopSystem.CanBuyUnit(playerData: PlayerDataResource, unitData: UnitDataResource);
         Disabled = !canBuy;
+        _log.Debug("isBought: {0}, canBuy: {1}", isBought, canBuy);
         EmptyPlaceholder.Visible = isBought;
         if (canBuy || isBought)
         {
             Modulate = new Color(Colors.White);
-        }else
+        }
+        else
         {
-            Modulate = new Color(Colors.White,.5f);
+            Modulate = new Color(Colors.White, .5f);
         }
     }
 }

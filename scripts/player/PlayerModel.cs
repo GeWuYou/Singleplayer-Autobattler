@@ -1,4 +1,5 @@
 ﻿using GFramework.Core.model;
+using GFramework.SourceGenerators.Abstractions.logging;
 
 namespace SingleplayerAutobattler.scripts.player;
 

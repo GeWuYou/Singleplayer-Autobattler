@@ -26,7 +26,7 @@ public partial class SellPortal : Area2D, IController
     [Export] public HBoxContainer GoldContainer { get; set; } = null!;
     [Export] public Label GoldLabel { get; set; } = null!;
     private Unit? _currentUnit;
-
+   
     /// <summary>
     /// 节点准备就绪时的回调方法
     /// 在节点添加到场景树后调用
