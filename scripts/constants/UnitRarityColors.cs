@@ -12,7 +12,7 @@ public static class UnitRarityColors
     /// <summary>
     /// 稀有度对应的颜色列表，索引与UnitRarity枚举值对应
     /// </summary>
-    public static readonly IReadOnlyList<Color> RarityColors = new List<Color>
+    private static readonly IReadOnlyList<Color> RarityColors = new List<Color>
     {
         // Common - 灰色
         new(0.8f, 0.8f, 0.8f),

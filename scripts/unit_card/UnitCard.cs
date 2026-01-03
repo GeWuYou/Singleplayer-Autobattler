@@ -16,6 +16,10 @@ using SingleplayerAutobattler.scripts.unit;
 
 namespace SingleplayerAutobattler.scripts.unit_card;
 
+/// <summary>
+/// 单位卡牌控件类，继承自Button并实现IController接口
+/// 用于显示和管理商店中的单位卡牌，处理购买逻辑和界面更新
+/// </summary>
 [ContextAware]
 [Log]
 public partial class UnitCard : Button, IController
@@ -32,6 +36,9 @@ public partial class UnitCard : Button, IController
     [Export] public PlayerDataResource PlayerDataResource { get; set; } = null!;
 
 
+    /// <summary>
+    /// 单位数据资源属性，设置时会触发异步设置方法
+    /// </summary>
     [Export]
     public UnitDataResource? UnitDataResource
     {
@@ -78,7 +85,7 @@ public partial class UnitCard : Button, IController
 
         PlayerDataResource
             .Signal(Resource.SignalName.Changed)
-            .ToAndCall(new Callable(this, nameof(RefreshView)))
+            .ToAndCall(new Callable(this, nameof(Refresh)))
             .End();
         this
             .Signal(SignalName.UnitBought)
@@ -123,17 +130,24 @@ public partial class UnitCard : Button, IController
         // 更新单位图标的纹理坐标
         UnitIcon.Texture.IfType<AtlasTexture>(texture =>
         {
-            var region = texture.Region;
-            region.Position = UnitDataResource.SkinCoordinates * ArenaConstants.CellSizeVector;
-            texture.Region = region;
+            texture.Region = texture.Region with
+            {
+                Position = UnitDataResource.SkinCoordinates * ArenaConstants.CellSizeVector
+            };
         });
     }
 
+    /// <summary>
+    /// 鼠标离开时恢复边框颜色
+    /// </summary>
     private void OnMouseExited()
     {
         _borderSb.BorderColor = _borderColor;
     }
 
+    /// <summary>
+    /// 鼠标进入时设置悬停边框颜色
+    /// </summary>
     private void OnMouseEntered()
     {
         if (!Disabled)
@@ -142,6 +156,10 @@ public partial class UnitCard : Button, IController
         }
     }
 
+    /// <summary>
+    /// 购买按钮按下时的处理方法
+    /// 发送购买单位命令并触发购买事件
+    /// </summary>
     private void OnBuyPressed()
     {
         if (UnitDataResource is null)
@@ -157,7 +175,10 @@ public partial class UnitCard : Button, IController
         EmitSignalUnitBought(UnitDataResource);
     }
 
-    private void RefreshView()
+    /// <summary>
+    /// 刷新卡牌状态，根据购买状态和购买能力更新界面显示
+    /// </summary>
+    private void Refresh()
     {
         if (UnitDataResource is null)
         {

@@ -1,0 +1,58 @@
+[gd_scene load_steps=10 format=3 uid="uid://naa3v2e72cwb"]
+
+[ext_resource type="StyleBox" uid="uid://c3ias4kwkl52j" path="res://assets/theme/shop_button_normal.tres" id="1_3pqcd"]
+[ext_resource type="StyleBox" uid="uid://mgcn15cjl08u" path="res://assets/theme/shop_button_pressed.tres" id="2_o5df7"]
+[ext_resource type="StyleBox" uid="uid://5qdjlavnhcfk" path="res://assets/theme/shop_button_hover.tres" id="3_ffn2c"]
+[ext_resource type="Script" uid="uid://blb66n1c7uuij" path="res://scripts/reroll_button/RerollButton.cs" id="4_o5df7"]
+[ext_resource type="Texture2D" uid="uid://by1b5xv4x4lws" path="res://assets/sprites/gold.png" id="4_vu61b"]
+[ext_resource type="Resource" uid="uid://muimggt3vx8t" path="res://resource/player/player.tres" id="5_ffn2c"]
+[ext_resource type="Texture2D" uid="uid://dko3pxlkppgdl" path="res://assets/sprites/refresh.png" id="5_rq2ar"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nmijp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jb36e"]
+font_size = 12
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="RerollButton" type="Button"]
+custom_minimum_size = Vector2(80, 24)
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_styles/normal = ExtResource("1_3pqcd")
+theme_override_styles/pressed = ExtResource("2_o5df7")
+theme_override_styles/hover = ExtResource("3_ffn2c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_nmijp")
+script = ExtResource("4_o5df7")
+PlayerDataResource = ExtResource("5_ffn2c")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="Text" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "刷新 2"
+label_settings = SubResource("LabelSettings_jb36e")
+
+[node name="GoldIcon" type="TextureRect" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("4_vu61b")
+stretch_mode = 5
+
+[node name="RerollIcon" type="TextureRect" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("5_rq2ar")
+stretch_mode = 5

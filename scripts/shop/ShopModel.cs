@@ -12,7 +12,7 @@ public class ShopModel : AbstractModel, IShopModel
     /// <summary>
     /// 存储已购买单位数据资源的哈希集合
     /// </summary>
-    private readonly HashSet<int> _bought = [];
+    private readonly HashSet<UnitDataResource> _bought = [];
 
     /// <summary>
     /// 检查指定单位是否已被购买
@@ -20,14 +20,14 @@ public class ShopModel : AbstractModel, IShopModel
     /// <param name="unit">要检查的单位数据资源</param>
     /// <returns>如果单位已被购买则返回true，否则返回false</returns>
     public bool IsBought(UnitDataResource unit)
-        => _bought.Contains(unit.Id);
+        => _bought.Contains(unit);
 
     /// <summary>
     /// 标记指定单位为已购买状态
     /// </summary>
     /// <param name="unit">要标记为已购买的单位数据资源</param>
     public void MarkBought(UnitDataResource unit)
-        => _bought.Add(unit.Id);
+        => _bought.Add(unit);
 
     /// <summary>
     /// 初始化商店模型
