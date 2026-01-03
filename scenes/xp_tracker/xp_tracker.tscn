@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4mmj5dxyekpa"]
+
+[ext_resource type="Script" uid="uid://dyupqk7vnbssr" path="res://scripts/xp_tracker/XpTracker.cs" id="1_sgy4l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3smid"]
+bg_color = Color(0.09411765, 0.09411765, 0.105882354, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.24705882, 0.24705882, 0.27450982, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sgy4l"]
+bg_color = Color(0.21960784, 0.7411765, 0.972549, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.24705882, 0.24705882, 0.27450982, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ft5t8"]
+font_size = 12
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="XpTracker" type="VBoxContainer"]
+custom_minimum_size = Vector2(70, 28)
+offset_right = 70.0
+offset_bottom = 28.0
+theme_override_constants/separation = 0
+alignment = 1
+script = ExtResource("1_sgy4l")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_3smid")
+theme_override_styles/fill = SubResource("StyleBoxFlat_sgy4l")
+value = 33.76
+show_percentage = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="XpLabel" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "99/99"
+label_settings = SubResource("LabelSettings_ft5t8")
+
+[node name="LevelLabel" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "lvl: 1"
+label_settings = SubResource("LabelSettings_ft5t8")
+horizontal_alignment = 2

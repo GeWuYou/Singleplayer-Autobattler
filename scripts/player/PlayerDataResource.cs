@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System.Collections.Generic;
+using Godot;
 
 namespace SingleplayerAutobattler.scripts.player;
 
@@ -12,6 +13,28 @@ public partial class PlayerDataResource:  Resource
     private int _gold;
     private int _xp;
     private int _level;
+
+    /// <summary>
+    /// 经验值表，存储等级与所需经验值的映射关系
+    /// </summary>
+    private static readonly Dictionary<int, int> XpTable = new()
+    {
+        {1, 0},
+        {2, 5},
+        {3, 7},
+        {4, 10},
+        {5, 15},
+        {6, 20}
+    };
+    
+    /// <summary>
+    /// 获取当前等级升级所需的经验值
+    /// </summary>
+    /// <returns>升级到下一级所需的经验值</returns>
+    public int GetCurrentXpRequirement()
+    {
+        return XpTable[Level+1];
+    }
 
     /// <summary>
     /// 玩家拥有的金币数量
@@ -42,6 +65,21 @@ public partial class PlayerDataResource:  Resource
             _xp = value;
             // 当经验值发生变化时，触发资源变更事件
             EmitChanged();
+            if (Level == 6)
+            {
+                return;
+            }
+
+            // 获取当前等级所需的经验值
+            var nextXpRequirement = GetCurrentXpRequirement();
+            // 检查是否满足升级条件，如果满足则进行等级提升
+            while (Xp >= nextXpRequirement)
+            {
+                Level++;
+                Xp -= nextXpRequirement;
+                nextXpRequirement = GetCurrentXpRequirement();
+                EmitChanged();
+            }
         }
     }
 

@@ -1,7 +1,6 @@
 ﻿using GFramework.Core.Abstractions.architecture;
 using GFramework.Game.Abstractions.assets;
 using GFramework.Game.architecture;
-using GFramework.Godot.Abstractions.assets;
 using GFramework.Godot.assets;
 using SingleplayerAutobattler.scripts.system;
 using SingleplayerAutobattler.scripts.system.impl;
@@ -29,5 +28,6 @@ public class SystemModule: AbstractModule
         // 注册资源工厂系统
         architecture.RegisterSystem<IResourceFactorySystem>(new ResourceFactorySystem());
         architecture.RegisterSystem<IShopSystem>(new ShopSystem());
+        architecture.RegisterSystem(new RerollSystem());
     }
 }

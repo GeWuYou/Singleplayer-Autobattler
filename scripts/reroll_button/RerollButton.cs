@@ -4,9 +4,11 @@ using GFramework.Godot.extensions.signal;
 using GFramework.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
+using SingleplayerAutobattler.scripts.command;
 using SingleplayerAutobattler.scripts.constants;
 using SingleplayerAutobattler.scripts.enums;
 using SingleplayerAutobattler.scripts.player;
+using SingleplayerAutobattler.scripts.system;
 
 namespace SingleplayerAutobattler.scripts.reroll_button;
 
@@ -14,23 +16,19 @@ namespace SingleplayerAutobattler.scripts.reroll_button;
 [Log]
 public partial class RerollButton :Button,IController
 {
-	[Export] public PlayerDataResource PlayerDataResource { get; set; } = null!;
 	public HBoxContainer HBoxContainer => GetNode<HBoxContainer>("%HBoxContainer");
 	
 	private IPlayerModel _playerModel= null!;
+	private IRerollSystem _rerollSystem= null!;
 	/// <summary>
 	/// 节点准备就绪时的回调方法
 	/// 在节点添加到场景树后调用
 	/// </summary>
 	public override void _Ready()
 	{
-		if (GameConstants.GameMode.IsDev())
-		{
-			_playerModel = this.GetModel<IPlayerModel>()!;
-			_playerModel.PlayerDataResource = PlayerDataResource;
-		}
-
-		PlayerDataResource
+		_playerModel = this.GetModel<IPlayerModel>()!;
+		_rerollSystem = this.GetSystem<IRerollSystem>()!;
+		_playerModel.PlayerDataResource
 			.Signal(Resource.SignalName.Changed)
 			.ToAndCall(new Callable(this, nameof(Refresh)))
 			.End();
@@ -41,18 +39,13 @@ public partial class RerollButton :Button,IController
 	}
 	private void Refresh()
 	{
-		var hasEnoughGold = PlayerDataResource.Gold >= 2;
-		Disabled = !hasEnoughGold;
-		if (hasEnoughGold)
-		{
-			HBoxContainer.Modulate = HBoxContainer.Modulate with { A = 1.0f };
-		}else
-		{
-			HBoxContainer.Modulate = HBoxContainer.Modulate with { A = 0.5f };
-		}
+		Disabled = !_rerollSystem.CanReroll(_playerModel.PlayerDataResource);
+		HBoxContainer.Modulate = Disabled
+			? HBoxContainer.Modulate with { A = 0.5f }
+			: HBoxContainer.Modulate with { A = 1.0f };
 	}
 	private void OnPressed()
 	{
-		_playerModel.ChangeGold(-2);
+		this.SendCommand(new RerollCommand());
 	}
 }

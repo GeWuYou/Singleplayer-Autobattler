@@ -11,12 +11,13 @@ config_version=5
 [application]
 
 config/name="Singleplayer-Autobattler"
-run/main_scene="uid://b8ijkpq8h8xcb"
+run/main_scene="uid://naa3v2e72cwb"
 config/features=PackedStringArray("4.5", "C#", "GL Compatibility")
 config/icon="uid://bu0itwdnswnw2"
 
 [autoload]
 
+DevBindingManager="*res://global/dev_binding_manager.tscn"
 GameEntryPoint="*res://global/game_entry_point.tscn"
 
 [display]

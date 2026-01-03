@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://courly6doqj74"]
+
+[ext_resource type="Script" uid="uid://rf7qqea1ff4m" path="res://global/DevBindingManager.cs" id="1_4us7s"]
+[ext_resource type="Resource" uid="uid://muimggt3vx8t" path="res://resource/player/player.tres" id="2_4v3ab"]
+
+[node name="DevBindingManager" type="Node"]
+script = ExtResource("1_4us7s")
+PlayerDataResource = ExtResource("2_4v3ab")

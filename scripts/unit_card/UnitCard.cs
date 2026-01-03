@@ -8,7 +8,6 @@ using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using SingleplayerAutobattler.scripts.command;
 using SingleplayerAutobattler.scripts.constants;
-using SingleplayerAutobattler.scripts.enums;
 using SingleplayerAutobattler.scripts.player;
 using SingleplayerAutobattler.scripts.shop;
 using SingleplayerAutobattler.scripts.system;
@@ -33,9 +32,7 @@ public partial class UnitCard : Button, IController
     private StyleBoxFlat _borderSb = null!;
     private StyleBoxFlat _bottomSb = null!;
     private Color _borderColor;
-    [Export] public PlayerDataResource PlayerDataResource { get; set; } = null!;
-
-
+    
     /// <summary>
     /// 单位数据资源属性，设置时会触发异步设置方法
     /// </summary>
@@ -67,12 +64,7 @@ public partial class UnitCard : Button, IController
     /// </summary>
     public override void _Ready()
     {
-        if (GameConstants.GameMode.IsDev())
-        {
-            _playerModel = this.GetModel<IPlayerModel>()!;
-            _playerModel.PlayerDataResource = PlayerDataResource;
-        }
-
+        _playerModel = this.GetModel<IPlayerModel>()!;
         // 获取系统
         _shopSystem = this.GetSystem<IShopSystem>()!;
 
@@ -82,14 +74,14 @@ public partial class UnitCard : Button, IController
         const string name = "panel";
         _borderSb = (Border.GetThemeStylebox(name) as StyleBoxFlat)!;
         _bottomSb = (Bottom.GetThemeStylebox(name) as StyleBoxFlat)!;
-
-        _playerModel.PlayerDataResource
+        PlayerDataResource playerDataResource = _playerModel.PlayerDataResource;
+        playerDataResource
             .Signal(Resource.SignalName.Changed)
             .ToAndCall(new Callable(this, nameof(Refresh)))
             .End();
         this
             .Signal(SignalName.UnitBought)
-            .To(Callable.From<UnitDataResource>(_ => { _log.Debug("gold: {0}", PlayerDataResource.Gold); }))
+            .To(Callable.From<UnitDataResource>(_ => { _log.Debug("gold: {0}", playerDataResource.Gold); }))
             .End()
             .Signal(BaseButton.SignalName.Pressed)
             .To(new Callable(this, nameof(OnBuyPressed)))

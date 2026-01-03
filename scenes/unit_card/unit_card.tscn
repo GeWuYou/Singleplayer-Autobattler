@@ -1,8 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://b8ijkpq8h8xcb"]
+[gd_scene load_steps=12 format=3 uid="uid://b8ijkpq8h8xcb"]
 
 [ext_resource type="Script" uid="uid://daxhyjovu6x2a" path="res://scripts/unit_card/UnitCard.cs" id="1_efctb"]
 [ext_resource type="Texture2D" uid="uid://by1b5xv4x4lws" path="res://assets/sprites/gold.png" id="1_o60ag"]
-[ext_resource type="Resource" uid="uid://muimggt3vx8t" path="res://resource/player/player.tres" id="2_8ee35"]
 [ext_resource type="Texture2D" uid="uid://c6owk471avrmc" path="res://assets/sprites/rogues.png" id="2_efctb"]
 [ext_resource type="Resource" uid="uid://p2td16tdpplo" path="res://resource/unit/arthur.tres" id="3_2yriv"]
 
@@ -41,7 +40,6 @@ offset_right = 8.0
 offset_bottom = 8.0
 focus_mode = 0
 script = ExtResource("1_efctb")
-PlayerDataResource = ExtResource("2_8ee35")
 UnitDataResource = ExtResource("3_2yriv")
 
 [node name="BackDrop" type="ColorRect" parent="."]
