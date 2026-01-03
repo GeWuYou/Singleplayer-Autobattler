@@ -83,7 +83,7 @@ public partial class UnitCard : Button, IController
         _borderSb = (Border.GetThemeStylebox(name) as StyleBoxFlat)!;
         _bottomSb = (Bottom.GetThemeStylebox(name) as StyleBoxFlat)!;
 
-        PlayerDataResource
+        _playerModel.PlayerDataResource
             .Signal(Resource.SignalName.Changed)
             .ToAndCall(new Callable(this, nameof(Refresh)))
             .End();
@@ -186,7 +186,7 @@ public partial class UnitCard : Button, IController
         }
 
         var isBought = _shopModel.IsBought(UnitDataResource);
-        var canBuy = _shopSystem.CanBuyUnit(playerData: PlayerDataResource, unitData: UnitDataResource);
+        var canBuy = _shopSystem.CanBuyUnit(playerData: _playerModel.PlayerDataResource, unitData: UnitDataResource);
         Disabled = !canBuy;
         _log.Debug("isBought: {0}, canBuy: {1}", isBought, canBuy);
         EmptyPlaceholder.Visible = isBought;
