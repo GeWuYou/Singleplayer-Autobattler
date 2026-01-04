@@ -5,9 +5,10 @@ using SingleplayerAutobattler.scripts.environment;
 
 namespace SingleplayerAutobattler.scripts.player;
 
-public class PlayerModel: AbstractModel,IPlayerModel
+public class PlayerModel : AbstractModel, IPlayerModel
 {
     public PlayerDataResource PlayerDataResource { get; set; } = null!;
+
     protected override void OnInit()
     {
         var env = this.GetEnvironment<GameDevEnvironment>()!;
@@ -16,10 +17,20 @@ public class PlayerModel: AbstractModel,IPlayerModel
             PlayerDataResource = env.PlayerDataResource;
         }
     }
+
     public int ChangeGold(int value)
     {
-        PlayerDataResource.Gold+=value;
+        PlayerDataResource.Gold += value;
         return PlayerDataResource.Gold;
     }
-    
+
+    public void GainXp(int amount)
+    {
+        PlayerDataResource.Xp += 4;
+    }
+
+    public bool IsMaxLevel()
+    {
+        return PlayerDataResource.Level >= PlayerDataResource.MaxLevel;
+    }
 }

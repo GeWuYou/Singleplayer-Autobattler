@@ -8,33 +8,37 @@ namespace SingleplayerAutobattler.scripts.player;
 /// 继承自Godot的Resource类，可作为游戏资源配置使用
 /// </summary>
 [GlobalClass]
-public partial class PlayerDataResource:  Resource
+public partial class PlayerDataResource : Resource
 {
     private int _gold;
     private int _xp;
     private int _level;
+
+    public static int MaxLevel => XpTable.Count;
 
     /// <summary>
     /// 经验值表，存储等级与所需经验值的映射关系
     /// </summary>
     private static readonly Dictionary<int, int> XpTable = new()
     {
-        {1, 0},
-        {2, 5},
-        {3, 7},
-        {4, 10},
-        {5, 15},
-        {6, 20}
+        { 1, 0 },
+        { 2, 5 },
+        { 3, 7 },
+        { 4, 10 },
+        { 5, 15 },
+        { 6, 20 }
     };
-    
+
     /// <summary>
     /// 获取当前等级升级所需的经验值
     /// </summary>
     /// <returns>升级到下一级所需的经验值</returns>
     public int GetCurrentXpRequirement()
     {
-        return XpTable[Level+1];
+        var nextLevel = Mathf.Clamp(Level + 1, 1, MaxLevel);
+        return XpTable[nextLevel];
     }
+
 
     /// <summary>
     /// 玩家拥有的金币数量
@@ -62,24 +66,9 @@ public partial class PlayerDataResource:  Resource
         get => _xp;
         set
         {
-            _xp = value;
-            // 当经验值发生变化时，触发资源变更事件
+            _xp = Mathf.Max(0, value);
+            TryLevelUp();
             EmitChanged();
-            if (Level == 6)
-            {
-                return;
-            }
-
-            // 获取当前等级所需的经验值
-            var nextXpRequirement = GetCurrentXpRequirement();
-            // 检查是否满足升级条件，如果满足则进行等级提升
-            while (Xp >= nextXpRequirement)
-            {
-                Level++;
-                Xp -= nextXpRequirement;
-                nextXpRequirement = GetCurrentXpRequirement();
-                EmitChanged();
-            }
         }
     }
 
@@ -98,5 +87,18 @@ public partial class PlayerDataResource:  Resource
             EmitChanged();
         }
     }
-}
 
+    private void TryLevelUp()
+    {
+        if (_level >= MaxLevel)
+            return;
+        var xpRequirement = GetCurrentXpRequirement();
+        while (_level < MaxLevel && Xp >= xpRequirement)
+        {
+            _level++;
+            _xp -= xpRequirement;
+            xpRequirement = GetCurrentXpRequirement();
+            EmitChanged();
+        }
+    }
+}
