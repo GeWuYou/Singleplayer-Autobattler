@@ -29,6 +29,11 @@ public class PlayerModel : AbstractModel, IPlayerModel
         PlayerDataResource.Xp += 4;
     }
 
+    public bool HasEnoughGold(int cost)
+    {
+        return PlayerDataResource.Gold >= cost;
+    }
+
     public bool IsMaxLevel()
     {
         return PlayerDataResource.Level >= PlayerDataResource.MaxLevel;

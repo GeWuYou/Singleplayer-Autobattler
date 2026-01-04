@@ -22,7 +22,11 @@ public partial class XpTracker : VBoxContainer, IController
     {
         if (@event.IsActionPressed("ui_accept"))
         {
-            this.SendCommand(new GainXpCommand(4));
+            this.SendCommand(new BuyXpCommand(new BuyXpCommandInput
+            {
+                XpAmount = 4,
+                GoldCost = 4
+            }));
         }
     }
 

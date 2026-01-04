@@ -5,8 +5,6 @@ using GFramework.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using SingleplayerAutobattler.scripts.command;
-using SingleplayerAutobattler.scripts.constants;
-using SingleplayerAutobattler.scripts.enums;
 using SingleplayerAutobattler.scripts.player;
 using SingleplayerAutobattler.scripts.system;
 
@@ -46,6 +44,6 @@ public partial class RerollButton :Button,IController
 	}
 	private void OnPressed()
 	{
-		this.SendCommand(new RerollCommand());
+		this.SendCommand(new RerollCommand(new RerollCommandInput()));
 	}
 }

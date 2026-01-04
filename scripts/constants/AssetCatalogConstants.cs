@@ -13,9 +13,9 @@ public static class AssetCatalogConstants
     public static class AssetCatalogSceneUnit
     {
         /// <summary>
-        /// 单元场景资产映射，将"Unit"标识符映射到单元场景文件路径
+        /// 单元场景资产映射，将"UnitDataResource"标识符映射到单元场景文件路径
         /// </summary>
-        public static readonly AssetCatalog.AssetCatalogMapping Unit = new("Unit",new AssetCatalog.SceneUnitId("res://scenes/unit/unit.tscn"));
+        public static readonly AssetCatalog.AssetCatalogMapping Unit = new("UnitDataResource",new AssetCatalog.SceneUnitId("res://scenes/unit/unit.tscn"));
     }
     
 

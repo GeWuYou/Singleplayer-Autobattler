@@ -32,7 +32,7 @@ public partial class UnitCard : Button, IController
     private StyleBoxFlat _borderSb = null!;
     private StyleBoxFlat _bottomSb = null!;
     private Color _borderColor;
-    
+
     /// <summary>
     /// 单位数据资源属性，设置时会触发异步设置方法
     /// </summary>
@@ -56,7 +56,7 @@ public partial class UnitCard : Button, IController
     public TextureRect UnitIcon => GetNode<TextureRect>("%UnitIcon");
     private IShopSystem _shopSystem = null!;
     private IShopModel _shopModel = null!;
-    private IPlayerModel _playerModel= null!;
+    private IPlayerModel _playerModel = null!;
 
     /// <summary>
     /// 节点准备就绪时的回调方法
@@ -159,7 +159,10 @@ public partial class UnitCard : Button, IController
             return;
         }
 
-        if (!this.SendCommand(new BuyUnitCommand(UnitDataResource)))
+        if (!this.SendCommand(new BuyUnitCommand(new BuyUnitCommandInput()
+            {
+                UnitDataResource = UnitDataResource
+            })))
         {
             return;
         }
