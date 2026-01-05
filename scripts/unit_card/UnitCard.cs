@@ -46,7 +46,6 @@ public partial class UnitCard : Button, IController
             _ = SetUnitDataResource();
         }
     }
-
     public Label Traits => GetNode<Label>("%Traits");
     public Panel Bottom => GetNode<Panel>("%Bottom");
     public Label UnitName => GetNode<Label>("%UnitName");
@@ -74,7 +73,7 @@ public partial class UnitCard : Button, IController
         const string name = "panel";
         _borderSb = (Border.GetThemeStylebox(name) as StyleBoxFlat)!;
         _bottomSb = (Bottom.GetThemeStylebox(name) as StyleBoxFlat)!;
-        PlayerDataResource playerDataResource = _playerModel.PlayerDataResource;
+        var playerDataResource = _playerModel.PlayerDataResource;
         playerDataResource
             .Signal(Resource.SignalName.Changed)
             .ToAndCall(new Callable(this, nameof(Refresh)))
