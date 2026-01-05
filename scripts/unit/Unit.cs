@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using GFramework.Core.Abstractions.architecture;
 using GFramework.Core.Abstractions.controller;
+using GFramework.Core.extensions;
 using GFramework.Godot.extensions;
 using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
@@ -50,8 +51,8 @@ public partial class Unit : Area2D, IController
     /// </summary>
     public override void _Ready()
     {
-        _unitModel = Context.GetModel<UnitModel>();
-        _unitMapper = Context.GetUtility<UnitMapper>();
+        _unitModel = this.GetModel<UnitModel>();
+        _unitMapper = this.GetUtility<UnitMapper>();
         MouseEntered += OnMouseEntered;
         MouseExited += OnMouseExited;
         DragDropComponent.Connect(DragDropComponent.SignalName.DragStarted, new Callable(this, nameof(OnDragStarted)));

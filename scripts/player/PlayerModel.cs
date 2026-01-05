@@ -1,4 +1,5 @@
-﻿using GFramework.Core.extensions;
+﻿using GFramework.Core.Abstractions.environment;
+using GFramework.Core.extensions;
 using GFramework.Core.model;
 using SingleplayerAutobattler.scripts.constants;
 using SingleplayerAutobattler.scripts.environment;
@@ -11,10 +12,11 @@ public class PlayerModel : AbstractModel, IPlayerModel
 
     protected override void OnInit()
     {
-        var env = this.GetEnvironment<GameDevEnvironment>()!;
+        var env = this.GetEnvironment<IEnvironment>()!;
         if (GameConstants.Development.Equals(env.Name))
         {
-            PlayerDataResource = env.PlayerDataResource;
+            env.IfType<GameDevEnvironment>((e) => { PlayerDataResource = e.PlayerDataResource; }
+            );
         }
     }
 
@@ -26,7 +28,7 @@ public class PlayerModel : AbstractModel, IPlayerModel
 
     public void GainXp(int amount)
     {
-        PlayerDataResource.Xp += 4;
+        PlayerDataResource.Xp += amount;
     }
 
     public bool HasEnoughGold(int cost)
