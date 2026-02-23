@@ -45,13 +45,7 @@
         <Content Include=".github\workflows\ci.yml" />
         <Content Include=".github\workflows\codeql.yml" />
         <Content Include=".github\workflows\release.yml" />
-        <Content Include="global\audio_manager.tscn" />
-        <Content Include="global\game_entry_point.tscn" />
-        <Content Include="global\global_input_controller.tscn" />
         <Content Include="global\README.md" />
-        <Content Include="global\scene_root.tscn" />
-        <Content Include="global\scene_transition_manager.tscn" />
-        <Content Include="global\ui_root.tscn" />
         <Content Include="scripts\data\interfaces\ISaveStorageUtility.cs.uid" />
         <Content Include="scripts\data\model\GameSaveData.cs.uid" />
         <Content Include="scripts\data\model\LocalDataLocation.cs.uid" />

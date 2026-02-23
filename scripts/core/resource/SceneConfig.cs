@@ -15,13 +15,7 @@ public partial class SceneConfig : Resource, IKeyValue<string, PackedScene>
     /// </summary>
     [Export]
     public SceneKey SceneKey { get; private set; }
-
-    /// <summary>
-    ///     Z轴深度（控制渲染顺序）
-    /// </summary>
-    [Export]
-    public int ZIndex { get; private set; }
-
+    
     /// <summary>
     ///     获取或设置游戏场景的打包场景资源
     /// </summary>
