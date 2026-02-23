@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using GFramework.Core.model;
+﻿using GFramework.Core.model;
 using Godot;
 
 namespace SingleplayerAutobattler.scripts.unit;

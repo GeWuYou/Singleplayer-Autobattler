@@ -1,5 +1,4 @@
 using GFramework.Core.Abstractions.controller;
-using GFramework.Core.extensions;
 using GFramework.Godot.extensions.signal;
 using GFramework.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
@@ -18,21 +17,20 @@ public partial class XpTracker : VBoxContainer, IController
     private ProgressBar ProgressBar => GetNode<ProgressBar>("%ProgressBar");
     private Label XpLabel => GetNode<Label>("%XpLabel");
     private Label LevelLabel => GetNode<Label>("%LevelLabel");
+
     public override void _Input(InputEvent @event)
     {
         if (@event.IsActionPressed("ui_accept"))
-        {
             this.SendCommand(new BuyXpCommand(new BuyXpCommandInput
             {
                 XpAmount = 4,
                 GoldCost = 4
             }));
-        }
     }
 
     /// <summary>
-    /// 节点准备就绪时的回调方法
-    /// 在节点添加到场景树后调用
+    ///     节点准备就绪时的回调方法
+    ///     在节点添加到场景树后调用
     /// </summary>
     public override void _Ready()
     {
@@ -43,17 +41,14 @@ public partial class XpTracker : VBoxContainer, IController
             .ToAndCall(new Callable(this, nameof(Refresh)))
             .End();
     }
+
     public void Refresh()
     {
         var playerDataResource = _playerModel.PlayerDataResource;
         if (!_playerModel.IsMaxLevel())
-        {
             SetXpBarValue();
-        }
         else
-        {
             SetMaxLevelValue();
-        }
 
         LevelLabel.Text = $"lvl: {playerDataResource.Level}";
     }

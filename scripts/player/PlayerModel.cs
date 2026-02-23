@@ -1,5 +1,4 @@
 ﻿using GFramework.Core.Abstractions.environment;
-using GFramework.Core.extensions;
 using GFramework.Core.model;
 using SingleplayerAutobattler.scripts.constants;
 using SingleplayerAutobattler.scripts.environment;
@@ -9,16 +8,6 @@ namespace SingleplayerAutobattler.scripts.player;
 public class PlayerModel : AbstractModel, IPlayerModel
 {
     public PlayerDataResource PlayerDataResource { get; set; } = null!;
-
-    protected override void OnInit()
-    {
-        var env = this.GetEnvironment<IEnvironment>()!;
-        if (GameConstants.Development.Equals(env.Name))
-        {
-            env.IfType<GameDevEnvironment>((e) => { PlayerDataResource = e.PlayerDataResource; }
-            );
-        }
-    }
 
     public int ChangeGold(int value)
     {
@@ -39,5 +28,13 @@ public class PlayerModel : AbstractModel, IPlayerModel
     public bool IsMaxLevel()
     {
         return PlayerDataResource.Level >= PlayerDataResource.MaxLevel;
+    }
+
+    protected override void OnInit()
+    {
+        var env = this.GetEnvironment<IEnvironment>()!;
+        if (GameConstants.Development.Equals(env.Name))
+            env.IfType<GameDevEnvironment>(e => { PlayerDataResource = e.PlayerDataResource; }
+            );
     }
 }

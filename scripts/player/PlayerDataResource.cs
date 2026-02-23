@@ -1,23 +1,16 @@
-﻿using System.Collections.Generic;
-using Godot;
+﻿using Godot;
 
 namespace SingleplayerAutobattler.scripts.player;
 
 /// <summary>
-/// 玩家数据资源类，用于存储和管理玩家的游戏数据
-/// 继承自Godot的Resource类，可作为游戏资源配置使用
+///     玩家数据资源类，用于存储和管理玩家的游戏数据
+///     继承自Godot的Resource类，可作为游戏资源配置使用
 /// </summary>
 [GlobalClass]
 public partial class PlayerDataResource : Resource
 {
-    private int _gold;
-    private int _xp;
-    private int _level;
-
-    public static int MaxLevel => XpTable.Count;
-
     /// <summary>
-    /// 经验值表，存储等级与所需经验值的映射关系
+    ///     经验值表，存储等级与所需经验值的映射关系
     /// </summary>
     private static readonly Dictionary<int, int> XpTable = new()
     {
@@ -29,20 +22,16 @@ public partial class PlayerDataResource : Resource
         { 6, 20 }
     };
 
-    /// <summary>
-    /// 获取当前等级升级所需的经验值
-    /// </summary>
-    /// <returns>升级到下一级所需的经验值</returns>
-    public int GetCurrentXpRequirement()
-    {
-        var nextLevel = Mathf.Clamp(Level + 1, 1, MaxLevel);
-        return XpTable[nextLevel];
-    }
+    private int _gold;
+    private int _level;
+    private int _xp;
+
+    public static int MaxLevel => XpTable.Count;
 
 
     /// <summary>
-    /// 玩家拥有的金币数量
-    /// 取值范围：0-99
+    ///     玩家拥有的金币数量
+    ///     取值范围：0-99
     /// </summary>
     [Export(PropertyHint.Range, "0,99")]
     public int Gold
@@ -57,8 +46,8 @@ public partial class PlayerDataResource : Resource
     }
 
     /// <summary>
-    /// 玩家当前经验值
-    /// 取值范围：0-99
+    ///     玩家当前经验值
+    ///     取值范围：0-99
     /// </summary>
     [Export(PropertyHint.Range, "0,99")]
     public int Xp
@@ -73,8 +62,8 @@ public partial class PlayerDataResource : Resource
     }
 
     /// <summary>
-    /// 玩家等级
-    /// 取值范围：1-6
+    ///     玩家等级
+    ///     取值范围：1-6
     /// </summary>
     [Export(PropertyHint.Range, "1,6")]
     public int Level
@@ -86,6 +75,16 @@ public partial class PlayerDataResource : Resource
             // 当等级发生变化时，触发资源变更事件
             EmitChanged();
         }
+    }
+
+    /// <summary>
+    ///     获取当前等级升级所需的经验值
+    /// </summary>
+    /// <returns>升级到下一级所需的经验值</returns>
+    public int GetCurrentXpRequirement()
+    {
+        var nextLevel = Mathf.Clamp(Level + 1, 1, MaxLevel);
+        return XpTable[nextLevel];
     }
 
     private void TryLevelUp()

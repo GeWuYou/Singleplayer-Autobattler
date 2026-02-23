@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
-using Godot;
+﻿using Godot;
 using SingleplayerAutobattler.scripts.enums;
 
 namespace SingleplayerAutobattler.scripts.constants;
 
 /// <summary>
-/// UnitRarityColors
+///     UnitRarityColors
 /// </summary>
 public static class UnitRarityColors
 {
     /// <summary>
-    /// 稀有度对应的颜色列表，索引与UnitRarity枚举值对应
+    ///     稀有度对应的颜色列表，索引与UnitRarity枚举值对应
     /// </summary>
     private static readonly IReadOnlyList<Color> RarityColors = new List<Color>
     {
@@ -29,7 +28,7 @@ public static class UnitRarityColors
     };
 
     /// <summary>
-    /// 获取指定稀有度的颜色
+    ///     获取指定稀有度的颜色
     /// </summary>
     /// <param name="rarity">单位稀有度</param>
     /// <returns>对应的Color对象</returns>

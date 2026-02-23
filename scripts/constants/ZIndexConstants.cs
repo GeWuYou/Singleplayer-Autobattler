@@ -1,5 +1,4 @@
-﻿
-namespace SingleplayerAutobattler.scripts.constants;
+﻿namespace SingleplayerAutobattler.scripts.constants;
 
 public static class ZIndexConstants
 {

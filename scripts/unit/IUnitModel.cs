@@ -1,27 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using GFramework.Core.Abstractions.model;
-using GFramework.Core.model;
+﻿using GFramework.Core.Abstractions.model;
 using Godot;
 
 namespace SingleplayerAutobattler.scripts.unit;
 
 /// <summary>
-/// 单位模型接口，继承自IModel接口
-/// 定义了单位数据字典的访问接口
+///     单位模型接口，继承自IModel接口
+///     定义了单位数据字典的访问接口
 /// </summary>
-public interface IUnitModel: IModel
+public interface IUnitModel : IModel
 {
     /// <summary>
-    /// 获取或设置单位数据字典
-    /// 字典键为单位ID，值为对应的单位数据对象
+    ///     获取或设置单位数据字典
+    ///     字典键为单位ID，值为对应的单位数据对象
     /// </summary>
     public Dictionary<int, UnitData> UnitDataDictionary { get; set; }
-    
-    /// <summary>
-    /// 获取或设置单位字典
-    /// 字典键为二维向量位置，值为对应的单位数据对象
-    /// </summary>
-    public Dictionary<Vector2I,UnitData?> UnitDictionary { get; set; }
 
+    /// <summary>
+    ///     获取或设置单位字典
+    ///     字典键为二维向量位置，值为对应的单位数据对象
+    /// </summary>
+    public Dictionary<Vector2I, UnitData?> UnitDictionary { get; set; }
 }

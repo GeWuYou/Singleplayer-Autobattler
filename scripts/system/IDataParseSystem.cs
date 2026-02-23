@@ -2,7 +2,6 @@
 
 namespace SingleplayerAutobattler.scripts.system;
 
-public interface IDataParseSystem: ISystem
+public interface IDataParseSystem : ISystem
 {
-    
 }

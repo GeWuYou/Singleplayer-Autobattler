@@ -1,4 +1,3 @@
-using System;
 using GFramework.Core.Abstractions.controller;
 using GFramework.Godot.extensions;
 using GFramework.SourceGenerators.Abstractions.logging;
@@ -9,164 +8,160 @@ using SingleplayerAutobattler.scripts.constants;
 namespace SingleplayerAutobattler.scripts.component;
 
 /// <summary>
-/// 拖拽组件类，用于处理节点的拖放逻辑。
-/// 实现了 IController 接口以支持架构通信，并通过信号通知拖拽事件的发生。
+///     拖拽组件类，用于处理节点的拖放逻辑。
+///     实现了 IController 接口以支持架构通信，并通过信号通知拖拽事件的发生。
 /// </summary>
 [ContextAware]
 [Log]
 public partial class DragDropComponent : Node, IController
 {
 	/// <summary>
-	/// 当拖拽被取消时触发的信号。
+	///     当拖拽被取消时触发的信号。
 	/// </summary>
 	/// <param name="startingPosition">拖拽起始位置。</param>
 	[Signal]
-	public delegate void DragCanceledEventHandler(Vector2 startingPosition);
+    public delegate void DragCanceledEventHandler(Vector2 startingPosition);
 
 	/// <summary>
-	/// 当拖拽开始时触发的信号。
+	///     当拖拽开始时触发的信号。
 	/// </summary>
 	[Signal]
-	public delegate void DragStartedEventHandler();
+    public delegate void DragStartedEventHandler();
 
 	/// <summary>
-	/// 当拖拽结束并放置时触发的信号。
+	///     当拖拽结束并放置时触发的信号。
 	/// </summary>
 	/// <param name="startingPosition">拖拽起始位置。</param>
 	[Signal]
-	public delegate void DroppedEventHandler(Vector2 startingPosition);
+    public delegate void DroppedEventHandler(Vector2 startingPosition);
 
-	/// <summary>
-	/// 目标区域，通常是可交互的游戏对象（如单位或物品）所在的碰撞区域。
-	/// </summary>
-	public Area2D? Target { get; set; }
+    private Vector2 _offset = Vector2.Zero;
 
-	/// <summary>
-	/// 是否启用拖拽功能。若为 false，则忽略所有输入事件。
-	/// </summary>
-	public bool Enable { get; set; } = true;
-	
-	private Vector2 _startingPosition;
-	private Vector2 _offset = Vector2.Zero;
-	public bool IsDragging { get;private set; }
-	
-	/// <summary>
-	/// 节点准备就绪时的回调方法。
-	/// 在节点添加到场景树后调用，绑定目标区域的输入事件处理器。
-	/// </summary>
-	public override void _Ready()
-	{
-		Target = GetParent() as Area2D ?? throw new InvalidOperationException("Target must be an Area2D node.");
-		Target.InputEvent += OnTargetInputEvent;
-	}
+    private Vector2 _startingPosition;
 
-	/// <summary>
-	/// 处理输入事件的方法
-	/// </summary>
-	/// <param name="event">输入事件对象</param>
-	public override void _Input(InputEvent @event)
-	{
-		if (!IsDragging || Target is null)
-			return;
+    /// <summary>
+    ///     目标区域，通常是可交互的游戏对象（如单位或物品）所在的碰撞区域。
+    /// </summary>
+    public Area2D? Target { get; set; }
 
-		// 取消拖拽
-		if (@event.IsActionPressed(InputActionConstants.CancelDrag))
-		{
-			CancelDragging();
-			this.SetInputAsHandled();
-			return;
-		}
+    /// <summary>
+    ///     是否启用拖拽功能。若为 false，则忽略所有输入事件。
+    /// </summary>
+    public bool Enable { get; set; } = true;
 
-		// ⭐ 正确的 Drop 触发点
-		if (@event.IsActionReleased(InputActionConstants.Select))
-		{
-			Drop();
-			this.SetInputAsHandled();
-		}
-	}
+    public bool IsDragging { get; private set; }
+
+    /// <summary>
+    ///     节点准备就绪时的回调方法。
+    ///     在节点添加到场景树后调用，绑定目标区域的输入事件处理器。
+    /// </summary>
+    public override void _Ready()
+    {
+        Target = GetParent() as Area2D ?? throw new InvalidOperationException("Target must be an Area2D node.");
+        Target.InputEvent += OnTargetInputEvent;
+    }
+
+    /// <summary>
+    ///     处理输入事件的方法
+    /// </summary>
+    /// <param name="event">输入事件对象</param>
+    public override void _Input(InputEvent @event)
+    {
+        if (!IsDragging || Target is null)
+            return;
+
+        // 取消拖拽
+        if (@event.IsActionPressed(InputActionConstants.CancelDrag))
+        {
+            CancelDragging();
+            this.SetInputAsHandled();
+            return;
+        }
+
+        // ⭐ 正确的 Drop 触发点
+        if (@event.IsActionReleased(InputActionConstants.Select))
+        {
+            Drop();
+            this.SetInputAsHandled();
+        }
+    }
 
 
-	/// <summary>
-	/// 处理目标区域接收到的输入事件。
-	/// 根据当前是否处于拖拽状态以及用户操作决定执行开始、取消或完成拖拽的动作。
-	/// </summary>
-	/// <param name="viewport">接收输入事件的视图端口节点。</param>
-	/// <param name="event">发生的输入事件。</param>
-	/// <param name="_">事件索引（未使用）。</param>
-	private void OnTargetInputEvent(Node viewport, InputEvent @event, long _)
-	{
-		if (!Enable)
-		{
-			return;
-		}
-		// 获取当前正在拖拽的对象
-		var draggingObj = GetTree().GetFirstNodeInGroup(GroupConstants.Dragging);
-		switch (IsDragging)
-		{
-			// 如果当前没有拖拽操作且已有其他对象正在拖拽，则直接返回
-			case false when draggingObj is not null:
-				return;
-			// 处理开始拖拽操作：当未在拖拽状态且按下选择按键时，开始拖拽
-			case false when @event.IsActionPressed(InputActionConstants.Select):
-				StartDragging();
-				break;
-		}
-	}
+    /// <summary>
+    ///     处理目标区域接收到的输入事件。
+    ///     根据当前是否处于拖拽状态以及用户操作决定执行开始、取消或完成拖拽的动作。
+    /// </summary>
+    /// <param name="viewport">接收输入事件的视图端口节点。</param>
+    /// <param name="event">发生的输入事件。</param>
+    /// <param name="_">事件索引（未使用）。</param>
+    private void OnTargetInputEvent(Node viewport, InputEvent @event, long _)
+    {
+        if (!Enable) return;
+        // 获取当前正在拖拽的对象
+        var draggingObj = GetTree().GetFirstNodeInGroup(GroupConstants.Dragging);
+        switch (IsDragging)
+        {
+            // 如果当前没有拖拽操作且已有其他对象正在拖拽，则直接返回
+            case false when draggingObj is not null:
+                return;
+            // 处理开始拖拽操作：当未在拖拽状态且按下选择按键时，开始拖拽
+            case false when @event.IsActionPressed(InputActionConstants.Select):
+                StartDragging();
+                break;
+        }
+    }
 
-	/// <summary>
-	/// 每帧更新逻辑，在拖拽过程中持续更新目标的位置。
-	/// </summary>
-	/// <param name="delta">与上一帧的时间间隔（秒）。</param>
-	public override void _Process(double delta)
-	{
-		if (IsDragging && Target.IsValidNode())
-		{
-			Target!.GlobalPosition = Target.GetGlobalMousePosition() + _offset;
-		}
-	}
+    /// <summary>
+    ///     每帧更新逻辑，在拖拽过程中持续更新目标的位置。
+    /// </summary>
+    /// <param name="delta">与上一帧的时间间隔（秒）。</param>
+    public override void _Process(double delta)
+    {
+        if (IsDragging && Target.IsValidNode()) Target!.GlobalPosition = Target.GetGlobalMousePosition() + _offset;
+    }
 
-	/// <summary>
-	/// 结束拖拽流程的基础方法。
-	/// 清除拖拽标志位并将目标从拖拽组中移除，恢复其层级顺序。
-	/// </summary>
-	private void EndDragging()
-	{
-		IsDragging = false;
-		Target!.RemoveFromGroup(GroupConstants.Dragging);
-		Target!.ZIndex = ZIndexConstants.Zero;
-	}
-	
-	/// <summary>
-	/// 执行取消拖拽的操作。
-	/// 调用 EndDragging 并发出 DragCanceled 信号。
-	/// </summary>
-	private void CancelDragging()
-	{
-		EndDragging();
-		EmitSignalDragCanceled(_startingPosition);
-	}
-	
-	/// <summary>
-	/// 开始拖拽操作。
-	/// 设置初始位置和偏移量，将目标加入拖拽组并提升显示层级，最后发出 DragStarted 信号。
-	/// </summary>
-	private void StartDragging()
-	{
-		IsDragging = true;
-		_startingPosition = Target!.GlobalPosition;
-		Target.AddToGroup(GroupConstants.Dragging);
-		Target.ZIndex = ZIndexConstants.Max;
-		_offset = Target!.GlobalPosition - Target.GetGlobalMousePosition();
-		EmitSignalDragStarted();
-	}
+    /// <summary>
+    ///     结束拖拽流程的基础方法。
+    ///     清除拖拽标志位并将目标从拖拽组中移除，恢复其层级顺序。
+    /// </summary>
+    private void EndDragging()
+    {
+        IsDragging = false;
+        Target!.RemoveFromGroup(GroupConstants.Dragging);
+        Target!.ZIndex = ZIndexConstants.Zero;
+    }
 
-	/// <summary>
-	/// 完成一次拖拽操作。
-	/// 调用 EndDragging 方法并发出 Dropped 信号。
-	/// </summary>
-	private void Drop()
-	{
-		EndDragging();
-		EmitSignalDropped(_startingPosition);
-	}
+    /// <summary>
+    ///     执行取消拖拽的操作。
+    ///     调用 EndDragging 并发出 DragCanceled 信号。
+    /// </summary>
+    private void CancelDragging()
+    {
+        EndDragging();
+        EmitSignalDragCanceled(_startingPosition);
+    }
+
+    /// <summary>
+    ///     开始拖拽操作。
+    ///     设置初始位置和偏移量，将目标加入拖拽组并提升显示层级，最后发出 DragStarted 信号。
+    /// </summary>
+    private void StartDragging()
+    {
+        IsDragging = true;
+        _startingPosition = Target!.GlobalPosition;
+        Target.AddToGroup(GroupConstants.Dragging);
+        Target.ZIndex = ZIndexConstants.Max;
+        _offset = Target!.GlobalPosition - Target.GetGlobalMousePosition();
+        EmitSignalDragStarted();
+    }
+
+    /// <summary>
+    ///     完成一次拖拽操作。
+    ///     调用 EndDragging 方法并发出 Dropped 信号。
+    /// </summary>
+    private void Drop()
+    {
+        EndDragging();
+        EmitSignalDropped(_startingPosition);
+    }
 }

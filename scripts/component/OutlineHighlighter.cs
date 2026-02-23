@@ -12,8 +12,8 @@ public partial class OutlineHighlighter : Node, IController
     [Export(PropertyHint.Range, "1,10")] public int OutlineThickness { get; set; }
 
     /// <summary>
-    /// 节点准备就绪时的回调方法
-    /// 在节点添加到场景树后调用
+    ///     节点准备就绪时的回调方法
+    ///     在节点添加到场景树后调用
     /// </summary>
     public override void _Ready()
     {
@@ -21,10 +21,10 @@ public partial class OutlineHighlighter : Node, IController
     }
 
     /// <summary>
-    /// 清除高亮显示效果
+    ///     清除高亮显示效果
     /// </summary>
     /// <remarks>
-    /// 通过将着色器参数"line_thickness"设置为0来清除轮廓线效果
+    ///     通过将着色器参数"line_thickness"设置为0来清除轮廓线效果
     /// </remarks>
     public void ClearHighlight()
     {
@@ -32,14 +32,13 @@ public partial class OutlineHighlighter : Node, IController
     }
 
     /// <summary>
-    /// 应用高亮显示效果
+    ///     应用高亮显示效果
     /// </summary>
     /// <remarks>
-    /// 通过设置着色器参数"line_thickness"为指定的轮廓厚度来实现高亮效果
+    ///     通过设置着色器参数"line_thickness"为指定的轮廓厚度来实现高亮效果
     /// </remarks>
     public void Highlight()
     {
         (Visuals.Material as ShaderMaterial)?.SetShaderParameter("line_thickness", OutlineThickness);
     }
-    
 }
