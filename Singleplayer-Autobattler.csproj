@@ -1,18 +1,30 @@
 <Project Sdk="Godot.NET.Sdk/4.6.1">
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
+        <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net10.0</TargetFramework>
         <EnableDynamicLoading>true</EnableDynamicLoading>
         <RootNamespace>SingleplayerAutobattler</RootNamespace>
         <Nullable>enable</Nullable>
+        <LangVersion>preview</LangVersion>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="GeWuYou.GFramework" Version="0.0.193" />
         <PackageReference Include="GeWuYou.GFramework.Godot" Version="0.0.193" />
         <PackageReference Include="GeWuYou.GFramework.Godot.SourceGenerators" Version="0.0.193" />
         <PackageReference Include="GeWuYou.GFramework.SourceGenerators" Version="0.0.193" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+        <PackageReference Update="Meziantou.Analyzer" Version="3.0.15">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
+        <PackageReference Update="Meziantou.Polyfill" Version="1.0.101">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Riok.Mapperly" Version="4.3.1" />
+        <PackageReference Include="Mediator.SourceGenerator" Version="3.0.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
     <ItemGroup>
         <Compile Remove="script_templates\**" />
