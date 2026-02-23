@@ -2,6 +2,7 @@
 using GFramework.Game.Abstractions.data;
 using GFramework.Game.data;
 using GFramework.Game.serializer;
+using GFramework.Godot.data;
 using GFramework.Godot.scene;
 using GFramework.Godot.storage;
 using GFramework.Godot.ui;
@@ -41,5 +42,6 @@ public class UtilityModule : IArchitectureModule
         architecture.RegisterUtility(new SaveStorageUtility());
         // 注册单位映射器实用程序到架构中
         architecture.RegisterUtility(new UnitMapper());
+        architecture.RegisterUtility(new GodotResourceRepository<int, UnitDataResource>());
     }
 }

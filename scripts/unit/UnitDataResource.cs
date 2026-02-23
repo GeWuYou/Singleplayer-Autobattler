@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using GFramework.Core.Abstractions.bases;
+using Godot;
 using SingleplayerAutobattler.scripts.enums;
 using SingleplayerAutobattler.scripts.interfaces;
 
@@ -10,7 +11,7 @@ namespace SingleplayerAutobattler.scripts.unit;
 ///     实现了ILevel接口以支持等级相关功能。
 /// </summary>
 [GlobalClass]
-public partial class UnitDataResource : Resource, ILevel
+public partial class UnitDataResource : Resource, ILevel,IHasKey<int>
 {
     private int _level;
 
@@ -96,4 +97,6 @@ public partial class UnitDataResource : Resource, ILevel
     {
         return GoldCost * GetCombinedUnitCount();
     }
+
+    public int Key => Id;
 }
