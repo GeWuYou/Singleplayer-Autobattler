@@ -10,7 +10,7 @@
     <ItemGroup>
         <PackageReference Include="GeWuYou.GFramework" Version="0.0.196" />
         <PackageReference Include="GeWuYou.GFramework.Godot" Version="0.0.196" />
-        <PackageReference Include="GeWuYou.GFramework.Godot.SourceGenerators" Version="0.0.196" />
+        <PackageReference Include="GeWuYou.GFramework.Godot.SourceGenerators" Version="0.0.198" />
         <PackageReference Include="GeWuYou.GFramework.SourceGenerators" Version="0.0.196" />
         <PackageReference Update="Meziantou.Analyzer" Version="3.0.15">
             <PrivateAssets>all</PrivateAssets>
