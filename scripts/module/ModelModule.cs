@@ -1,4 +1,5 @@
 using SingleplayerAutobattler.scripts.setting;
+using SingleplayerAutobattler.scripts.unit;
 
 namespace SingleplayerAutobattler.scripts.module;
 
@@ -30,5 +31,6 @@ public class ModelModule : IArchitectureModule
                         .RegisterApplicator(new GodotLocalizationSettings(it, new LocalizationMap()));
                 })
         );
+        architecture.RegisterModel(new UnitModel());
     }
 }

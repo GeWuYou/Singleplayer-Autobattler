@@ -1,6 +1,7 @@
 using SingleplayerAutobattler.scripts.data;
 using SingleplayerAutobattler.scripts.utility;
 using Godot;
+using SingleplayerAutobattler.scripts.unit;
 
 namespace SingleplayerAutobattler.scripts.module;
 
@@ -31,5 +32,6 @@ public class UtilityModule : IArchitectureModule
                 AutoBackup = true
             }));
         architecture.RegisterUtility(new SaveStorageUtility());
+        architecture.RegisterUtility(new UnitMapper());
     }
 }
