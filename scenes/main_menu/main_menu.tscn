@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://4xqosh5cpa8o"]
 
 [ext_resource type="Script" uid="uid://dwnvfq0s5jvte" path="res://scripts/main_menu/MainMenu.cs" id="1_fsom3"]
-[ext_resource type="Theme" uid="uid://drg0lvsgoqfsc" path="res://resource/theme/project_theme.tres" id="2_0ebjn"]
+[ext_resource type="Theme" uid="uid://drg0lvsgoqfsc" path="res://assets/theme/project_theme.tres" id="2_0ebjn"]
 
 [node name="MainMenu" type="Control" unique_id=1093407812]
 layout_mode = 3
@@ -27,6 +27,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -12.0
+offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 2
