@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://fb017woaakjg"]
 
 [ext_resource type="Script" uid="uid://bwbcduk210ktc" path="res://scripts/tests/Home.cs" id="1_eymoy"]
-[ext_resource type="Texture2D" uid="uid://bu0itwdnswnw2" path="res://icon.png" id="2_p3574"]
+[ext_resource type="Texture2D" uid="uid://p5dak2wsc1nk" path="res://nooblogo.png" id="2_p3574"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_koa58"]
 

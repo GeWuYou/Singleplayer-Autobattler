@@ -1,5 +1,3 @@
-using Mediator;
-
 namespace SingleplayerAutobattler.scripts.cqrs.game.command;
 
 /// <summary>

@@ -1,7 +1,3 @@
-using GFramework.Core.Abstractions.controller;
-using GFramework.Godot.extensions;
-using GFramework.SourceGenerators.Abstractions.logging;
-using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using SingleplayerAutobattler.scripts.constants;
 
@@ -15,24 +11,24 @@ namespace SingleplayerAutobattler.scripts.component;
 [Log]
 public partial class DragDropComponent : Node, IController
 {
-	/// <summary>
-	///     当拖拽被取消时触发的信号。
-	/// </summary>
-	/// <param name="startingPosition">拖拽起始位置。</param>
-	[Signal]
+    /// <summary>
+    ///     当拖拽被取消时触发的信号。
+    /// </summary>
+    /// <param name="startingPosition">拖拽起始位置。</param>
+    [Signal]
     public delegate void DragCanceledEventHandler(Vector2 startingPosition);
 
-	/// <summary>
-	///     当拖拽开始时触发的信号。
-	/// </summary>
-	[Signal]
+    /// <summary>
+    ///     当拖拽开始时触发的信号。
+    /// </summary>
+    [Signal]
     public delegate void DragStartedEventHandler();
 
-	/// <summary>
-	///     当拖拽结束并放置时触发的信号。
-	/// </summary>
-	/// <param name="startingPosition">拖拽起始位置。</param>
-	[Signal]
+    /// <summary>
+    ///     当拖拽结束并放置时触发的信号。
+    /// </summary>
+    /// <param name="startingPosition">拖拽起始位置。</param>
+    [Signal]
     public delegate void DroppedEventHandler(Vector2 startingPosition);
 
     private Vector2 _offset = Vector2.Zero;

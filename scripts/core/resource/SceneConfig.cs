@@ -1,6 +1,5 @@
-﻿using GFramework.Core.Abstractions.bases;
+﻿using SingleplayerAutobattler.scripts.enums.scene;
 using Godot;
-using SingleplayerAutobattler.scripts.enums.scene;
 
 namespace SingleplayerAutobattler.scripts.core.resource;
 
@@ -15,7 +14,7 @@ public partial class SceneConfig : Resource, IKeyValue<string, PackedScene>
     /// </summary>
     [Export]
     public SceneKey SceneKey { get; private set; }
-    
+
     /// <summary>
     ///     获取或设置游戏场景的打包场景资源
     /// </summary>

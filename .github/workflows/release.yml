@@ -18,7 +18,7 @@ permissions:
 # 定义环境变量供后续步骤使用
 env:
   GODOT_VERSION: 4.6.1               # 指定使用的 Godot 版本
-  EXPORT_NAME: Singleplayer Autobattler   # 导出项目名称前缀
+  EXPORT_NAME: SingleplayerAutobattler   # 导出项目名称前缀
 
 # 工作流中的任务定义部分
 jobs:
@@ -90,7 +90,7 @@ jobs:
         run: |
           cd build/linux
           zip -r ../${{ env.EXPORT_NAME }}-linux.zip .
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: release-assets-windows-linux
           path: build/*.zip
@@ -158,7 +158,7 @@ jobs:
 
       # 上传压缩后的 macOS 构建产物
       - name: Upload macOS artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: release-assets-macos
           path: build/${{ env.EXPORT_NAME }}-macOS.zip
@@ -171,7 +171,7 @@ jobs:
     needs: [ export-windows-linux, export-macos ]
 
     steps:
-      - uses: actions/download-artifact@v7
+      - uses: actions/download-artifact@v8
         with:
           path: dist
 

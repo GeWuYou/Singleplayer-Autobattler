@@ -1,7 +1,3 @@
-using GFramework.Core.Abstractions.state;
-using GFramework.Core.state;
-using GFramework.Game.Abstractions.scene;
-using GFramework.Game.Abstractions.ui;
 using SingleplayerAutobattler.scripts.main_menu;
 
 namespace SingleplayerAutobattler.scripts.core.state.impls;
@@ -20,10 +16,10 @@ public class MainMenuState : AsyncContextAwareStateBase
     {
         // 回到主菜单需要销毁其它所有Ui界面以及场景
         var uiRouter = this.GetSystem<IUiRouter>()!;
-        await uiRouter.ClearAsync().ConfigureAwait(false);
-        await this.GetSystem<ISceneRouter>()!.ClearAsync().ConfigureAwait(false);
+        await uiRouter.ClearAsync().ConfigureAwait(true);
+        await this.GetSystem<ISceneRouter>()!.ClearAsync().ConfigureAwait(true);
         // 推送主菜单UI到界面栈中，显示主菜单界面
-        await uiRouter.PushAsync(MainMenu.UiKeyStr).ConfigureAwait(false);
+        await uiRouter.PushAsync(MainMenu.UiKeyStr).ConfigureAwait(true);
     }
 
     /// <summary>

@@ -1,5 +1,3 @@
-using GFramework.Core.Abstractions.controller;
-using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 
 namespace SingleplayerAutobattler.scripts.component;

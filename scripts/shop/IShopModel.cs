@@ -1,5 +1,4 @@
-﻿using GFramework.Core.Abstractions.model;
-using SingleplayerAutobattler.scripts.unit;
+﻿using SingleplayerAutobattler.scripts.unit;
 
 namespace SingleplayerAutobattler.scripts.shop;
 

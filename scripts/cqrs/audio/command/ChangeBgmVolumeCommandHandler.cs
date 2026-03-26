@@ -1,7 +1,3 @@
-using GFramework.Core.cqrs.command;
-using GFramework.Game.Abstractions.setting;
-using GFramework.Game.Abstractions.setting.data;
-using GFramework.Godot.setting;
 using Unit = Mediator.Unit;
 
 namespace SingleplayerAutobattler.scripts.cqrs.audio.command;
@@ -18,8 +14,7 @@ public class ChangeBgmVolumeCommandHandler : AbstractCommandHandler<ChangeBgmVol
     {
         var input = command.Input;
         (_model ??= this.GetModel<ISettingsModel>()!).GetData<AudioSettings>().BgmVolume = input.Volume;
-        await (_settingsSystem ??= this.GetSystem<ISettingsSystem>())!.Apply<GodotAudioSettings>()
-            .ConfigureAwait(false);
+        await (_settingsSystem ??= this.GetSystem<ISettingsSystem>())!.Apply<GodotAudioSettings>().ConfigureAwait(true);
         return Unit.Value;
     }
 }

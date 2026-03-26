@@ -1,4 +1,4 @@
-﻿using GFramework.Core.system;
+﻿using GFramework.Core.Systems;
 using SingleplayerAutobattler.scripts.player;
 
 namespace SingleplayerAutobattler.scripts.system.impl;

@@ -1,10 +1,7 @@
-﻿using System.Globalization;
-using GFramework.Core.Abstractions.storage;
-using GFramework.Core.utility;
-using GFramework.Game.storage;
-using Godot;
+using System.Globalization;
 using SingleplayerAutobattler.scripts.data.interfaces;
 using SingleplayerAutobattler.scripts.data.model;
+using Godot;
 
 namespace SingleplayerAutobattler.scripts.data;
 

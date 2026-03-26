@@ -1,5 +1,4 @@
-﻿using GFramework.Core.environment;
-using global::SingleplayerAutobattler.global;
+﻿using global::SingleplayerAutobattler.global;
 using SingleplayerAutobattler.scripts.constants;
 using SingleplayerAutobattler.scripts.player;
 

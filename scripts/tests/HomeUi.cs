@@ -1,17 +1,7 @@
-using GFramework.Core.Abstractions.controller;
-using GFramework.Core.Abstractions.coroutine;
-using GFramework.Game.Abstractions.enums;
-using GFramework.Game.Abstractions.scene;
-using GFramework.Game.Abstractions.ui;
-using GFramework.Godot.coroutine;
-using GFramework.Godot.ui;
-using GFramework.SourceGenerators.Abstractions.logging;
-using GFramework.SourceGenerators.Abstractions.rule;
-using global::SingleplayerAutobattler.global;
-using Godot;
 using SingleplayerAutobattler.scripts.core.ui;
 using SingleplayerAutobattler.scripts.enums.scene;
 using SingleplayerAutobattler.scripts.enums.ui;
+using Godot;
 
 namespace SingleplayerAutobattler.scripts.tests;
 
@@ -19,18 +9,17 @@ namespace SingleplayerAutobattler.scripts.tests;
 [Log]
 public partial class HomeUi : Control, IController, IUiPageBehaviorProvider, ISimpleUiPage
 {
+    [GetNode] private Button _homeButton = null!;
+
     /// <summary>
     ///     页面行为实例的私有字段
     /// </summary>
     private IUiPageBehavior? _page;
 
+    [GetNode] private Button _scene1Button = null!;
+    [GetNode] private Button _scene2Button = null!;
+
     private ISceneRouter _sceneRouter = null!;
-
-    private Button Scene1Button => GetNode<Button>("%Scene1Button");
-
-    private Button Scene2Button => GetNode<Button>("%Scene2Button");
-
-    private Button HomeUiButton => GetNode<Button>("%HomeButton");
 
     /// <summary>
     ///     Ui Key的字符串形式
@@ -61,16 +50,8 @@ public partial class HomeUi : Control, IController, IUiPageBehaviorProvider, ISi
     /// </summary>
     public override void _Ready()
     {
-        _ = ReadyAsync();
-    }
-
-    /// <summary>
-    ///     异步等待架构准备完成并获取UI路由器系统
-    /// </summary>
-    private async Task ReadyAsync()
-    {
+        __InjectGetNodes_Generated();
         Hide();
-        await GameEntryPoint.Architecture.WaitUntilReadyAsync().ConfigureAwait(false);
         _sceneRouter = this.GetSystem<ISceneRouter>()!;
 
         // 在此添加就绪逻辑
@@ -85,11 +66,11 @@ public partial class HomeUi : Control, IController, IUiPageBehaviorProvider, ISi
     /// </summary>
     private void SetupEventHandlers()
     {
-        var buttons = new[] { Scene1Button, Scene2Button, HomeUiButton };
+        var buttons = new[] { _scene1Button, _scene2Button, _homeButton };
 
-        Scene1Button.Pressed += () => SwitchScene(nameof(SceneKey.Scene1));
-        Scene2Button.Pressed += () => SwitchScene(nameof(SceneKey.Scene2));
-        HomeUiButton.Pressed += () => SwitchScene(nameof(SceneKey.Home));
+        _scene1Button.Pressed += () => SwitchScene(nameof(SceneKey.Scene1));
+        _scene2Button.Pressed += () => SwitchScene(nameof(SceneKey.Scene2));
+        _homeButton.Pressed += () => SwitchScene(nameof(SceneKey.Home));
         return;
 
         IEnumerator<IYieldInstruction> ReplaceScene(string key)

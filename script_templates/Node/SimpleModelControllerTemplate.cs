@@ -1,16 +1,18 @@
-﻿// meta-name: 简单模态UI控制器类模板
+// meta-name: 简单模态UI控制器类模板
 // meta-description: 负责管理UI页面场景的生命周期和架构关联
 using Godot;
-using GFramework.Core.Abstractions.controller;
-using GFramework.Core.extensions;
-using GFramework.Game.Abstractions.ui;
-using GFramework.Godot.ui;
-using GFramework.SourceGenerators.Abstractions.logging;
-using GFramework.SourceGenerators.Abstractions.rule;
-using GFrameworkGodotTemplate.global;
+using GFramework.Core.Abstractions.Controller;
+using GFramework.Core.Abstractions.Coroutine;
+using GFramework.Core.Extensions;
+using GFramework.Game.Abstractions.UI;
+using GFramework.Godot.Coroutine;
+using GFramework.Godot.UI;
+using GFramework.SourceGenerators.Abstractions.Logging;
+using GFramework.SourceGenerators.Abstractions.Rule;
+using SingleplayerAutobattler.scripts.constants;
 using SingleplayerAutobattler.scripts.core.ui;
 using SingleplayerAutobattler.scripts.enums.ui;
-using GameEntryPoint = SingleplayerAutobattler.global.GameEntryPoint;
+using SingleplayerAutobattler.global;
 
 
 [ContextAware]
@@ -57,16 +59,16 @@ public partial class _CLASS_ :_BASE_,IController,IUiPageBehaviorProvider,ISimple
     /// </summary>
     public override void _Ready()
     {
-        _ = ReadyAsync();
+        InitCoroutine().RunCoroutine();
     }
     /// <summary>
-    /// 异步等待架构准备完成并获取UI路由器系统
+    /// 初始化协程
     /// </summary>
-    private async Task ReadyAsync()
+    private IEnumerator<IYieldInstruction> InitCoroutine()
     {
-        await GameEntryPoint.Architecture.WaitUntilReadyAsync().ConfigureAwait(false);
+        yield return GameEntryPoint.Architecture.WaitUntilReadyAsync().AsCoroutineInstruction();
         _uiRouter = this.GetSystem<IUiRouter>()!;
-        
+
         // 在此添加就绪逻辑
         SetupEventHandlers();
         // 这个需要延迟调用，因为UiRoot还没有添加到场景树中

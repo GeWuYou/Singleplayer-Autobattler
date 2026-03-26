@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2026 GeWuYou
+// Copyright (c) 2026 GeWuYou
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -11,9 +11,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using GFramework.Core.Abstractions.state;
-using GFramework.Core.state;
-using GFramework.Game.Abstractions.scene;
 using SingleplayerAutobattler.scripts.enums.scene;
 
 namespace SingleplayerAutobattler.scripts.core.state.impls;
@@ -26,6 +23,6 @@ public class BootStartState : AsyncContextAwareStateBase
 {
     public override async Task OnEnterAsync(IState? from)
     {
-        await this.GetSystem<ISceneRouter>()!.ReplaceAsync(nameof(SceneKey.Boot)).ConfigureAwait(false);
+        await this.GetSystem<ISceneRouter>()!.ReplaceAsync(nameof(SceneKey.Boot)).ConfigureAwait(true);
     }
 }

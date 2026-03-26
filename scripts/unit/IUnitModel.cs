@@ -1,4 +1,4 @@
-﻿using GFramework.Core.Abstractions.model;
+﻿using GFramework.Core.Abstractions.Model;
 using Godot;
 
 namespace SingleplayerAutobattler.scripts.unit;

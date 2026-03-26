@@ -1,6 +1,4 @@
-﻿using GFramework.SourceGenerators.Abstractions.enums;
-
-namespace SingleplayerAutobattler.scripts.enums;
+﻿namespace SingleplayerAutobattler.scripts.enums;
 
 /// <summary>
 ///     单位稀有度枚举，定义了游戏中单位的不同稀有度等级

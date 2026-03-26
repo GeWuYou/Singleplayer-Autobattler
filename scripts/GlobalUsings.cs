@@ -19,13 +19,12 @@ global using System.Linq;
 global using System.Threading;
 global using System.Threading.Tasks;
 
-// 全局导入LanguageExt函数式编程库的核心组件，包括通用类型、效果系统和预定义函数
-global using LanguageExt;
-global using LanguageExt.Common;
-global using LanguageExt.Effects;
-global using LanguageExt.Pretty;
-global using static LanguageExt.Prelude;
-
 // 全局导入GFramework
-global using GFramework.Core.extensions;
-global using GFramework.Core.coroutine.extensions;
+global using SingleplayerAutobattler.scripts.constants;
+global using SingleplayerAutobattler.scripts.core.audio.system;
+global using SingleplayerAutobattler.scripts.enums.audio;
+global using GFramework.Godot.SourceGenerators.Abstractions;
+global using ICommand = Mediator.ICommand;
+global using GFramework.SourceGenerators.Abstractions.Enums;
+global using GFramework.SourceGenerators.Abstractions.Logging;
+global using GFramework.SourceGenerators.Abstractions.Rule;

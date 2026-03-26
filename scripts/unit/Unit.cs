@@ -1,6 +1,3 @@
-using GFramework.Core.Abstractions.controller;
-using GFramework.Godot.extensions;
-using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using SingleplayerAutobattler.scripts.component;
 using SingleplayerAutobattler.scripts.constants;
@@ -124,7 +121,7 @@ public partial class Unit : Area2D, IController
         if (unitDataResource is null) return;
 
         // 等待资源准备就绪
-        await this.WaitUntilReady();
+        await this.WaitUntilReadyAsync().ConfigureAwait(false);
 
         // 根据单位数据资源中的皮肤坐标更新皮肤区域的位置
         Skin!.RegionRect = Skin.RegionRect with

@@ -1,6 +1,4 @@
-﻿using GFramework.Game.Abstractions.scene;
-
-namespace SingleplayerAutobattler.scripts.core.scene;
+﻿namespace SingleplayerAutobattler.scripts.core.scene;
 
 /// <summary>
 ///     简单场景接口

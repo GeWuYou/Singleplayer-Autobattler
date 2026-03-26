@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://4xqosh5cpa8o"]
 
 [ext_resource type="Script" uid="uid://dwnvfq0s5jvte" path="res://scripts/main_menu/MainMenu.cs" id="1_fsom3"]
-[ext_resource type="Theme" path="res://assets/theme/project_theme.tres" id="2_0ebjn"]
+[ext_resource type="Theme" uid="uid://drg0lvsgoqfsc" path="res://resource/theme/project_theme.tres" id="2_0ebjn"]
 
 [node name="MainMenu" type="Control" unique_id=1093407812]
 layout_mode = 3
@@ -51,7 +51,7 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "新游戏"
 
-[node name="CotinueGameButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer" unique_id=1609470666]
+[node name="ContinueGameButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer" unique_id=1609470666]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2

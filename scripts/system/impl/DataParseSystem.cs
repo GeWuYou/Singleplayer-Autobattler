@@ -1,6 +1,4 @@
-﻿using GFramework.Core.system;
-
-namespace SingleplayerAutobattler.scripts.system.impl;
+﻿namespace SingleplayerAutobattler.scripts.system.impl;
 
 public class DataParseSystem : AbstractSystem, IDataParseSystem
 {

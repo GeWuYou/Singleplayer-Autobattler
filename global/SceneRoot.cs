@@ -1,10 +1,5 @@
-using GFramework.Game.Abstractions.scene;
-using GFramework.Godot.coroutine;
-using GFramework.Godot.extensions;
-using GFramework.SourceGenerators.Abstractions.logging;
-using GFramework.SourceGenerators.Abstractions.rule;
-using Godot;
 using SingleplayerAutobattler.scripts.cqrs.scene.events;
+using Godot;
 
 namespace SingleplayerAutobattler.global;
 
@@ -62,7 +57,7 @@ public partial class SceneRoot : Node2D, ISceneRoot
     /// <param name="scene">要移除的场景行为对象</param>
     public void RemoveScene(ISceneBehavior scene)
     {
-        if (scene.Original is not Node node)
+        if (scene.Original is not Node node || node.IsInvalidNode())
             return;
 
         node.GetParent()?.RemoveChild(node);

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2026 GeWuYou
+// Copyright (c) 2026 GeWuYou
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -11,10 +11,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using GFramework.Core.cqrs.command;
-using GFramework.Game.Abstractions.setting;
-using GFramework.Game.Abstractions.setting.data;
-using GFramework.Godot.setting;
 using Unit = Mediator.Unit;
 
 namespace SingleplayerAutobattler.scripts.cqrs.graphics.command;
@@ -39,8 +35,8 @@ public class ToggleFullscreenCommandHandler : AbstractCommandHandler<ToggleFulls
         (_model ??= this.GetModel<ISettingsModel>()!).GetData<GraphicsSettings>().Fullscreen = command.Input.Fullscreen;
 
         // 应用图形设置更改到Godot引擎
-        await this.GetSystem<ISettingsSystem>()!.Apply<GodotGraphicsSettings>().ConfigureAwait(false);
+        await this.GetSystem<ISettingsSystem>()!.Apply<GodotGraphicsSettings>().ConfigureAwait(true);
 
-        return await ValueTask.FromResult(Unit.Value).ConfigureAwait(false);
+        return await ValueTask.FromResult(Unit.Value).ConfigureAwait(true);
     }
 }

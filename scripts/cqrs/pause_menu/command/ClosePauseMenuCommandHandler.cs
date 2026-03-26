@@ -1,6 +1,3 @@
-using GFramework.Core.cqrs.command;
-using GFramework.Game.Abstractions.enums;
-using GFramework.Game.Abstractions.ui;
 using Unit = Mediator.Unit;
 
 namespace SingleplayerAutobattler.scripts.cqrs.pause_menu.command;

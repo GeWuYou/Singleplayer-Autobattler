@@ -1,4 +1,3 @@
-using GFramework.Core.cqrs.command;
 using SingleplayerAutobattler.scripts.cqrs.audio.command.input;
 using Unit = Mediator.Unit;
 

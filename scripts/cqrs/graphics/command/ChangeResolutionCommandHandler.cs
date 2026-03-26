@@ -1,7 +1,3 @@
-using GFramework.Core.cqrs.command;
-using GFramework.Game.Abstractions.setting;
-using GFramework.Game.Abstractions.setting.data;
-using GFramework.Godot.setting;
 using Unit = Mediator.Unit;
 
 namespace SingleplayerAutobattler.scripts.cqrs.graphics.command;
@@ -21,7 +17,7 @@ public class ChangeResolutionCommandHandler : AbstractCommandHandler<ChangeResol
         settings.ResolutionWidth = input.Width;
         settings.ResolutionHeight = input.Height;
         await (_settingsSystem ??= this.GetSystem<ISettingsSystem>())!.Apply<GodotGraphicsSettings>()
-            .ConfigureAwait(false);
+            .ConfigureAwait(true);
         return Unit.Value;
     }
 }

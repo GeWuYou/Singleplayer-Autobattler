@@ -1,13 +1,9 @@
-using GFramework.Core.Abstractions.state;
-using GFramework.Game.Abstractions.ui;
-using GFramework.SourceGenerators.Abstractions.logging;
-using GFramework.SourceGenerators.Abstractions.rule;
-using Godot;
+using SingleplayerAutobattler.scripts.core.controller;
 using SingleplayerAutobattler.scripts.core.state.impls;
 using SingleplayerAutobattler.scripts.cqrs.game.command;
 using SingleplayerAutobattler.scripts.cqrs.pause_menu.command.input;
 using SingleplayerAutobattler.scripts.enums;
-using GameInputController = SingleplayerAutobattler.scripts.core.controller.GameInputController;
+using Godot;
 
 namespace SingleplayerAutobattler.global;
 

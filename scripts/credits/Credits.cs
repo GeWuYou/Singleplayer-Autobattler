@@ -1,15 +1,6 @@
-using GFramework.Core.Abstractions.controller;
-using GFramework.Game.Abstractions.enums;
-using GFramework.Game.Abstractions.ui;
-using GFramework.Godot.coroutine;
-using GFramework.Godot.ui;
-using GFramework.SourceGenerators.Abstractions.logging;
-using GFramework.SourceGenerators.Abstractions.rule;
-using global::SingleplayerAutobattler.global;
-using Godot;
-using SingleplayerAutobattler.scripts.constants;
 using SingleplayerAutobattler.scripts.core.ui;
 using SingleplayerAutobattler.scripts.enums.ui;
+using Godot;
 
 namespace SingleplayerAutobattler.scripts.credits;
 
@@ -17,14 +8,14 @@ namespace SingleplayerAutobattler.scripts.credits;
 [Log]
 public partial class Credits : Control, IController, IUiPageBehaviorProvider, ISimpleUiPage
 {
+    [GetNode] private Button _backButton = null!;
+
     /// <summary>
     ///     页面行为实例的私有字段
     /// </summary>
     private IUiPageBehavior? _page;
 
     private IUiRouter _uiRouter = null!;
-
-    private Button BackButton => GetNode<Button>("%BackButton");
 
     /// <summary>
     ///     Ui Key的字符串形式
@@ -49,7 +40,7 @@ public partial class Credits : Control, IController, IUiPageBehaviorProvider, IS
         var env = this.GetEnvironment();
         // 开发环境下检查当前UI是否在路由栈顶，如果不在则将页面推入路由栈
         if (GameConstants.Development.Equals(env.Name, StringComparison.Ordinal) && !_uiRouter.IsTop(UiKeyStr))
-            await _uiRouter.PushAsync(GetPage()).ConfigureAwait(false);
+            await _uiRouter.PushAsync(GetPage()).ConfigureAwait(true);
         // 在此添加延迟初始化逻辑
     }
 
@@ -59,26 +50,27 @@ public partial class Credits : Control, IController, IUiPageBehaviorProvider, IS
     /// </summary>
     public override void _Ready()
     {
-        _ = ReadyAsync();
+        __InjectGetNodes_Generated();
+        InitCoroutine().RunCoroutine();
     }
 
     /// <summary>
-    ///     异步等待架构准备完成并获取UI路由器系统
+    ///     初始化协程
     /// </summary>
-    private async Task ReadyAsync()
+    private IEnumerator<IYieldInstruction> InitCoroutine()
     {
-        await GameEntryPoint.Architecture.WaitUntilReadyAsync().ConfigureAwait(false);
         _uiRouter = this.GetSystem<IUiRouter>()!;
 
         // 在此添加就绪逻辑
         SetupEventHandlers();
+        yield return new WaitForNextFrame();
         // 这个需要延迟调用，因为UiRoot还没有添加到场景树中
-        CallDeferred(nameof(CallDeferredInit));
+        yield return CallDeferredInit().AsCoroutineInstruction();
     }
 
     private void SetupEventHandlers()
     {
-        BackButton.Pressed += OnBackButton;
+        _backButton.Pressed += OnBackButton;
     }
 
     private void OnBackButton()

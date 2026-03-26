@@ -1,7 +1,3 @@
-using GFramework.Core.Abstractions.controller;
-using GFramework.Godot.extensions.signal;
-using GFramework.SourceGenerators.Abstractions.logging;
-using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using SingleplayerAutobattler.scripts.command;
 using SingleplayerAutobattler.scripts.player;

@@ -1,14 +1,4 @@
-﻿using GFramework.Core.Abstractions.architecture;
-using GFramework.Core.functional.pipe;
-using GFramework.Game.Abstractions.data;
-using GFramework.Game.setting;
-using GFramework.Godot.setting;
-using GFramework.Godot.setting.data;
-using SingleplayerAutobattler.scripts.arena;
-using SingleplayerAutobattler.scripts.player;
 using SingleplayerAutobattler.scripts.setting;
-using SingleplayerAutobattler.scripts.shop;
-using SingleplayerAutobattler.scripts.unit;
 
 namespace SingleplayerAutobattler.scripts.module;
 
@@ -25,7 +15,7 @@ public class ModelModule : IArchitectureModule
     public void Install(IArchitecture architecture)
     {
         // 获取设置数据仓库的实例，用于后续模型的初始化
-        var settingsDataRepository = architecture.Context.GetUtility<ISettingsDataRepository>()!;
+        var settingsDataRepository = architecture.Context.GetUtility<ISettingsDataRepository>();
 
         // 注册设置模型，并配置其应用器（Applicator）
         architecture.RegisterModel(
@@ -40,11 +30,5 @@ public class ModelModule : IArchitectureModule
                         .RegisterApplicator(new GodotLocalizationSettings(it, new LocalizationMap()));
                 })
         );
-        // 注册竞技场模型
-        architecture.RegisterModel(new ArenaModel());
-        // 注册单位模型
-        architecture.RegisterModel(new UnitModel());
-        architecture.RegisterModel(new ShopModel());
-        architecture.RegisterModel(new PlayerModel());
     }
 }

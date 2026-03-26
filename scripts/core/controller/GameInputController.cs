@@ -1,7 +1,5 @@
-﻿using GFramework.Core.Abstractions.controller;
-using GFramework.SourceGenerators.Abstractions.logging;
+﻿using SingleplayerAutobattler.scripts.enums;
 using Godot;
-using SingleplayerAutobattler.scripts.enums;
 
 namespace SingleplayerAutobattler.scripts.core.controller;
 

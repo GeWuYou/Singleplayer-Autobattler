@@ -1,6 +1,4 @@
-﻿using GFramework.Game.Abstractions.ui;
-
-namespace SingleplayerAutobattler.scripts.core.ui;
+﻿namespace SingleplayerAutobattler.scripts.core.ui;
 
 /// <summary>
 ///     简单UI页面接口，继承自IUiPage接口

@@ -15,28 +15,36 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Singleplayer-Autobattler"
-run/main_scene="uid://naa3v2e72cwb"
+config/tags=PackedStringArray("gamelab")
+run/main_scene="uid://6s2urcdmkpbt"
 config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
 config/icon="uid://bu0itwdnswnw2"
+config/save/setting_path="user://"
+config/save/save_path="user://saves"
+config/save/save_slot_prefix="slot_"
+config/save/save_file_name="save.json"
+
+[audio]
+
+buses/default_bus_layout="res://resource/project_bus_layout.tres"
 
 [autoload]
 
 DevBindingManager="*res://global/dev_binding_manager.tscn"
 GameEntryPoint="*res://global/game_entry_point.tscn"
-AudioManager="*uid://h32sfgimf5hg"
-GlobalInputController="*uid://bbre52flpko63"
 SceneRoot="*uid://bxquqjahyr8v2"
+UiRoot="*res://global/ui_root.tscn"
+GlobalInputController="*res://global/GlobalInputController.cs"
+AudioManager="*res://global/audio_manager.tscn"
 SceneTransitionManager="*uid://c5sxf7tcun6yq"
-UiRoot="*uid://co48cv84ly37p"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=360
-window/size/window_width_override=1280
-window/size/window_height_override=720
-window/stretch/mode="viewport"
-window/stretch/scale_mode="integer"
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/window_width_override=1920
+window/size/window_height_override=1080
+window/stretch/mode="canvas_items"
 
 [dotnet]
 
@@ -45,37 +53,17 @@ project/assembly_name="Singleplayer-Autobattler"
 [file_customization]
 
 folder_colors={
-"res://global/": "red",
-"res://resource/": "orange",
-"res://scenes/": "yellow",
-"res://script/": "red",
-"res://script_templates/": "green",
-"res://scripts/": "blue"
+"res://assets/": "red",
+"res://global/": "orange",
+"res://resource/": "yellow",
+"res://scenes/": "green",
+"res://script_templates/": "blue",
+"res://scripts/": "teal"
 }
 
 [gui]
 
-theme/default_font_multichannel_signed_distance_field=true
-theme/custom="uid://dfwyixi7xkn7k"
-
-[input]
-
-select={
-"deadzone": 0.2,
-"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
-]
-}
-cancel_drag={
-"deadzone": 0.2,
-"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"canceled":false,"pressed":false,"double_click":false,"script":null)
-, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
-]
-}
-quick_sell={
-"deadzone": 0.2,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":115,"location":0,"echo":false,"script":null)
-]
-}
+theme/custom="uid://drg0lvsgoqfsc"
 
 [rendering]
 
@@ -83,4 +71,3 @@ textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
-2d/snap/snap_2d_transforms_to_pixel=true

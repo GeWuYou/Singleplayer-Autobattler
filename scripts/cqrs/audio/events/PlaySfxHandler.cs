@@ -11,9 +11,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using GFramework.Core.cqrs.notification;
-using SingleplayerAutobattler.scripts.core.audio.system;
-
 namespace SingleplayerAutobattler.scripts.cqrs.audio.events;
 
 /// <summary>

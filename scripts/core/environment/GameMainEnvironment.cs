@@ -1,7 +1,4 @@
-﻿using GFramework.Core.environment;
-using SingleplayerAutobattler.scripts.constants;
-
-namespace SingleplayerAutobattler.scripts.core.environment;
+﻿namespace SingleplayerAutobattler.scripts.core.environment;
 
 /// <summary>
 ///     游戏主环境类，继承自EnvironmentBase

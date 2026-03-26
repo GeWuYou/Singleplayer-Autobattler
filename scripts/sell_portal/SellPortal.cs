@@ -1,13 +1,9 @@
-using GFramework.Core.Abstractions.controller;
-using GFramework.Godot.extensions;
-using GFramework.Godot.extensions.signal;
-using GFramework.SourceGenerators.Abstractions.logging;
-using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using SingleplayerAutobattler.scripts.component;
 using SingleplayerAutobattler.scripts.constants;
 using SingleplayerAutobattler.scripts.player;
 using Unit = SingleplayerAutobattler.scripts.unit.Unit;
+
 namespace SingleplayerAutobattler.scripts.sell_portal;
 
 /// <summary>

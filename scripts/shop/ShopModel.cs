@@ -1,5 +1,4 @@
-﻿using GFramework.Core.model;
-using SingleplayerAutobattler.scripts.unit;
+﻿using SingleplayerAutobattler.scripts.unit;
 
 namespace SingleplayerAutobattler.scripts.shop;
 
@@ -11,7 +10,7 @@ public class ShopModel : AbstractModel, IShopModel
     /// <summary>
     ///     存储已购买单位数据资源的哈希集合
     /// </summary>
-    private readonly System.Collections.Generic.HashSet<UnitDataResource> _bought = [];
+    private readonly HashSet<UnitDataResource> _bought = [];
 
     /// <summary>
     ///     检查指定单位是否已被购买

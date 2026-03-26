@@ -1,5 +1,4 @@
-﻿using GFramework.Core.model;
-using Godot;
+﻿using Godot;
 
 namespace SingleplayerAutobattler.scripts.unit;
 

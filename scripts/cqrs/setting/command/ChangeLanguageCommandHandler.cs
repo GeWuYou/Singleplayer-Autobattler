@@ -1,7 +1,3 @@
-using GFramework.Core.cqrs.command;
-using GFramework.Game.Abstractions.setting;
-using GFramework.Game.Abstractions.setting.data;
-using GFramework.Godot.setting;
 using Unit = Mediator.Unit;
 
 namespace SingleplayerAutobattler.scripts.cqrs.setting.command;
@@ -20,7 +16,7 @@ public class ChangeLanguageCommandHandler : AbstractCommandHandler<ChangeLanguag
         var settings = (_model ??= this.GetModel<ISettingsModel>()!).GetData<LocalizationSettings>();
         settings.Language = input.Language;
         await (_settingsSystem ??= this.GetSystem<ISettingsSystem>())!.Apply<GodotLocalizationSettings>()
-            .ConfigureAwait(false);
+            .ConfigureAwait(true);
         return Unit.Value;
     }
 }

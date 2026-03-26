@@ -12,7 +12,6 @@
 // limitations under the License.
 
 using Mediator;
-using SingleplayerAutobattler.scripts.enums.audio;
 
 namespace SingleplayerAutobattler.scripts.cqrs.audio.events;
 

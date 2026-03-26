@@ -1,4 +1,4 @@
-﻿using GFramework.Core.Abstractions.bases;
+﻿using GFramework.Core.Abstractions.Bases;
 using Godot;
 using SingleplayerAutobattler.scripts.enums;
 using SingleplayerAutobattler.scripts.interfaces;
@@ -11,7 +11,7 @@ namespace SingleplayerAutobattler.scripts.unit;
 ///     实现了ILevel接口以支持等级相关功能。
 /// </summary>
 [GlobalClass]
-public partial class UnitDataResource : Resource, ILevel,IHasKey<int>
+public partial class UnitDataResource : Resource, ILevel, IHasKey<int>
 {
     private int _level;
 
@@ -56,6 +56,8 @@ public partial class UnitDataResource : Resource, ILevel,IHasKey<int>
     [ExportCategory("视觉")]
     public Vector2I SkinCoordinates { get; set; }
 
+    public int Key => Id;
+
     /// <summary>
     ///     获取或设置当前等级值。取值范围为1到3。
     ///     设置时会触发资源变更通知。
@@ -97,6 +99,4 @@ public partial class UnitDataResource : Resource, ILevel,IHasKey<int>
     {
         return GoldCost * GetCombinedUnitCount();
     }
-
-    public int Key => Id;
 }

@@ -1,5 +1,3 @@
-using GFramework.Core.Abstractions.cqrs.command;
-
 namespace SingleplayerAutobattler.scripts.cqrs.audio.command.input;
 
 /// <summary>

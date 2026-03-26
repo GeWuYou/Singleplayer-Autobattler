@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b3oc5caltregr"]
 
 [ext_resource type="Script" uid="uid://046djw8e6h4c" path="res://scripts/credits/Credits.cs" id="1_8n0nl"]
-[ext_resource type="Theme" path="res://assets/theme/project_theme.tres" id="1_dr3ri"]
+[ext_resource type="Theme" uid="uid://drg0lvsgoqfsc" path="res://resource/theme/project_theme.tres" id="1_dr3ri"]
 
 [node name="Credits" type="Control" unique_id=1555193164]
 layout_mode = 3

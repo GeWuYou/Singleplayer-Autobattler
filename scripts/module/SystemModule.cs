@@ -1,10 +1,5 @@
-﻿using GFramework.Core.Abstractions.architecture;
-using GFramework.Game.setting;
-using SingleplayerAutobattler.scripts.core.audio.system;
 using SingleplayerAutobattler.scripts.core.scene;
 using SingleplayerAutobattler.scripts.core.ui;
-using SingleplayerAutobattler.scripts.system;
-using SingleplayerAutobattler.scripts.system.impl;
 
 namespace SingleplayerAutobattler.scripts.module;
 
@@ -23,9 +18,5 @@ public class SystemModule : IArchitectureModule
         architecture.RegisterSystem(new SceneRouter());
         architecture.RegisterSystem(new SettingsSystem());
         architecture.RegisterSystem(new GodotAudioSystem());
-        // 注册数据解析系统
-        architecture.RegisterSystem(new DataParseSystem());
-        architecture.RegisterSystem<IShopSystem>(new ShopSystem());
-        architecture.RegisterSystem(new RerollSystem());
     }
 }

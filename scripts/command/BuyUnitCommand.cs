@@ -1,6 +1,5 @@
-﻿using GFramework.Core.Abstractions.cqrs.command;
-using GFramework.Core.command;
-using GFramework.SourceGenerators.Abstractions.logging;
+﻿using GFramework.Core.Abstractions.Cqrs.Command;
+using GFramework.Core.Command;
 using SingleplayerAutobattler.scripts.player;
 using SingleplayerAutobattler.scripts.shop;
 using SingleplayerAutobattler.scripts.system;

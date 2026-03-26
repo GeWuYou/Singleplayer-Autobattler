@@ -1,5 +1,3 @@
-using GFramework.Core.state;
-
 namespace SingleplayerAutobattler.scripts.core.state.impls;
 
 /// <summary>

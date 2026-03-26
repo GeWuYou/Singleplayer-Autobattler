@@ -1,15 +1,6 @@
-﻿using GFramework.Core.Abstractions.architecture;
-using GFramework.Game.Abstractions.data;
-using GFramework.Game.data;
-using GFramework.Game.serializer;
-using GFramework.Godot.data;
-using GFramework.Godot.scene;
-using GFramework.Godot.storage;
-using GFramework.Godot.ui;
-using Godot;
 using SingleplayerAutobattler.scripts.data;
-using SingleplayerAutobattler.scripts.unit;
 using SingleplayerAutobattler.scripts.utility;
+using Godot;
 
 namespace SingleplayerAutobattler.scripts.module;
 
@@ -40,8 +31,5 @@ public class UtilityModule : IArchitectureModule
                 AutoBackup = true
             }));
         architecture.RegisterUtility(new SaveStorageUtility());
-        // 注册单位映射器实用程序到架构中
-        architecture.RegisterUtility(new UnitMapper());
-        architecture.RegisterUtility(new GodotResourceRepository<int, UnitDataResource>());
     }
 }

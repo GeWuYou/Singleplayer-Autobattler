@@ -1,18 +1,3 @@
-using GFramework.Core.Abstractions.architecture;
-using GFramework.Core.Abstractions.logging;
-using GFramework.Core.Abstractions.properties;
-using GFramework.Core.Abstractions.state;
-using GFramework.Core.architecture;
-using GFramework.Game.Abstractions.setting;
-using GFramework.Game.setting.events;
-using GFramework.Godot.coroutine;
-using GFramework.Godot.logging;
-using GFramework.Godot.scene;
-using GFramework.Godot.ui;
-using GFramework.SourceGenerators.Abstractions.logging;
-using GFramework.SourceGenerators.Abstractions.rule;
-using Godot;
-using Godot.Collections;
 using SingleplayerAutobattler.scripts.core;
 using SingleplayerAutobattler.scripts.core.environment;
 using SingleplayerAutobattler.scripts.core.resource;
@@ -20,6 +5,8 @@ using SingleplayerAutobattler.scripts.core.state.impls;
 using SingleplayerAutobattler.scripts.cqrs.setting.command;
 using SingleplayerAutobattler.scripts.enums.scene;
 using SingleplayerAutobattler.scripts.utility;
+using Godot;
+using Godot.Collections;
 
 namespace SingleplayerAutobattler.global;
 
@@ -87,6 +74,7 @@ public partial class GameEntryPoint : Node
         _textureRegistry = this.GetUtility<IGodotTextureRegistry>()!;
         // 注册所有游戏场景配置到场景注册表中
         foreach (var gameSceneConfig in GameSceneConfigs) _sceneRegistry.Registry(gameSceneConfig);
+        _sceneRegistry.Registry(nameof(SceneKey.Arena), GD.Load<PackedScene>("res://scenes/arena/arena.tscn"));
 
         // 注册所有UI页面配置到UI注册表中
         foreach (var uiPageConfig in UiPageConfigs) _uiRegistry.Registry(uiPageConfig);

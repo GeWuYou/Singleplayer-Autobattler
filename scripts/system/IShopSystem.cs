@@ -1,5 +1,4 @@
-﻿using GFramework.Core.Abstractions.system;
-using SingleplayerAutobattler.scripts.player;
+﻿using SingleplayerAutobattler.scripts.player;
 using SingleplayerAutobattler.scripts.unit;
 
 namespace SingleplayerAutobattler.scripts.system;

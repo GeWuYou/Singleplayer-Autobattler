@@ -11,13 +11,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using GFramework.Core.Abstractions.coroutine;
-using GFramework.Game.Abstractions.scene;
-using GFramework.Godot.coroutine;
-using GFramework.SourceGenerators.Abstractions.logging;
+using SingleplayerAutobattler.scripts.enums.scene;
 using global::SingleplayerAutobattler.global;
 using Godot;
-using SingleplayerAutobattler.scripts.enums.scene;
 
 namespace SingleplayerAutobattler.scripts.core.scene;
 
@@ -59,7 +55,7 @@ public partial class SceneTransitionAnimationHandler(
         if (string.IsNullOrEmpty(toSceneKey))
         {
             _log.Debug("No target scene key, skip transition.");
-            await next().ConfigureAwait(false);
+            await next().ConfigureAwait(true);
             return;
         }
 

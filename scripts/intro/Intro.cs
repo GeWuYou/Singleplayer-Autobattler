@@ -1,16 +1,7 @@
-using GFramework.Core.Abstractions.controller;
-using GFramework.Core.Abstractions.coroutine;
-using GFramework.Core.Abstractions.environment;
-using GFramework.Core.Abstractions.state;
-using GFramework.Core.coroutine.instructions;
-using GFramework.Godot.coroutine;
-using GFramework.SourceGenerators.Abstractions.logging;
-using GFramework.SourceGenerators.Abstractions.rule;
-using Godot;
-using SingleplayerAutobattler.scripts.constants;
 using SingleplayerAutobattler.scripts.core.state.impls;
 using SingleplayerAutobattler.scripts.enums.resources;
 using SingleplayerAutobattler.scripts.utility;
+using Godot;
 
 namespace SingleplayerAutobattler.scripts.intro;
 
@@ -18,9 +9,11 @@ namespace SingleplayerAutobattler.scripts.intro;
 [Log]
 public partial class Intro : Node2D, IController
 {
+    [GetNode] private AnimationPlayer _animationPlayer = null!;
+
+    [GetNode] private Sprite2D _sprite = null!;
+
     private IGodotTextureRegistry _textureRegistry = null!;
-    private AnimationPlayer AnimationPlayer => GetNode<AnimationPlayer>("%AnimationPlayer");
-    private Sprite2D Sprite => GetNode<Sprite2D>("%Sprite");
 
     /// <summary>
     ///     节点准备就绪时的回调方法
@@ -28,6 +21,7 @@ public partial class Intro : Node2D, IController
     /// </summary>
     public override void _Ready()
     {
+        __InjectGetNodes_Generated();
         _textureRegistry = this.GetUtility<IGodotTextureRegistry>()!;
         // 延迟调用 Run 方法，确保在当前帧结束后执行
         CallDeferred(nameof(Run));
@@ -52,21 +46,21 @@ public partial class Intro : Node2D, IController
         if (!GameConstants.Development.Equals(this.GetEnvironment<IEnvironment>()?.Name, StringComparison.Ordinal))
         {
             // 播放淡入动画
-            AnimationPlayer.Play("fade_in");
+            _animationPlayer.Play("fade_in");
             yield return new Delay(3);
 
             // 播放淡出动画
-            AnimationPlayer.Play("fade_out");
+            _animationPlayer.Play("fade_out");
             yield return new Delay(3);
-            Sprite.Texture = _textureRegistry.Get(nameof(TextureKey.GodotStart)) as Texture2D;
-            Sprite.Scale = new Vector2(1f, 1f);
+            _sprite.Texture = _textureRegistry.Get(nameof(TextureKey.GodotStart)) as Texture2D;
+            _sprite.Scale = new Vector2(1f, 1f);
             yield return new Delay(0.1);
             // 再次播放淡入动画
-            AnimationPlayer.Play("fade_in");
+            _animationPlayer.Play("fade_in");
             yield return new Delay(3);
 
             // 最后播放淡出动画
-            AnimationPlayer.Play("fade_out");
+            _animationPlayer.Play("fade_out");
             yield return new Delay(3);
         }
 

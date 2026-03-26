@@ -1,9 +1,8 @@
-using GFramework.Core.Abstractions.controller;
-using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using Godot.Collections;
 using SingleplayerAutobattler.scripts.constants;
 using Unit = SingleplayerAutobattler.scripts.unit.Unit;
+
 namespace SingleplayerAutobattler.scripts.component;
 
 /// <summary>

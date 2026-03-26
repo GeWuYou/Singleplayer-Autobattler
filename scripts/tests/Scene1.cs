@@ -11,14 +11,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using GFramework.Core.Abstractions.controller;
-using GFramework.Game.Abstractions.scene;
-using GFramework.Godot.scene;
-using GFramework.SourceGenerators.Abstractions.logging;
-using GFramework.SourceGenerators.Abstractions.rule;
-using Godot;
 using SingleplayerAutobattler.scripts.core.scene;
 using SingleplayerAutobattler.scripts.enums.scene;
+using Godot;
 
 namespace SingleplayerAutobattler.scripts.tests;
 

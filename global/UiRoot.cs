@@ -1,12 +1,5 @@
-using GFramework.Game.Abstractions.enums;
-using GFramework.Game.Abstractions.ui;
-using GFramework.Godot.coroutine;
-using GFramework.Godot.extensions;
-using GFramework.SourceGenerators.Abstractions.logging;
-using GFramework.SourceGenerators.Abstractions.rule;
-using Godot;
-using SingleplayerAutobattler.scripts.constants;
 using SingleplayerAutobattler.scripts.cqrs.global.events;
+using Godot;
 
 namespace SingleplayerAutobattler.global;
 
@@ -65,7 +58,7 @@ public partial class UiRoot : CanvasLayer, IUiRoot
     /// <param name="child">要移除的UI页面行为对象</param>
     public void RemoveUiPage(IUiPageBehavior child)
     {
-        if (child.View is not Node node)
+        if (child.View is not Node node || node.IsInvalidNode())
             return;
 
         node.GetParent()?.RemoveChild(node);

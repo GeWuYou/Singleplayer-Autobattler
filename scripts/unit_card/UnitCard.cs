@@ -1,8 +1,3 @@
-using GFramework.Core.Abstractions.controller;
-using GFramework.Godot.extensions;
-using GFramework.Godot.extensions.signal;
-using GFramework.SourceGenerators.Abstractions.logging;
-using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using SingleplayerAutobattler.scripts.command;
 using SingleplayerAutobattler.scripts.constants;
@@ -98,7 +93,7 @@ public partial class UnitCard : Button, IController
     /// <returns>异步任务</returns>
     private async Task SetUnitDataResource()
     {
-        await this.WaitUntilReady();
+        await this.WaitUntilReadyAsync().ConfigureAwait(false);
 
         // 检查单位数据资源是否为空，如果为空则显示占位符并禁用功能
         if (UnitDataResource is null)

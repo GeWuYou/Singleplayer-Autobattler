@@ -1,6 +1,3 @@
-using GFramework.Core.cqrs.command;
-using GFramework.Game.Abstractions.enums;
-using GFramework.Game.Abstractions.ui;
 using SingleplayerAutobattler.scripts.options_menu;
 using Unit = Mediator.Unit;
 

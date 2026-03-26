@@ -1,6 +1,4 @@
-﻿using GFramework.Core.Abstractions.cqrs.command;
-using GFramework.Core.command;
-using SingleplayerAutobattler.scripts.player;
+﻿using SingleplayerAutobattler.scripts.player;
 using SingleplayerAutobattler.scripts.system;
 
 namespace SingleplayerAutobattler.scripts.command;

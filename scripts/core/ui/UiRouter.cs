@@ -1,6 +1,4 @@
-using GFramework.Game.ui;
-using GFramework.Game.ui.handler;
-using GFramework.SourceGenerators.Abstractions.logging;
+using LoggingTransitionHandler = GFramework.Game.UI.Handler.LoggingTransitionHandler;
 
 namespace SingleplayerAutobattler.scripts.core.ui;
 

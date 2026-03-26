@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2026 GeWuYou
+// Copyright (c) 2026 GeWuYou
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -11,9 +11,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using GFramework.Core.Abstractions.state;
-using GFramework.Core.cqrs.notification;
-using GFramework.Godot.scene;
 using SingleplayerAutobattler.scripts.core.state.impls;
 using SingleplayerAutobattler.scripts.core.utils;
 using SingleplayerAutobattler.scripts.enums.scene;
@@ -42,7 +39,7 @@ public class UiRootReadyHandler : AbstractNotificationHandler<UiRootReadyEvent>
         if (ShouldEnterMainMenu())
             // 获取状态机系统实例并切换到启动状态
             await (_stateMachine ??= this.GetSystem<IStateMachineSystem>()!)
-                .ChangeToAsync<BootStartState>().ConfigureAwait(false);
+                .ChangeToAsync<BootStartState>().ConfigureAwait(true);
     }
 
     /// <summary>

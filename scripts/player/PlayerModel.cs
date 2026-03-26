@@ -1,7 +1,5 @@
-﻿using GFramework.Core.Abstractions.environment;
-using GFramework.Core.model;
-using SingleplayerAutobattler.scripts.constants;
-using SingleplayerAutobattler.scripts.environment;
+﻿using SingleplayerAutobattler.scripts.constants;
+using SingleplayerAutobattler.scripts.core.environment;
 
 namespace SingleplayerAutobattler.scripts.player;
 
@@ -34,7 +32,6 @@ public class PlayerModel : AbstractModel, IPlayerModel
     {
         var env = this.GetEnvironment<IEnvironment>()!;
         if (GameConstants.Development.Equals(env.Name))
-            env.IfType<GameDevEnvironment>(e => { PlayerDataResource = e.PlayerDataResource; }
-            );
+            env.IfType<GameDevEnvironment>(e => { PlayerDataResource = e.PlayerDataResource; });
     }
 }

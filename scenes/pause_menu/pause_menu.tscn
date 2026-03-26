@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bkpda73hbmyix"]
 
 [ext_resource type="Script" uid="uid://1a37xkpdlhx2" path="res://scripts/pause_menu/PauseMenu.cs" id="1_5bgjm"]
-[ext_resource type="Theme" path="res://assets/theme/project_theme.tres" id="2_qcmsd"]
+[ext_resource type="Theme" uid="uid://drg0lvsgoqfsc" path="res://resource/theme/project_theme.tres" id="2_qcmsd"]
 
 [node name="PauseMenu" type="Control" unique_id=1057648693]
 process_mode = 3

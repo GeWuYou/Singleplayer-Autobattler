@@ -1,6 +1,3 @@
-using GFramework.Core.Abstractions.controller;
-using GFramework.Godot.extensions;
-using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 
 namespace SingleplayerAutobattler.scripts.component;
@@ -54,7 +51,7 @@ public partial class StoreHighlighterComponent : Node, IController
     /// </summary>
     private async Task SetEnable()
     {
-        await this.WaitUntilReady();
+        await this.WaitUntilReadyAsync().ConfigureAwait(false);
         if (!Enable && PlayerArea.IsValidNode()) HighlightLayer!.Clear();
     }
 

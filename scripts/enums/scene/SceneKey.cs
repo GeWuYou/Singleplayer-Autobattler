@@ -19,5 +19,6 @@ public enum SceneKey
     Main,
     Scene1,
     Scene2,
-    Home
+    Home,
+    Arena
 }

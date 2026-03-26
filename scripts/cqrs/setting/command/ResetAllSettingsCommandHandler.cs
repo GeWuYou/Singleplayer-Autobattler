@@ -1,5 +1,3 @@
-using GFramework.Core.cqrs.command;
-using GFramework.Game.Abstractions.setting;
 using Unit = Mediator.Unit;
 
 namespace SingleplayerAutobattler.scripts.cqrs.setting.command;
@@ -13,7 +11,7 @@ public class ResetAllSettingsCommandHandler : AbstractCommandHandler<ResetAllSet
 
     public override async ValueTask<Unit> Handle(ResetAllSettingsCommand command, CancellationToken cancellationToken)
     {
-        await (_settingsSystem ??= this.GetSystem<ISettingsSystem>())!.ResetAll().ConfigureAwait(false);
+        await (_settingsSystem ??= this.GetSystem<ISettingsSystem>())!.ResetAll().ConfigureAwait(true);
         return Unit.Value;
     }
 }

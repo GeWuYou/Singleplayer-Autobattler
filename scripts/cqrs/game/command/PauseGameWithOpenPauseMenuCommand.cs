@@ -1,5 +1,3 @@
-using GFramework.Core.cqrs.command;
-using GFramework.Game.Abstractions.ui;
 using SingleplayerAutobattler.scripts.cqrs.pause_menu.command.input;
 
 namespace SingleplayerAutobattler.scripts.cqrs.game.command;

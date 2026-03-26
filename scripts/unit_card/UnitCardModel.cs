@@ -1,6 +1,4 @@
-﻿using GFramework.Core.model;
-
-namespace SingleplayerAutobattler.scripts.unit_card;
+﻿namespace SingleplayerAutobattler.scripts.unit_card;
 
 public class UnitCardModel : AbstractModel, IUnitCardModel
 {

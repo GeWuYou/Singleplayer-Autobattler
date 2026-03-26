@@ -1,19 +1,3 @@
-using GFramework.Core.Abstractions.controller;
-using GFramework.Core.Abstractions.coroutine;
-using GFramework.Core.Abstractions.events;
-using GFramework.Core.coroutine.instructions;
-using GFramework.Game.Abstractions.enums;
-using GFramework.Game.Abstractions.setting;
-using GFramework.Game.Abstractions.ui;
-using GFramework.Game.setting.events;
-using GFramework.Godot.coroutine;
-using GFramework.Godot.extensions.signal;
-using GFramework.Godot.ui;
-using GFramework.SourceGenerators.Abstractions.logging;
-using GFramework.SourceGenerators.Abstractions.rule;
-using global::SingleplayerAutobattler.global;
-using Godot;
-using SingleplayerAutobattler.scripts.component;
 using SingleplayerAutobattler.scripts.core.ui;
 using SingleplayerAutobattler.scripts.cqrs.audio.command;
 using SingleplayerAutobattler.scripts.cqrs.audio.command.input;
@@ -23,6 +7,8 @@ using SingleplayerAutobattler.scripts.cqrs.setting.command;
 using SingleplayerAutobattler.scripts.cqrs.setting.command.input;
 using SingleplayerAutobattler.scripts.cqrs.setting.query;
 using SingleplayerAutobattler.scripts.enums.ui;
+using Godot;
+using VolumeContainer = SingleplayerAutobattler.scripts.ui.component.VolumeContainer;
 
 namespace SingleplayerAutobattler.scripts.options_menu;
 
@@ -50,12 +36,42 @@ public partial class OptionsMenu : Control, IController, IUiPageBehaviorProvider
         new(1024, 768)
     ];
 
+    /// <summary>
+    ///     背景音乐音量控制容器
+    /// </summary>
+    [GetNode] private VolumeContainer _bgmVolumeContainer = null!;
+
+    /// <summary>
+    ///     全屏模式选择按钮
+    /// </summary>
+    [GetNode] private OptionButton _fullscreenOptionButton = null!;
+
     private bool _initializing;
+
+    /// <summary>
+    ///     语言选择按钮
+    /// </summary>
+    [GetNode] private OptionButton _languageOptionButton = null!;
+
+    /// <summary>
+    ///     主音量控制容器
+    /// </summary>
+    [GetNode] private VolumeContainer _masterVolumeContainer = null!;
 
     /// <summary>
     ///     页面行为实例的私有字段
     /// </summary>
     private IUiPageBehavior? _page;
+
+    /// <summary>
+    ///     分辨率选择按钮
+    /// </summary>
+    [GetNode] private OptionButton _resolutionOptionButton = null!;
+
+    /// <summary>
+    ///     音效音量控制容器
+    /// </summary>
+    [GetNode] private VolumeContainer _sfxVolumeContainer = null!;
 
     private IUiRouter _uiRouter = null!;
 
@@ -63,36 +79,6 @@ public partial class OptionsMenu : Control, IController, IUiPageBehaviorProvider
     ///     Ui Key的字符串形式
     /// </summary>
     public static string UiKeyStr => nameof(UiKey.OptionsMenu);
-
-    /// <summary>
-    ///     主音量控制容器
-    /// </summary>
-    private VolumeContainer MasterVolume => GetNode<VolumeContainer>("%MasterVolumeContainer");
-
-    /// <summary>
-    ///     背景音乐音量控制容器
-    /// </summary>
-    private VolumeContainer BgmVolume => GetNode<VolumeContainer>("%BgmVolumeContainer");
-
-    /// <summary>
-    ///     音效音量控制容器
-    /// </summary>
-    private VolumeContainer SfxVolume => GetNode<VolumeContainer>("%SfxVolumeContainer");
-
-    /// <summary>
-    ///     分辨率选择按钮
-    /// </summary>
-    private OptionButton ResolutionOptionButton => GetNode<OptionButton>("%ResolutionOptionButton");
-
-    /// <summary>
-    ///     全屏模式选择按钮
-    /// </summary>
-    private OptionButton FullscreenOptionButton => GetNode<OptionButton>("%FullscreenOptionButton");
-
-    /// <summary>
-    ///     语言选择按钮
-    /// </summary>
-    private OptionButton LanguageOptionButton => GetNode<OptionButton>("%LanguageOptionButton");
 
     /// <summary>
     ///     获取页面行为实例，如果不存在则创建新的CanvasItemUiPageBehavior实例
@@ -109,7 +95,7 @@ public partial class OptionsMenu : Control, IController, IUiPageBehaviorProvider
     /// </summary>
     private void CallDeferredInit()
     {
-        InitCoroutine().RunCoroutine(Segment.ProcessIgnorePause);
+        CallDeferredInitCoroutine().RunCoroutine(Segment.ProcessIgnorePause);
     }
 
     /// <summary>
@@ -118,19 +104,19 @@ public partial class OptionsMenu : Control, IController, IUiPageBehaviorProvider
     /// </summary>
     public override void _Ready()
     {
-        _ = ReadyAsync();
+        __InjectGetNodes_Generated();
+        InitCoroutine().RunCoroutine();
     }
 
-    private async Task ReadyAsync()
+    private IEnumerator<IYieldInstruction> InitCoroutine()
     {
-        // 等待游戏架构初始化完成
-        await GameEntryPoint.Architecture.WaitUntilReadyAsync().ConfigureAwait(false);
         GetNode<Button>("%Back").Pressed += OnBackPressed;
         SetupEventHandlers();
         // 获取UI路由器实例
         _uiRouter = this.GetSystem<IUiRouter>()!;
         // 延迟调用初始化方法
         CallDeferred(nameof(CallDeferredInit));
+        yield return new Delay(0);
     }
 
     /// <summary>
@@ -170,34 +156,34 @@ public partial class OptionsMenu : Control, IController, IUiPageBehaviorProvider
         _initializing = true;
         var view = await this.SendQueryAsync(new GetCurrentSettingsQuery()).ConfigureAwait(true);
         var audioSettings = view.Audio;
-        MasterVolume.Initialize("主音量", audioSettings.MasterVolume);
-        BgmVolume.Initialize("音乐音量", audioSettings.BgmVolume);
-        SfxVolume.Initialize("音效音量", audioSettings.SfxVolume);
+        _masterVolumeContainer.Initialize("主音量", audioSettings.MasterVolume);
+        _bgmVolumeContainer.Initialize("音乐音量", audioSettings.BgmVolume);
+        _sfxVolumeContainer.Initialize("音效音量", audioSettings.SfxVolume);
 
         var graphicsSettings = view.Graphics;
-        ResolutionOptionButton.Disabled = graphicsSettings.Fullscreen;
+        _resolutionOptionButton.Disabled = graphicsSettings.Fullscreen;
 
         // 初始化全屏选项
-        FullscreenOptionButton.Clear();
-        FullscreenOptionButton.AddItem("全屏");
-        FullscreenOptionButton.AddItem("窗口化");
-        FullscreenOptionButton.Selected = graphicsSettings.Fullscreen ? 0 : 1;
+        _fullscreenOptionButton.Clear();
+        _fullscreenOptionButton.AddItem("全屏");
+        _fullscreenOptionButton.AddItem("窗口化");
+        _fullscreenOptionButton.Selected = graphicsSettings.Fullscreen ? 0 : 1;
         // 初始化分辨率选项
-        ResolutionOptionButton.Clear();
+        _resolutionOptionButton.Clear();
         for (var i = 0; i < _resolutions.Length; i++)
         {
             var r = _resolutions[i];
-            ResolutionOptionButton.AddItem($"{r.X}x{r.Y}");
+            _resolutionOptionButton.AddItem($"{r.X}x{r.Y}");
 
             if (r.X == graphicsSettings.ResolutionWidth && r.Y == graphicsSettings.ResolutionHeight)
-                ResolutionOptionButton.Selected = i; // ⭐ 正确方式
+                _resolutionOptionButton.Selected = i; // ⭐ 正确方式
         }
 
         var localizationSettings = view.Localization;
-        LanguageOptionButton.Clear();
-        LanguageOptionButton.AddItem("简体中文");
-        LanguageOptionButton.AddItem("English");
-        LanguageOptionButton.Selected =
+        _languageOptionButton.Clear();
+        _languageOptionButton.AddItem("简体中文");
+        _languageOptionButton.AddItem("English");
+        _languageOptionButton.Selected =
             string.Equals(localizationSettings.Language, "简体中文", StringComparison.Ordinal) ? 0 : 1;
         _initializing = false;
     }
@@ -209,29 +195,29 @@ public partial class OptionsMenu : Control, IController, IUiPageBehaviorProvider
     private void SetupEventHandlers()
     {
         var signalName = VolumeContainer.SignalName.VolumeChanged;
-        MasterVolume
+        _masterVolumeContainer
             .Signal(signalName)
             .To(Callable.From<float>(v =>
                 this.RunCommandCoroutine(
                     new ChangeMasterVolumeCommand(new ChangeMasterVolumeCommandInput { Volume = v }))))
             .End();
-        BgmVolume
+        _bgmVolumeContainer
             .Signal(signalName)
             .To(Callable.From<float>(v =>
                 this.RunCommandCoroutine(
                     new ChangeBgmVolumeCommand(
                         new ChangeBgmVolumeCommandInput { Volume = v }))))
             .End();
-        SfxVolume
+        _sfxVolumeContainer
             .Signal(signalName)
             .To(Callable.From<float>(v =>
                 this.RunCommandCoroutine(
                     new ChangeSfxVolumeCommand(
                         new ChangeSfxVolumeCommandInput { Volume = v }))))
             .End();
-        ResolutionOptionButton.ItemSelected += async index => await OnResolutionChanged(index).ConfigureAwait(false);
-        FullscreenOptionButton.ItemSelected += async index => await OnFullscreenChanged(index).ConfigureAwait(false);
-        LanguageOptionButton.ItemSelected += async index => await OnLanguageChanged(index).ConfigureAwait(false);
+        _resolutionOptionButton.ItemSelected += async index => await OnResolutionChanged(index).ConfigureAwait(true);
+        _fullscreenOptionButton.ItemSelected += async index => await OnFullscreenChanged(index).ConfigureAwait(true);
+        _languageOptionButton.ItemSelected += async index => await OnLanguageChanged(index).ConfigureAwait(true);
     }
 
     /// <summary>
@@ -247,7 +233,7 @@ public partial class OptionsMenu : Control, IController, IUiPageBehaviorProvider
 
         // 发送更改语言命令
         await this.SendCommandAsync(new ChangeLanguageCommand(new ChangeLanguageCommandInput
-            { Language = language })).ConfigureAwait(false);
+            { Language = language })).ConfigureAwait(true);
 
         _log.Debug($"语言更改为: {language}");
     }
@@ -261,7 +247,7 @@ public partial class OptionsMenu : Control, IController, IUiPageBehaviorProvider
         if (_initializing) return;
         var resolution = _resolutions[index];
         await this.SendCommandAsync(new ChangeResolutionCommand(new ChangeResolutionCommandInput
-            { Width = resolution.X, Height = resolution.Y })).ConfigureAwait(false);
+            { Width = resolution.X, Height = resolution.Y })).ConfigureAwait(true);
         _log.Debug($"分辨率更改为: {resolution.X}x{resolution.Y}");
     }
 
@@ -273,9 +259,9 @@ public partial class OptionsMenu : Control, IController, IUiPageBehaviorProvider
     {
         var fullscreen = index == 0;
         await this.SendCommandAsync(new ToggleFullscreenCommand(new ToggleFullscreenCommandInput
-            { Fullscreen = fullscreen })).ConfigureAwait(false);
+            { Fullscreen = fullscreen })).ConfigureAwait(true);
         // ⭐ 禁用 / 启用分辨率选择
-        ResolutionOptionButton.Disabled = fullscreen;
+        _resolutionOptionButton.Disabled = fullscreen;
         _log.Debug($"全屏模式切换为: {fullscreen}");
     }
 
@@ -283,7 +269,7 @@ public partial class OptionsMenu : Control, IController, IUiPageBehaviorProvider
     ///     初始化协程，用于设置界面的初始化流程
     /// </summary>
     /// <returns>返回一个IYieldInstruction类型的IEnumerator，用于协程执行</returns>
-    private IEnumerator<IYieldInstruction> InitCoroutine()
+    private IEnumerator<IYieldInstruction> CallDeferredInitCoroutine()
     {
         Hide();
         var settings = this.GetModel<ISettingsModel>()!;

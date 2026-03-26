@@ -11,11 +11,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using GFramework.Core.system;
-using GFramework.SourceGenerators.Abstractions.logging;
 using global::SingleplayerAutobattler.global;
 using Godot;
-using SingleplayerAutobattler.scripts.enums.audio;
 
 namespace SingleplayerAutobattler.scripts.core.audio.system;
 

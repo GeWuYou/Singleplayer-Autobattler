@@ -1,6 +1,4 @@
-﻿using GFramework.Core.Abstractions.model;
-
-namespace SingleplayerAutobattler.scripts.player;
+﻿namespace SingleplayerAutobattler.scripts.player;
 
 /// <summary>
 ///     玩家模型接口，定义了玩家数据和相关操作的契约

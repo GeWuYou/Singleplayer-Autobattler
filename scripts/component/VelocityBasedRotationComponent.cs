@@ -1,6 +1,3 @@
-using GFramework.Core.Abstractions.controller;
-using GFramework.Godot.extensions;
-using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 
 namespace SingleplayerAutobattler.scripts.component;
@@ -86,7 +83,7 @@ public partial class VelocityBasedRotationComponent : Node, IController
     /// </summary>
     private async Task SetEnable()
     {
-        await this.WaitUntilReady();
+        await this.WaitUntilReadyAsync().ConfigureAwait(false);
         if (Target.IsValidNode() && !Enable) Target!.Rotation = 0;
     }
 

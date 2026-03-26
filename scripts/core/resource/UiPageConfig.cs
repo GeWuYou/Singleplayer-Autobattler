@@ -1,6 +1,5 @@
-﻿using GFramework.Core.Abstractions.bases;
+﻿using SingleplayerAutobattler.scripts.enums.ui;
 using Godot;
-using SingleplayerAutobattler.scripts.enums.ui;
 
 namespace SingleplayerAutobattler.scripts.core.resource;
 

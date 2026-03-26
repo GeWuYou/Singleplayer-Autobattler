@@ -1,5 +1,5 @@
-﻿using GFramework.Core.environment;
-using SingleplayerAutobattler.scripts.constants;
+﻿using global::SingleplayerAutobattler.global;
+using SingleplayerAutobattler.scripts.player;
 
 namespace SingleplayerAutobattler.scripts.core.environment;
 
@@ -9,6 +9,11 @@ namespace SingleplayerAutobattler.scripts.core.environment;
 /// </summary>
 public class GameDevEnvironment : EnvironmentBase
 {
+    /// <summary>
+    ///     开发环境下使用的玩家数据资源。
+    /// </summary>
+    public PlayerDataResource PlayerDataResource { get; private set; } = null!;
+
     /// <summary>
     ///     获取环境名称
     /// </summary>
@@ -20,6 +25,6 @@ public class GameDevEnvironment : EnvironmentBase
     /// </summary>
     public override void Initialize()
     {
-        // readme: 可以再此通过DevBindingManager.Instance拿取需要的测试对象
+        PlayerDataResource = DevBindingManager.Instance.PlayerDataResource;
     }
 }

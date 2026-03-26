@@ -1,7 +1,4 @@
-using GFramework.Core.Abstractions.state;
-using GFramework.Core.state;
-using GFramework.Game.Abstractions.ui;
-using SingleplayerAutobattler.scripts.tests;
+using SingleplayerAutobattler.scripts.enums.scene;
 
 namespace SingleplayerAutobattler.scripts.core.state.impls;
 
@@ -14,7 +11,8 @@ public class PlayingState : AsyncContextAwareStateBase
 {
     public override async Task OnEnterAsync(IState? from)
     {
-        // 获取UI路由系统并替换当前UI为HomeUi
-        await this.GetSystem<IUiRouter>()!.ReplaceAsync(HomeUi.UiKeyStr).ConfigureAwait(false);
+        var uiRouter = this.GetSystem<IUiRouter>()!;
+        await uiRouter.ClearAsync().ConfigureAwait(true);
+        await this.GetSystem<ISceneRouter>()!.ReplaceAsync(nameof(SceneKey.Arena)).ConfigureAwait(true);
     }
 }

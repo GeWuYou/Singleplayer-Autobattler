@@ -1,66 +1,61 @@
 <Project Sdk="Godot.NET.Sdk/4.6.1">
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
-        <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net10.0</TargetFramework>
+        <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
         <EnableDynamicLoading>true</EnableDynamicLoading>
         <RootNamespace>SingleplayerAutobattler</RootNamespace>
         <Nullable>enable</Nullable>
         <LangVersion>preview</LangVersion>
+        <EnableGFrameworkGlobalUsings>true</EnableGFrameworkGlobalUsings>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="GeWuYou.GFramework" Version="0.0.196" />
-        <PackageReference Include="GeWuYou.GFramework.Godot" Version="0.0.196" />
-        <PackageReference Include="GeWuYou.GFramework.Godot.SourceGenerators" Version="0.0.196" />
-        <PackageReference Include="GeWuYou.GFramework.SourceGenerators" Version="0.0.196" />
-        <PackageReference Update="Meziantou.Analyzer" Version="3.0.15">
+        <Compile Remove="scripts\core\ui\UiFactory.cs"/>
+        <Compile Remove="scripts\component\VolumeContainer.cs"/>
+        <Compile Remove="scenes\**"/>
+        <Compile Include="script_templates\Node\SimpleSceneControllerTemplate.cs"/>
+        <Compile Remove="script_templates\**"/>
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Remove="scenes\**"/>
+        <EmbeddedResource Remove="script_templates\**"/>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Update="Meziantou.Analyzer" Version="3.0.27">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
-        <PackageReference Update="Meziantou.Polyfill" Version="1.0.101">
+        <PackageReference Update="Meziantou.Polyfill" Version="1.0.104">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="GeWuYou.GFramework" Version="0.0.208"/>
+        <PackageReference Include="GeWuYou.GFramework.Godot" Version="0.0.208"/>
+        <PackageReference Include="GeWuYou.GFramework.Godot.SourceGenerators" Version="0.0.208"/>
+        <PackageReference Include="GeWuYou.GFramework.SourceGenerators" Version="0.0.208"/>
         <PackageReference Include="Riok.Mapperly" Version="4.3.1"/>
-        <PackageReference Include="Mediator.SourceGenerator" Version="3.0.1">
+        <PackageReference Include="Mediator.SourceGenerator" Version="3.0.2">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Remove="scenes\**"/>
-        <Compile Remove="script_templates\**" />
+        <Content Include=".github\dependabot.yml"/>
+        <Content Include=".github\workflows\auto-tag.yml"/>
+        <Content Include=".github\workflows\ci.yml"/>
+        <Content Include=".github\workflows\codeql.yml"/>
+        <Content Include=".github\workflows\release.yml"/>
+        <Content Include="addons.jsonc"/>
+        <Content Include="global\README.md"/>
+        <Content Include="scripts\data\model\README.md"/>
+        <Content Include="scripts\data\README.md"/>
+        <Content Include="scripts\entities\README.md"/>
+        <Content Include="scripts\module\README.md"/>
     </ItemGroup>
     <ItemGroup>
-        <EmbeddedResource Remove="scenes\**" />
-        <EmbeddedResource Remove="script_templates\**" />
-    </ItemGroup>
-    <ItemGroup>
-        <Folder Include="scripts\enums\game\" />
-        <Folder Include="scripts\events\" />
-        <Folder Include="scripts\xp_button\" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include=".github\dependabot.yml" />
-        <Content Include=".github\workflows\auto-tag.yml" />
-        <Content Include=".github\workflows\ci.yml" />
-        <Content Include=".github\workflows\codeql.yml" />
-        <Content Include=".github\workflows\release.yml" />
-        <Content Include="global\README.md" />
-        <Content Include="scripts\data\interfaces\ISaveStorageUtility.cs.uid" />
-        <Content Include="scripts\data\model\GameSaveData.cs.uid" />
-        <Content Include="scripts\data\model\LocalDataLocation.cs.uid" />
-        <Content Include="scripts\data\model\README.md" />
-        <Content Include="scripts\data\README.md" />
-        <Content Include="scripts\enums\audio\BgmType.cs.uid" />
-        <Content Include="scripts\enums\audio\SfxType.cs.uid" />
-        <Content Include="scripts\enums\resources\TextureKey.cs.uid" />
-        <Content Include="scripts\enums\scene\SceneKey.cs.uid" />
-        <Content Include="scripts\enums\settings\SettingsChangedReason.cs.uid" />
-        <Content Include="scripts\enums\ui\UiKey.cs.uid" />
-        <Content Include="scripts\pause_menu\PauseMenu.cs.uid" />
-        <Content Include="scripts\setting\SettingDataLocationProvider.cs.uid" />
-        <Content Include="scripts\setting\SettingsDataRepository.cs.uid" />
-        <Content Include="scripts\utility\GodotTextureRegistry.cs.uid" />
-        <Content Include="scripts\utility\IGodotTextureRegistry.cs.uid" />
+        <Folder Include="scripts\enums\game\"/>
+        <Folder Include="scripts\intro\"/>
+        <Folder Include="scripts\main_menu\"/>
+        <Folder Include="scripts\tests\"/>
+        <Folder Include="scripts\test\"/>
     </ItemGroup>
 </Project>
