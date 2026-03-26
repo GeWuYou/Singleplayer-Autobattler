@@ -51,7 +51,7 @@ public partial class StoreHighlighterComponent : Node, IController
     /// </summary>
     private async Task SetEnable()
     {
-        await this.WaitUntilReadyAsync().ConfigureAwait(false);
+        await this.WaitUntilReadyAsync().ConfigureAwait(true);
         if (!Enable && PlayerArea.IsValidNode()) HighlightLayer!.Clear();
     }
 

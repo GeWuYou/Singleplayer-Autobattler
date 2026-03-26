@@ -83,7 +83,7 @@ public partial class VelocityBasedRotationComponent : Node, IController
     /// </summary>
     private async Task SetEnable()
     {
-        await this.WaitUntilReadyAsync().ConfigureAwait(false);
+        await this.WaitUntilReadyAsync().ConfigureAwait(true);
         if (Target.IsValidNode() && !Enable) Target!.Rotation = 0;
     }
 

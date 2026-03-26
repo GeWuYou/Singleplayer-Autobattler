@@ -1,6 +1,7 @@
 using Godot;
 using SingleplayerAutobattler.scripts.component;
 using SingleplayerAutobattler.scripts.sell_portal;
+using SingleplayerAutobattler.scripts.unit;
 using Unit = SingleplayerAutobattler.scripts.unit.Unit;
 
 namespace SingleplayerAutobattler.scripts.arena;
@@ -9,6 +10,7 @@ namespace SingleplayerAutobattler.scripts.arena;
 [Log]
 public partial class Arena : Node2D, IController
 {
+    [Export] public UnitDataResource? InitialSpawnUnitDataResource { get; set; }
     [Export] public UnitSpawnerComment UnitSpawnerComment { get; set; } = null!;
     [Export] public UnitMoverComponent UnitMoverComponent { get; set; } = null!;
     [Export] public SellPortal SellPortal { get; set; } = null!;
@@ -24,9 +26,7 @@ public partial class Arena : Node2D, IController
             .To(Callable.From<Unit>(unit => UnitMoverComponent.SetupUnit(unit)))
             .To(Callable.From<Unit>(unit => SellPortal.SetupUnit(unit)))
             .End();
-        // todo 需要修改
-        // var resourceFactorySystem = this.GetSystem<IResourceFactorySystem>();
-        // UnitSpawnerComment.SpawnUnit(resourceFactorySystem!
-        //     .GetFactory<UnitDataResource>(AssetCatalogConstants.AssetCatalogResource.Robin).Invoke());
+
+        if (InitialSpawnUnitDataResource is not null) UnitSpawnerComment.SpawnUnit(InitialSpawnUnitDataResource);
     }
 }

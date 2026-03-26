@@ -3,6 +3,7 @@ using SingleplayerAutobattler.scripts.core.state.impls;
 using SingleplayerAutobattler.scripts.cqrs.game.command;
 using SingleplayerAutobattler.scripts.cqrs.pause_menu.command.input;
 using SingleplayerAutobattler.scripts.enums;
+using SingleplayerAutobattler.scripts.constants;
 using Godot;
 
 namespace SingleplayerAutobattler.global;
@@ -28,7 +29,31 @@ public partial class GlobalInputController : GameInputController
     /// </summary>
     public override void _Ready()
     {
+        EnsureInputActions();
         _stateMachineSystem = this.GetSystem<IStateMachineSystem>()!;
+    }
+
+    private static void EnsureInputActions()
+    {
+        EnsureMouseAction(InputActionConstants.Select, MouseButton.Left);
+        EnsureMouseAction(InputActionConstants.CancelDrag, MouseButton.Right);
+        EnsureKeyAction(InputActionConstants.QuickSell, Key.Q);
+    }
+
+    private static void EnsureMouseAction(string actionName, MouseButton button)
+    {
+        if (InputMap.HasAction(actionName)) return;
+
+        InputMap.AddAction(actionName);
+        InputMap.ActionAddEvent(actionName, new InputEventMouseButton { ButtonIndex = button });
+    }
+
+    private static void EnsureKeyAction(string actionName, Key key)
+    {
+        if (InputMap.HasAction(actionName)) return;
+
+        InputMap.AddAction(actionName);
+        InputMap.ActionAddEvent(actionName, new InputEventKey { Keycode = key });
     }
 
     protected override bool AcceptPhase(InputPhase phase)

@@ -56,6 +56,7 @@ public partial class Unit : Area2D, IController
 
     public override void _Input(InputEvent @event)
     {
+        if (!InputMap.HasAction(InputActionConstants.QuickSell)) return;
         if (@event.IsActionPressed(InputActionConstants.QuickSell) && _isHovered) EmitSignalQuickSellPressed();
     }
 
@@ -121,7 +122,7 @@ public partial class Unit : Area2D, IController
         if (unitDataResource is null) return;
 
         // 等待资源准备就绪
-        await this.WaitUntilReadyAsync().ConfigureAwait(false);
+        await this.WaitUntilReadyAsync().ConfigureAwait(true);
 
         // 根据单位数据资源中的皮肤坐标更新皮肤区域的位置
         Skin!.RegionRect = Skin.RegionRect with

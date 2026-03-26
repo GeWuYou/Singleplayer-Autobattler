@@ -74,7 +74,11 @@ public partial class GameEntryPoint : Node
         _textureRegistry = this.GetUtility<IGodotTextureRegistry>()!;
         // 注册所有游戏场景配置到场景注册表中
         foreach (var gameSceneConfig in GameSceneConfigs) _sceneRegistry.Registry(gameSceneConfig);
-        _sceneRegistry.Registry(nameof(SceneKey.Arena), GD.Load<PackedScene>("res://scenes/arena/arena.tscn"));
+        if (IsDev)
+        {
+            _sceneRegistry.Registry(nameof(SceneKey.Arena), GD.Load<PackedScene>("res://scenes/arena/arena.tscn"));
+            _sceneRegistry.Registry(nameof(SceneKey.Unit), GD.Load<PackedScene>("res://scenes/unit/unit.tscn"));
+        }
 
         // 注册所有UI页面配置到UI注册表中
         foreach (var uiPageConfig in UiPageConfigs) _uiRegistry.Registry(uiPageConfig);

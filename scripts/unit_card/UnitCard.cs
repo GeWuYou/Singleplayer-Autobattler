@@ -93,7 +93,7 @@ public partial class UnitCard : Button, IController
     /// <returns>异步任务</returns>
     private async Task SetUnitDataResource()
     {
-        await this.WaitUntilReadyAsync().ConfigureAwait(false);
+        await this.WaitUntilReadyAsync().ConfigureAwait(true);
 
         // 检查单位数据资源是否为空，如果为空则显示占位符并禁用功能
         if (UnitDataResource is null)

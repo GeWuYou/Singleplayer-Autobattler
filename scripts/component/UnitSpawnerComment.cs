@@ -1,4 +1,5 @@
 using Godot;
+using SingleplayerAutobattler.scripts.enums.scene;
 using SingleplayerAutobattler.scripts.unit;
 using Unit = SingleplayerAutobattler.scripts.unit.Unit;
 
@@ -9,6 +10,7 @@ namespace SingleplayerAutobattler.scripts.component;
 ///     实现了 IController 接口以接入游戏架构系统。
 /// </summary>
 [ContextAware]
+[Log]
 public partial class UnitSpawnerComment : Node, IController
 {
     /// <summary>
@@ -17,9 +19,6 @@ public partial class UnitSpawnerComment : Node, IController
     /// <param name="unit">刚生成的单位实例。</param>
     [Signal]
     public delegate void UnitSpawnedEventHandler(Unit unit);
-
-
-    // private IResourceFactorySystem? _resourceFactorySystem;
 
     /// <summary>
     ///     可导出属性：玩家的备战区组件引用。
@@ -52,39 +51,37 @@ public partial class UnitSpawnerComment : Node, IController
     /// <param name="unitDataResource">描述要创建单位的数据资源对象。</param>
     public void SpawnUnit(UnitDataResource? unitDataResource)
     {
+        if (unitDataResource is null)
+        {
+            _log.Error("单位数据为空，无法生成单位");
+            return;
+        }
+
         // 获取第一个可放置单位的区域
         var area = GetFirstAvailableArea();
         if (area is null)
         {
-            GD.PrintErr("无法添加单位");
+            _log.Error("无法添加单位");
             return;
         }
 
         // 获取该区域的网格管理器并查找首个空格子
         var grid = area.UnitGrid!;
-        // todo 需要修改
-        // var newUnit = _resourceFactorySystem!.GetFactory<Unit>(AssetCatalogConstants.AssetCatalogSceneUnit.Unit)
-        //     .Invoke();
-        // var tile = grid.GetFirstEmptyTile();
-        //
-        // // 将新单位加入场景树，并绑定到指定格子上
-        // grid.AddChild(newUnit);
-        // grid.AddUnit(tile, newUnit);
-        //
-        // // 设置单位的世界坐标位置
-        // newUnit.GlobalPosition = area.GetGlobalFromTile(tile) - ArenaConstants.HalfCellSizeVector;
-        //
-        // // 绑定单位数据资源
-        // newUnit.UnitDataResource = unitDataResource;
-        // EmitSignalUnitSpawned(newUnit);
-    }
+        var tile = grid.GetFirstEmptyTile();
+        if (tile == new Vector2I(-1, -1))
+        {
+            _log.Error("未找到可用格子，无法生成单位");
+            return;
+        }
 
-    /// <summary>
-    ///     节点准备就绪时的回调方法。
-    ///     在节点添加到场景树之后自动调用，用于初始化依赖的服务系统。
-    /// </summary>
-    public override void _Ready()
-    {
-        // _resourceFactorySystem = this.GetSystem<ResourceFactorySystem>();
+        var sceneRegistry = this.GetUtility<IGodotSceneRegistry>()!;
+        var newUnit = sceneRegistry.Get(nameof(SceneKey.Unit)).Instantiate<Unit>();
+
+        // 先绑定数据，再写入网格模型，避免模型读取到空数据。
+        newUnit.UnitDataResource = unitDataResource;
+        grid.AddChild(newUnit);
+        grid.AddUnit(tile, newUnit);
+        newUnit.GlobalPosition = area.GetGlobalFromTile(tile) - ArenaConstants.HalfCellSizeVector;
+        EmitSignalUnitSpawned(newUnit);
     }
 }
